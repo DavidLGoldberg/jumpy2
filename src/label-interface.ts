@@ -8,8 +8,8 @@ export interface LabelEnvironment {
 export interface Label {
     // TODO: can I make this | null instead of undefined?
     keyLabel: string | undefined;
-    textEditor: vscode.TextEditor | null;
-    element: any; // TODO: add back in HTMLElement
+    textEditor: vscode.TextEditor | undefined;
+    // element: any; // TODO: add back in HTMLElement
     settings: any;
     drawLabel(): Label;
     animateBeacon(input: any): void;
