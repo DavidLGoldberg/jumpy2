@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { LabelEnvironment, Label } from './label-interface';
 import getTabLabels from './labelers/tabs';
+import * as _ from 'lodash';
 
 
 function main() {
@@ -13,6 +14,19 @@ function main() {
 	};
 
 	const tabLabels:Array<Label> = getTabLabels(environment);
+
+	const allLabels: Array<Label> = [
+		...tabLabels
+	];
+
+	const drawnLabels:Array<Label> = [];
+	let currentLabels:Array<Label> = [];
+
+	for (const label of allLabels) {
+		drawnLabels.push(label.drawLabel());
+	}
+
+	currentLabels = _.clone(allLabels);
 }
 
 export function activate(context: vscode.ExtensionContext) {
