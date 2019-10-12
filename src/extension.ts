@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { LabelEnvironment, Label } from './label-interface';
-import getTabLabels from './labelers/tabs';
+import getWordLabels from './labelers/words';
 import * as _ from 'lodash';
 
 
@@ -13,7 +13,7 @@ function main() {
 		settings: {}
 	};
 
-	const tabLabels:Array<Label> = getTabLabels(environment);
+	const tabLabels:Array<Label> = getWordLabels(environment);
 
 	const allLabels: Array<Label> = [
 		...tabLabels
