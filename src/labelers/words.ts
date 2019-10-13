@@ -24,16 +24,11 @@ class WordLabel implements Label {
         this.marker = new Range(new Position(lineNumber,column), new Position(lineNumber,column+2));
 
         const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
-            borderWidth: '1px',
-            borderStyle: 'solid',
-            overviewRulerColor: 'blue',
             light: {
-                // this color will be used in light color themes
-                borderColor: 'darkblue'
+                backgroundColor: 'gray'
             },
             dark: {
-                // this color will be used in dark color themes
-                borderColor: 'lightblue'
+                backgroundColor: 'green'
             }
         });
 
