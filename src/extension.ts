@@ -13,10 +13,10 @@ function main() {
 		settings: {}
 	};
 
-	const tabLabels:Array<Label> = getWordLabels(environment);
+	const wordLabels:Array<Label> = getWordLabels(environment);
 
 	const allLabels: Array<Label> = [
-		...tabLabels
+		...wordLabels
 	];
 
 	const drawnLabels:Array<Label> = [];

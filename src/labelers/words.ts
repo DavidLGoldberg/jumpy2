@@ -4,13 +4,12 @@ import * as vscode from 'vscode';
 import { LabelEnvironment, Label, Labeler } from '../label-interface';
 // import { TextEditor, Pane } from 'atom';
 
-class TabLabel implements Label {
-    constructor(textEditor: vscode.TextEditor | undefined) {
-        this.textEditor = textEditor;
-    }
+class WordLabel implements Label {
     // TODO: check I need these defined again?
-    keyLabel: string | undefined;
+    keyLabel!: string;
     textEditor: vscode.TextEditor | undefined;
+    lineNumber!: number;
+    column!: number;
     // element: HTMLElement | null;
     settings: any;
 
@@ -21,36 +20,37 @@ class TabLabel implements Label {
     }
 
     drawLabel(): Label {
-        // const tabsPane:Pane = atom.workspace.paneForItem(this.textEditor);
-        // const tabsPaneElement:HTMLElement = atom.views.getView(tabsPane);
-        // const foundTab:HTMLElement | null = <HTMLElement>tabsPaneElement
-        //     .querySelector(`[data-path='${this.textEditor.getPath()}']`);
+        const { textEditor, lineNumber, column, keyLabel } = this;
 
-        // if (!foundTab) {
-        //     return this;
-        // }
+        // this.marker = textEditor.markScreenRange(new Range(
+        //     new Point(lineNumber, column),
+        //     new Point(lineNumber, column)),
+        //     { invalidate: 'touch'});
 
-        // const labelElement:HTMLElement = document.createElement('div');
-        // if (this.keyLabel) {
-        //     labelElement.textContent = this.keyLabel;
-        // }
-        // labelElement.style.position = 'fixed';
-        // labelElement.classList.add('jumpy-label'); // For styling and tests
-        // labelElement.classList.add('tab-label');
+        // const labelElement = document.createElement('div');
+        // labelElement.textContent = keyLabel;
         // labelElement.style.fontSize = this.settings.fontSize;
+        // labelElement.classList.add('jumpy-label'); // For styling and tests
 
         // if (this.settings.highContrast) {
         //    labelElement.classList.add('high-contrast');
         // }
 
+        // const decoration = textEditor.decorateMarker(this.marker,
+        //     {
+        //         type: 'overlay',
+        //         item: labelElement,
+        //         position: 'head'
+        //     });
         // this.element = labelElement;
-        // foundTab.appendChild(labelElement);
+        // return this;
+
 
         return this;
     }
 
     animateBeacon() {
-        // // TODO: abstract function to find tab!
+        // // TODO: abstract function to find Word!
         // const tabsPane:Pane = atom.workspace.paneForItem(this.textEditor);
         // const tabsPaneElement:HTMLElement = atom.views.getView(tabsPane);
         // const foundTab:HTMLElement | null = <HTMLElement>tabsPaneElement
@@ -82,13 +82,15 @@ class TabLabel implements Label {
 }
 
 
-const labeler: Labeler = function(env:LabelEnvironment):Array<TabLabel> {
-    const labels:Array<TabLabel> = [];
+const labeler: Labeler = function(env:LabelEnvironment):Array<WordLabel> {
+    const labels:Array<WordLabel> = [];
 
-    const label = new TabLabel(vscode.window.activeTextEditor);
+    const label = new WordLabel();
     label.settings = env.settings;
     label.keyLabel = 'aa';
-    // label.textEditor = vscode.window.activeTextEditor;
+    label.lineNumber = 1;
+    label.column = 1;
+    label.textEditor = vscode.window.activeTextEditor;
     labels.push(label);
 
     return labels;
