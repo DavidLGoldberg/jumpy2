@@ -2,7 +2,7 @@
 
 import * as vscode from 'vscode';
 import { LabelEnvironment, Label, Labeler } from '../label-interface';
-import { Range, Position } from 'vscode';
+import { Range, Position, DecorationRangeBehavior } from 'vscode';
 
 class WordLabel implements Label {
     keyLabel!: string;
@@ -21,20 +21,44 @@ class WordLabel implements Label {
     drawLabel(): Label {
         const { textEditor, lineNumber, column, keyLabel } = this;
 
-        this.marker = new Range(new Position(lineNumber,column), new Position(lineNumber,column+2));
+        this.marker = new Range(new Position(lineNumber,column), new Position(lineNumber, column+2));
+
+        const editorConfig = vscode.workspace.getConfiguration('editor');
+
+        const fontFamily = editorConfig.get<string>('fontFamily');
+        const retrievedFontSize: (number | undefined) = editorConfig.get<number>('fontSize');
+        const fontSize = retrievedFontSize ? retrievedFontSize -1 : 12;
+
+        const darkDecoration = {
+            fontFamily: fontFamily,
+            fontSize: fontSize,
+        };
+
+        const width = fontSize + 6; // just change this to +5
+        const left = -width + 2;
 
         const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
+            after: {
+                contentText: "aa",
+                textDecoration: 'none',
+                margin: `0 0 0 ${left}px`,
+                height: '${fontSize}px',
+                width: `${width}px`,
+            },
+            opacity: '0',
             light: {
                 backgroundColor: 'gray'
             },
             dark: {
                 backgroundColor: 'green'
             }
+            ,rangeBehavior: DecorationRangeBehavior.ClosedClosed
+
         });
 
-        const decorations: vscode.DecorationOptions[] = [];
+        const decoration = { range: this.marker };
 
-        const decoration = { range: this.marker, hoverMessage: keyLabel };
+        const decorations: vscode.DecorationOptions[] = [];
         decorations.push(decoration);
 
         if (textEditor) {
