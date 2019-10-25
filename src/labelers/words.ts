@@ -27,15 +27,16 @@ class WordLabel implements Label {
 
         const fontFamily = editorConfig.get<string>('fontFamily');
         const retrievedFontSize: (number | undefined) = editorConfig.get<number>('fontSize');
-        const fontSize = retrievedFontSize ? retrievedFontSize -1 : 12;
+        const fontSize = retrievedFontSize ? retrievedFontSize : 10;
+        console.log(fontSize);
 
         const darkDecoration = {
             fontFamily: fontFamily,
             fontSize: fontSize,
         };
 
-        const width = fontSize + 6; // just change this to +5
-        const left = -width + 2;
+        const width = fontSize; // just change this to +5
+        const left = -width;
 
         const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
             after: {
