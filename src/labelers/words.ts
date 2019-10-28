@@ -80,14 +80,29 @@ class WordLabel implements Label {
 const labeler: Labeler = function(env:LabelEnvironment):Array<WordLabel> {
     const labels:Array<WordLabel> = [];
 
-    const label = new WordLabel();
-    label.settings = env.settings;
-    label.keyLabel = 'aa';
-    label.lineNumber = 0;
-    label.column = 0;
-    label.textEditor = vscode.window.activeTextEditor;
-    labels.push(label);
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+        const visibleRanges = editor.visibleRanges;
+        const document = editor.document;
+        const text = document.getText(visibleRanges[0]);
+        const lines = text.split(/\r?\n/);
+        let lineNumber = 0;
+        for (const line of lines) {
+            let word: any;
+            while ((word = env.settings.wordsPattern.exec(line)) !== null && env.keys.length) {
+                const keyLabel = env.keys.shift();
 
+                const column = word.index;
+                const label = new WordLabel();
+                label.settings = env.settings;
+                label.textEditor = editor;
+                label.keyLabel = keyLabel || 'foo';
+                label.lineNumber = lineNumber++;
+                label.column = column;
+                labels.push(label);
+            }
+        }
+    }
     return labels;
 };
 

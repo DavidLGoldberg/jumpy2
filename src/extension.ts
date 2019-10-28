@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { LabelEnvironment, Label } from './label-interface';
 import getWordLabels from './labelers/words';
 import * as _ from 'lodash';
+import { getKeySet } from './keys';
 
 
 function main() {
@@ -9,8 +10,12 @@ function main() {
 
 	const environment:LabelEnvironment = {
 		// keys: getKeySet(atom.config.get('jumpy.customKeys')),
-		keys: ['aa'],
-		settings: {}
+		//TODO: get custom keys from settings / config
+		keys: getKeySet([]),
+		settings: {
+			//TODO: get match from settings / config
+			wordsPattern: new RegExp('([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}', 'g')
+		}
 	};
 
 	const wordLabels:Array<Label> = getWordLabels(environment);
