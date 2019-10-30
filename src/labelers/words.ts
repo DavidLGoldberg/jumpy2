@@ -97,10 +97,11 @@ const labeler: Labeler = function(env:LabelEnvironment):Array<WordLabel> {
                 label.settings = env.settings;
                 label.textEditor = editor;
                 label.keyLabel = keyLabel || 'foo';
-                label.lineNumber = lineNumber++;
+                label.lineNumber = lineNumber;
                 label.column = column;
                 labels.push(label);
             }
+            lineNumber++;
         }
     }
     return labels;
