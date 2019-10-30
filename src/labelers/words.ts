@@ -40,7 +40,7 @@ class WordLabel implements Label {
 
         const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
             after: {
-                contentText: "aa",
+                contentText: keyLabel,
                 textDecoration: 'none',
                 margin: `0 0 0 ${left}px`,
                 height: '${fontSize}px',
