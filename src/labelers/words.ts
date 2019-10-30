@@ -86,8 +86,7 @@ const labeler: Labeler = function(env:LabelEnvironment):Array<WordLabel> {
         const document = editor.document;
         const text = document.getText(visibleRanges[0]);
         const lines = text.split(/\r?\n/);
-        let lineNumber = 0;
-        for (const line of lines) {
+        lines.forEach((line, index) => {
             let word: any;
             while ((word = env.settings.wordsPattern.exec(line)) !== null && env.keys.length) {
                 const keyLabel = env.keys.shift();
@@ -97,12 +96,11 @@ const labeler: Labeler = function(env:LabelEnvironment):Array<WordLabel> {
                 label.settings = env.settings;
                 label.textEditor = editor;
                 label.keyLabel = keyLabel || 'foo';
-                label.lineNumber = lineNumber;
+                label.lineNumber = index;
                 label.column = column;
                 labels.push(label);
             }
-            lineNumber++;
-        }
+        });
     }
     return labels;
 };
