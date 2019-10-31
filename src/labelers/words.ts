@@ -29,11 +29,6 @@ class WordLabel implements Label {
         const retrievedFontSize: (number | undefined) = editorConfig.get<number>('fontSize');
         const fontSize = retrievedFontSize ? retrievedFontSize : 10;
 
-        const darkDecoration = {
-            fontFamily: fontFamily,
-            fontSize: fontSize,
-        };
-
         const width = fontSize; // just change this to +5
         const left = -width;
 
