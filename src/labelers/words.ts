@@ -23,12 +23,11 @@ class WordLabel implements Label {
 
         this.marker = new Range(new Position(lineNumber,column), new Position(lineNumber, column+2));
 
-        const editorConfig = vscode.workspace.getConfiguration('editor');
+        const editorConfig = vscode.workspace.getConfiguration('editor', null);
 
         const fontFamily = editorConfig.get<string>('fontFamily');
         const retrievedFontSize: (number | undefined) = editorConfig.get<number>('fontSize');
         const fontSize = retrievedFontSize ? retrievedFontSize : 10;
-        console.log(fontSize);
 
         const darkDecoration = {
             fontFamily: fontFamily,
