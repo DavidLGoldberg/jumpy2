@@ -12,6 +12,13 @@ class WordLabel implements Label {
     settings: any;
     marker!: vscode.Range;
 
+    private static _getWidth() {
+        const editorConfig = vscode.workspace.getConfiguration('editor', null);
+        const retrievedFontSize: (number | undefined) = editorConfig.get<number>('fontSize');
+        const fontSize = retrievedFontSize ? retrievedFontSize : 10;
+        return fontSize;
+    }
+
     destroy() {
         // if (this.element) {
         //     this.element.remove();
@@ -23,19 +30,13 @@ class WordLabel implements Label {
 
         this.marker = new Range(new Position(lineNumber,column), new Position(lineNumber, column+2));
 
-        const editorConfig = vscode.workspace.getConfiguration('editor', null);
-
-        const retrievedFontSize: (number | undefined) = editorConfig.get<number>('fontSize');
-        const fontSize = retrievedFontSize ? retrievedFontSize : 10;
-
-        const width = fontSize; // just change this to +5
-        const left = -width;
+        const width = WordLabel._getWidth();
 
         const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
             after: {
                 contentText: keyLabel,
                 textDecoration: 'none',
-                margin: `0 0 0 ${left}px`,
+                margin: `0 0 0 ${-width}px`,
                 height: '${fontSize}px',
                 width: `${width}px`,
             },
