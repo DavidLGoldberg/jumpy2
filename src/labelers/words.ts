@@ -25,7 +25,6 @@ class WordLabel implements Label {
 
         const editorConfig = vscode.workspace.getConfiguration('editor', null);
 
-        const fontFamily = editorConfig.get<string>('fontFamily');
         const retrievedFontSize: (number | undefined) = editorConfig.get<number>('fontSize');
         const fontSize = retrievedFontSize ? retrievedFontSize : 10;
 

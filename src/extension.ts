@@ -6,8 +6,6 @@ import { getKeySet } from './keys';
 
 
 function main() {
-	vscode.window.showInformationMessage('Jumpy activated!!!');
-
 	const environment:LabelEnvironment = {
 		// keys: getKeySet(atom.config.get('jumpy.customKeys')),
 		//TODO: get custom keys from settings / config
@@ -25,13 +23,13 @@ function main() {
 	];
 
 	const drawnLabels:Array<Label> = [];
-	let currentLabels:Array<Label> = [];
+	// let currentLabels:Array<Label> = [];
 
 	for (const label of allLabels) {
 		drawnLabels.push(label.drawLabel());
 	}
 
-	currentLabels = _.clone(allLabels);
+	// currentLabels = _.clone(allLabels);
 }
 
 export function activate(context: vscode.ExtensionContext) {
