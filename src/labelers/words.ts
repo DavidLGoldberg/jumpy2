@@ -37,7 +37,6 @@ class WordLabel implements Label {
                 contentText: keyLabel,
                 textDecoration: 'none',
                 margin: `0 0 0 ${-width}px`,
-                height: '${fontSize}px',
                 width: `${width}px`,
             },
             opacity: '0',
@@ -50,6 +49,28 @@ class WordLabel implements Label {
             ,rangeBehavior: DecorationRangeBehavior.ClosedClosed
 
         });
+
+    //     const defaultCss = {
+    //         [CSS_LEFT]: `-${leftValue}ch`,
+    //         width: `${this.config.explosionSize}ch`,
+    //         display: `inline-block`,
+    //         ['z-index']: 1,
+    //         ['pointer-events']: 'none',
+    //     };
+
+    //     const backgroundCssString = this.objectToCssString(backgroundCss);
+    //     const defaultCssString = this.objectToCssString(defaultCss);
+    //     const customCssString = this.objectToCssString(this.config.customCss || {});
+
+    //     return vscode.window.createTextEditorDecorationType(<vscode.DecorationRenderOptions>{
+    //         before: {
+    //             contentText: '',
+    //             textDecoration: `none; ${defaultCssString} ${backgroundCssString} ${customCssString}`,
+    //         },
+    //         textDecoration: `none; position: relative;`,
+    //         rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
+    //     });
+    // }
 
         const decoration = { range: this.marker };
 
