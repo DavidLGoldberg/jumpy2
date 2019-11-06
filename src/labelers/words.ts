@@ -37,7 +37,6 @@ class WordLabel implements Label {
                 contentText: keyLabel,
                 textDecoration: 'none',
                 margin: `0 0 0 ${-width}px`,
-                height: '${fontSize}px',
                 width: `${width}px`,
             },
             opacity: '0',
