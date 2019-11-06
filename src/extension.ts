@@ -4,38 +4,38 @@ import getWordLabels from './labelers/words';
 import * as _ from 'lodash';
 import { getKeySet } from './keys';
 
-
 function main() {
-	const environment:LabelEnvironment = {
-		// keys: getKeySet(atom.config.get('jumpy.customKeys')),
-		//TODO: get custom keys from settings / config
-		keys: getKeySet([]),
-		settings: {
-			//TODO: get match from settings / config
-			wordsPattern: new RegExp('([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}', 'g')
-		}
-	};
+    const environment: LabelEnvironment = {
+        // keys: getKeySet(atom.config.get('jumpy.customKeys')),
+        //TODO: get custom keys from settings / config
+        keys: getKeySet([]),
+        settings: {
+            //TODO: get match from settings / config
+            wordsPattern: new RegExp('([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}', 'g'),
+        },
+    };
 
-	const wordLabels:Array<Label> = getWordLabels(environment);
+    const wordLabels: Array<Label> = getWordLabels(environment);
 
-	const allLabels: Array<Label> = [
-		...wordLabels
-	];
+    const allLabels: Array<Label> = [...wordLabels];
 
-	const drawnLabels:Array<Label> = [];
-	// let currentLabels:Array<Label> = [];
+    const drawnLabels: Array<Label> = [];
+    // let currentLabels:Array<Label> = [];
 
-	for (const label of allLabels) {
-		drawnLabels.push(label.drawLabel());
-	}
+    for (const label of allLabels) {
+        drawnLabels.push(label.drawLabel());
+    }
 
-	// currentLabels = _.clone(allLabels);
+    // currentLabels = _.clone(allLabels);
 }
 
 export function activate(context: vscode.ExtensionContext) {
-	const disposable = vscode.commands.registerCommand('extension.jumpy-vscode', main);
+    const disposable = vscode.commands.registerCommand(
+        'extension.jumpy-vscode',
+        main
+    );
 
-	context.subscriptions.push(disposable);
+    context.subscriptions.push(disposable);
 }
 
 export function deactivate() {}

@@ -7,10 +7,14 @@ export function getKeySet(customKeys: Array<string>) {
     let upperCharacters: Array<string> = [];
 
     if (!customKeys.length) {
-        lowerCharacters = _.range('a'.charCodeAt(0), 'z'.charCodeAt(0) + 1 /* for inclusive*/)
-            .map(c => String.fromCharCode(c));
-        upperCharacters = _.range('A'.charCodeAt(0), 'Z'.charCodeAt(0) + 1 /* for inclusive*/)
-            .map(c => String.fromCharCode(c));
+        lowerCharacters = _.range(
+            'a'.charCodeAt(0),
+            'z'.charCodeAt(0) + 1 /* for inclusive*/
+        ).map(c => String.fromCharCode(c));
+        upperCharacters = _.range(
+            'A'.charCodeAt(0),
+            'Z'.charCodeAt(0) + 1 /* for inclusive*/
+        ).map(c => String.fromCharCode(c));
     } else {
         for (let key of customKeys) {
             lowerCharacters.push(key.toLowerCase());

@@ -16,5 +16,5 @@ export interface Label {
 }
 
 export interface Labeler {
-    (environment:LabelEnvironment):Array<Label>;
+    (environment: LabelEnvironment): Array<Label>;
 }

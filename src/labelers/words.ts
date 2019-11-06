@@ -14,7 +14,9 @@ class WordLabel implements Label {
 
     private static _getWidth() {
         const editorConfig = vscode.workspace.getConfiguration('editor', null);
-        const retrievedFontSize: (number | undefined) = editorConfig.get<number>('fontSize');
+        const retrievedFontSize: number | undefined = editorConfig.get<number>(
+            'fontSize'
+        );
         const fontSize = retrievedFontSize ? retrievedFontSize : 10;
         return fontSize;
     }
@@ -28,27 +30,31 @@ class WordLabel implements Label {
     drawLabel(): Label {
         const { textEditor, lineNumber, column, keyLabel } = this;
 
-        this.marker = new Range(new Position(lineNumber,column), new Position(lineNumber, column+2));
+        this.marker = new Range(
+            new Position(lineNumber, column),
+            new Position(lineNumber, column + 2)
+        );
 
         const width = WordLabel._getWidth();
 
-        const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
-            after: {
-                contentText: keyLabel,
-                textDecoration: 'none',
-                margin: `0 0 0 ${-width}px`,
-                width: `${width}px`,
-            },
-            opacity: '0',
-            light: {
-                backgroundColor: 'gray'
-            },
-            dark: {
-                backgroundColor: 'green'
+        const wordLabelDecorationType = vscode.window.createTextEditorDecorationType(
+            {
+                after: {
+                    contentText: keyLabel,
+                    textDecoration: 'none',
+                    margin: `0 0 0 ${-width}px`,
+                    width: `${width}px`,
+                },
+                opacity: '0',
+                light: {
+                    backgroundColor: 'gray',
+                },
+                dark: {
+                    backgroundColor: 'green',
+                },
+                rangeBehavior: DecorationRangeBehavior.ClosedClosed,
             }
-            ,rangeBehavior: DecorationRangeBehavior.ClosedClosed
-
-        });
+        );
 
         const decoration = { range: this.marker };
 
@@ -62,16 +68,13 @@ class WordLabel implements Label {
         return this;
     }
 
-    animateBeacon() {
-    }
+    animateBeacon() {}
 
-    jump() {
-    }
+    jump() {}
 }
 
-
-const labeler: Labeler = function(env:LabelEnvironment):Array<WordLabel> {
-    const labels:Array<WordLabel> = [];
+const labeler: Labeler = function(env: LabelEnvironment): Array<WordLabel> {
+    const labels: Array<WordLabel> = [];
 
     const editor = vscode.window.activeTextEditor;
     if (editor) {
@@ -81,7 +84,10 @@ const labeler: Labeler = function(env:LabelEnvironment):Array<WordLabel> {
         const lines = text.split(/\r?\n/);
         lines.forEach((line, index) => {
             let word: any;
-            while ((word = env.settings.wordsPattern.exec(line)) !== null && env.keys.length) {
+            while (
+                (word = env.settings.wordsPattern.exec(line)) !== null &&
+                env.keys.length
+            ) {
                 const keyLabel = env.keys.shift();
 
                 const column = word.index;

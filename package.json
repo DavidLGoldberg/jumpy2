@@ -14,12 +14,10 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-			{
-				"command": "extension.jumpy-vscode",
-				"title": "jumpy-vscode"
-			}
-		]
+		"commands": [{
+			"command": "extension.jumpy-vscode",
+			"title": "jumpy-vscode"
+		}]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
