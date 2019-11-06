@@ -32,49 +32,67 @@ class WordLabel implements Label {
 
         const width = WordLabel._getWidth();
 
-        const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
-            after: {
+        // const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
+        //     after: {
+        //         contentText: keyLabel,
+        //         textDecoration: 'none',
+        //         margin: `0 0 0 ${-width}px`,
+        //         width: `${width}px`,
+        //     },
+        //     opacity: '0',
+        //     light: {
+        //         backgroundColor: 'gray'
+        //     },
+        //     dark: {
+        //         backgroundColor: 'green'
+        //     }
+        //     ,rangeBehavior: DecorationRangeBehavior.ClosedClosed
+
+        // });
+
+        const defaultCss = {
+            contentText: keyLabel,
+            textDecoration: 'none',
+            margin: `0 0 0 ${-width}px`,
+            width: `${width}px`,
+            // display: 'inline-block',
+            // position: 'absolute',
+            transform: 'translate(0, -100 %)',
+            ['z-index']: 1,
+            ['pointer-events']: 'none',
+        };
+
+        function objectToCssString(settings: any): string {
+            let value = '';
+            const cssString = Object.keys(settings).map(setting => {
+                value = settings[setting];
+                if (typeof value === 'string' || typeof value === 'number') {
+                    return `${setting}: ${value};`;
+                }
+            }).join(' ');
+
+            return cssString;
+        }
+        const defaultCssString = objectToCssString(defaultCss);
+
+        const wordLabelDecorationType:any = vscode.window.createTextEditorDecorationType(<vscode.DecorationRenderOptions>{
+            before: {
                 contentText: keyLabel,
-                textDecoration: 'none',
-                margin: `0 0 0 ${-width}px`,
-                width: `${width}px`,
+                textDecoration: `none; ${defaultCssString}`,
             },
-            opacity: '0',
             light: {
                 backgroundColor: 'gray'
             },
             dark: {
                 backgroundColor: 'green'
-            }
-            ,rangeBehavior: DecorationRangeBehavior.ClosedClosed
-
+            },
+            // textDecoration: `none; position: relative;`,
+            rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
         });
-
-    //     const defaultCss = {
-    //         [CSS_LEFT]: `-${leftValue}ch`,
-    //         width: `${this.config.explosionSize}ch`,
-    //         display: `inline-block`,
-    //         ['z-index']: 1,
-    //         ['pointer-events']: 'none',
-    //     };
-
-    //     const backgroundCssString = this.objectToCssString(backgroundCss);
-    //     const defaultCssString = this.objectToCssString(defaultCss);
-    //     const customCssString = this.objectToCssString(this.config.customCss || {});
-
-    //     return vscode.window.createTextEditorDecorationType(<vscode.DecorationRenderOptions>{
-    //         before: {
-    //             contentText: '',
-    //             textDecoration: `none; ${defaultCssString} ${backgroundCssString} ${customCssString}`,
-    //         },
-    //         textDecoration: `none; position: relative;`,
-    //         rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-    //     });
-    // }
 
         const decoration = { range: this.marker };
 
-        const decorations: vscode.DecorationOptions[] = [];
+        const decorations:vscode.DecorationOptions[] = [];
         decorations.push(decoration);
 
         if (textEditor) {
