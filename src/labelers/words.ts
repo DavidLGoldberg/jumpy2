@@ -12,60 +12,32 @@ class WordLabel implements Label {
     settings: any;
     marker!: vscode.Range;
 
-    private static _getWidth() {
-        const editorConfig = vscode.workspace.getConfiguration('editor', null);
-        const retrievedFontSize: number | undefined = editorConfig.get<number>(
-            'fontSize'
-        );
-        const fontSize = retrievedFontSize ? retrievedFontSize : 10;
-        return fontSize;
-    }
-
     destroy() {
         // if (this.element) {
         //     this.element.remove();
         // }
     }
 
-    drawLabel(): Label {
-        const { textEditor, lineNumber, column, keyLabel } = this;
+    getDecoration(): any {
+        const { lineNumber, column, keyLabel } = this;
 
         this.marker = new Range(
             new Position(lineNumber, column),
             new Position(lineNumber, column + 2)
         );
 
-        const width = WordLabel._getWidth();
-
-        const wordLabelDecorationType = vscode.window.createTextEditorDecorationType(
-            {
-                after: {
-                    contentText: keyLabel,
-                    textDecoration: 'none',
-                    margin: `0 0 0 ${-width}px`,
-                    width: `${width}px`,
-                },
-                opacity: '0',
-                light: {
-                    backgroundColor: 'gray',
-                },
+        const decoration = {
+            range: this.marker,
+            renderOptions: {
                 dark: {
-                    backgroundColor: 'green',
+                    after: {
+                        contentText: keyLabel,
+                    },
                 },
-                rangeBehavior: DecorationRangeBehavior.ClosedClosed,
-            }
-        );
+            },
+        };
 
-        const decoration = { range: this.marker };
-
-        const decorations: vscode.DecorationOptions[] = [];
-        decorations.push(decoration);
-
-        if (textEditor) {
-            textEditor.setDecorations(wordLabelDecorationType, decorations);
-        }
-
-        return this;
+        return decoration;
     }
 
     animateBeacon() {}

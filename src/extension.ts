@@ -4,6 +4,33 @@ import getWordLabels from './labelers/words';
 import * as _ from 'lodash';
 import { getKeySet } from './keys';
 
+function getWidth() {
+    const editorConfig = vscode.workspace.getConfiguration('editor', null);
+    const retrievedFontSize: number | undefined = editorConfig.get<number>(
+        'fontSize'
+    );
+    const fontSize = retrievedFontSize ? retrievedFontSize : 10;
+    return fontSize;
+}
+
+const width = getWidth();
+
+const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
+    after: {
+        textDecoration: 'none',
+        margin: `0 0 0 ${-width}px`,
+        width: `${width}px`,
+    },
+    opacity: '0',
+    light: {
+        backgroundColor: 'gray',
+    },
+    dark: {
+        backgroundColor: 'green',
+    },
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
+});
+
 function main() {
     const environment: LabelEnvironment = {
         // keys: getKeySet(atom.config.get('jumpy.customKeys')),
@@ -22,8 +49,14 @@ function main() {
     const drawnLabels: Array<Label> = [];
     // let currentLabels:Array<Label> = [];
 
+    const decorations: any[] = [];
     for (const label of allLabels) {
-        drawnLabels.push(label.drawLabel());
+        // drawnLabels.push(label.getDecoration());
+        decorations.push(label.getDecoration());
+    }
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+        editor.setDecorations(wordLabelDecorationType, decorations);
     }
 
     // currentLabels = _.clone(allLabels);
