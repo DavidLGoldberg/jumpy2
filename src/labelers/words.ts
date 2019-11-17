@@ -2,7 +2,7 @@
 
 import * as vscode from 'vscode';
 import { LabelEnvironment, Label, Labeler } from '../label-interface';
-import { Range, Position, DecorationRangeBehavior } from 'vscode';
+import { Range, Position } from 'vscode';
 
 class WordLabel implements Label {
     keyLabel!: string;

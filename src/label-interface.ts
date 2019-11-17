@@ -9,7 +9,7 @@ export interface Label {
     keyLabel: string;
     textEditor: vscode.TextEditor | undefined;
     settings: any;
-    getDecoration(): any;
+    getDecoration(): vscode.DecorationOptions;
     animateBeacon(input: any): void;
     jump(): void;
     destroy(): void;

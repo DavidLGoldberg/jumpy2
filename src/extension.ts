@@ -49,7 +49,7 @@ function main() {
     const drawnLabels: Array<Label> = [];
     // let currentLabels:Array<Label> = [];
 
-    const decorations: any[] = [];
+    const decorations: vscode.DecorationOptions[] = [];
     for (const label of allLabels) {
         // drawnLabels.push(label.getDecoration());
         decorations.push(label.getDecoration());
