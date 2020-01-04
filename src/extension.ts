@@ -23,11 +23,10 @@ function main() {
     const drawnLabels: Array<Label> = [];
     // let currentLabels:Array<Label> = [];
 
-    const decorations: vscode.DecorationOptions[] = [];
-    for (const label of allLabels) {
-        // drawnLabels.push(label.getDecoration());
-        decorations.push(label.getDecoration());
-    }
+    const decorations: vscode.DecorationOptions[] = allLabels.map(label =>
+        label.getDecoration()
+    );
+
     const editor = vscode.window.activeTextEditor;
     if (editor) {
         editor.setDecorations(wordLabelDecorationType, decorations);
