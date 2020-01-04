@@ -66,7 +66,7 @@ const labeler: Labeler = function(env: LabelEnvironment): Array<WordLabel> {
                 const label = new WordLabel();
                 label.settings = env.settings;
                 label.textEditor = editor;
-                label.keyLabel = keyLabel || 'foo';
+                label.keyLabel = keyLabel || '';
                 label.lineNumber = index;
                 label.column = column;
                 labels.push(label);
