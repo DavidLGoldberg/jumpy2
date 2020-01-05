@@ -37,7 +37,7 @@ function main() {
 
 export function activate(context: vscode.ExtensionContext) {
     const disposable = vscode.commands.registerCommand(
-        'extension.jumpy-vscode',
+        'extension.jumpy-toggle',
         main
     );
 
