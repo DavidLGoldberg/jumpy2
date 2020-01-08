@@ -63,3 +63,19 @@ Added features X, Y, and Z.
 -   [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
+
+if `f` vim functionality is desired:
+open settings as json and add
+
+```
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "f"
+      ],
+      "commands": [
+        "jumpy.jumpy-toggle"
+      ]
+    }
+  ],
+```
