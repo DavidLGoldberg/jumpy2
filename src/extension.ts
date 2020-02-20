@@ -1,4 +1,7 @@
 import * as vscode from 'vscode';
+// @ts-ignore
+// import * as elmApp from './elm/StateMachine';
+import * as elmApp from '../out/elm/StateMachine';
 import { LabelEnvironment, Label } from './label-interface';
 import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
@@ -15,6 +18,9 @@ function main() {
             wordsPattern: new RegExp('([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}', 'g'),
         },
     };
+
+    const stateMachine = elmApp.Elm.StateMachine.init();
+    debugger;
 
     const wordLabels: Array<Label> = getWordLabels(environment);
 
@@ -36,10 +42,7 @@ function main() {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    const disposable = vscode.commands.registerCommand(
-        'jumpy.jumpy-toggle',
-        main
-    );
+    const disposable = vscode.commands.registerCommand('jumpy.toggle', main);
 
     context.subscriptions.push(disposable);
 }

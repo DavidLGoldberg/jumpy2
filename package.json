@@ -10,19 +10,19 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:jumpy.jumpy-toggle"
+        "onCommand:jumpy.toggle"
     ],
     "main": "./out/extension.js",
     "contributes": {
         "commands": [
             {
-                "command": "jumpy.jumpy-toggle",
+                "command": "jumpy.toggle",
                 "title": "Jumpy: Toggle"
             }
         ],
         "keybindings": [
             {
-                "command": "jumpy.jumpy-toggle",
+                "command": "jumpy.toggle",
                 "key": "shift+enter",
                 "mac": "shift+enter"
             }

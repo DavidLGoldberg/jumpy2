@@ -74,7 +74,7 @@ open settings as json and add
         "f"
       ],
       "commands": [
-        "jumpy.jumpy-toggle"
+        "jumpy.toggle"
       ]
     }
   ],
