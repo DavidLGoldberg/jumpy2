@@ -18,6 +18,14 @@
             {
                 "command": "jumpy.toggle",
                 "title": "Jumpy: Toggle"
+            },
+            {
+                "command": "jumpy.reset",
+                "title": "Jumpy: Reset"
+            },
+            {
+                "command": "jumpy.clear",
+                "title": "Jumpy: Clear"
             }
         ],
         "keybindings": [
