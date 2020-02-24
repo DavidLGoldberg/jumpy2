@@ -9,8 +9,10 @@ import * as _ from 'lodash';
 import { getKeySet } from './keys';
 
 const stateMachine = elmApp.Elm.StateMachine.init();
+let isJumpMode = false; // TODO: change with state machine i guess.
 
-function toggle() {
+function enterJumpMode() {
+    isJumpMode = true;
     const environment: LabelEnvironment = {
         // keys: getKeySet(atom.config.get('jumpy.customKeys')),
         //TODO: get custom keys from settings / config
@@ -31,9 +33,6 @@ function toggle() {
             .map(label => label.keyLabel)
     );
 
-    const drawnLabels: Array<Label> = [];
-    // let currentLabels:Array<Label> = [];
-
     const decorations: vscode.DecorationOptions[] = allLabels.map(label =>
         label.getDecoration()
     );
@@ -43,7 +42,20 @@ function toggle() {
         editor.setDecorations(wordLabelDecorationType, decorations);
     }
 
-    // currentLabels = _.clone(allLabels);
+    // if (/^Key[A-Z]{1}$/.test(code)) {
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    //     stateMachine.ports.key.send(key.charCodeAt());
+    // }
+    vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
+}
+
+function toggle() {
+    if (!isJumpMode) {
+        enterJumpMode();
+    } else {
+        clear();
+    }
 }
 
 function reset() {
@@ -51,6 +63,12 @@ function reset() {
 }
 
 function clear() {
+    isJumpMode = false;
+    const editor = vscode.window.activeTextEditor;
+    // TODO: change for each editors
+    if (editor) {
+        editor.setDecorations(wordLabelDecorationType, []);
+    }
     stateMachine.ports.exit.send(null);
 }
 
@@ -64,6 +82,5 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {
-    // TODO: ??
-    stateMachine.ports.exit.send(null);
+    clear();
 }
