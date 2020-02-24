@@ -12,11 +12,7 @@ class WordLabel implements Label {
     settings: any;
     marker!: vscode.Range;
 
-    destroy() {
-        // if (this.element) {
-        //     this.element.remove();
-        // }
-    }
+    destroy() {}
 
     getDecoration(): any {
         const { lineNumber, column, keyLabel } = this;

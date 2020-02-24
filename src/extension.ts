@@ -42,11 +42,7 @@ function enterJumpMode() {
         editor.setDecorations(wordLabelDecorationType, decorations);
     }
 
-    // if (/^Key[A-Z]{1}$/.test(code)) {
-    //     event.preventDefault();
-    //     event.stopPropagation();
     //     stateMachine.ports.key.send(key.charCodeAt());
-    // }
     vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
 }
 
