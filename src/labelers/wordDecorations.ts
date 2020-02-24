@@ -14,7 +14,7 @@ const width = getWidth();
 const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
     after: {
         textDecoration: 'none',
-        margin: `0 0 0 ${-width}px`,
+        margin: `0 2px 0 ${-width - 2}px`,
         width: `${width}px`,
     },
     opacity: '0',
