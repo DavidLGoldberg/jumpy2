@@ -12,7 +12,9 @@ const stateMachine = elmApp.Elm.StateMachine.init();
 let isJumpMode = false; // TODO: change with state machine i guess.
 
 function enterJumpMode() {
-    isJumpMode = true;
+    vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
+    isJumpMode = true; // TODO: I hate this, but 'getContext' is not as straight forward
+
     const environment: LabelEnvironment = {
         // keys: getKeySet(atom.config.get('jumpy.customKeys')),
         //TODO: get custom keys from settings / config
@@ -37,6 +39,7 @@ function enterJumpMode() {
         label.getDecoration()
     );
 
+    // TODO: This will eventually have to be for each, or some kind of observer.
     const editor = vscode.window.activeTextEditor;
     if (editor) {
         editor.setDecorations(wordLabelDecorationType, decorations);
