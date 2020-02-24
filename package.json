@@ -36,12 +36,6 @@
             },
             {
                 "command": "jumpy.clear",
-                "key": "space",
-                "mac": "space",
-                "when": "jumpy.jump-mode"
-            },
-            {
-                "command": "jumpy.clear",
                 "key": "enter",
                 "mac": "enter",
                 "when": "jumpy.jump-mode"
@@ -50,6 +44,12 @@
                 "command": "jumpy.clear",
                 "key": "escape",
                 "mac": "escape",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.clear",
+                "key": "space",
+                "mac": "space",
                 "when": "jumpy.jump-mode"
             }
         ]
