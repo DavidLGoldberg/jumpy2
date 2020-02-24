@@ -10,6 +10,8 @@ import { getKeySet } from './keys';
 
 const stateMachine = elmApp.Elm.StateMachine.init();
 let isJumpMode = false; // TODO: change with state machine i guess.
+let extensionContext: vscode.ExtensionContext;
+let typeDisposable: vscode.Disposable;
 
 function enterJumpMode() {
     vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
@@ -45,8 +47,12 @@ function enterJumpMode() {
         editor.setDecorations(wordLabelDecorationType, decorations);
     }
 
-    //     stateMachine.ports.key.send(key.charCodeAt());
-    vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
+    typeDisposable = vscode.commands.registerCommand('type', args => {
+        // const key: string = args.text;
+        // console.log(key);
+        // stateMachine.ports.key.send(key.charCodeAt(0));
+    });
+    extensionContext.subscriptions.push(typeDisposable);
 }
 
 function toggle() {
@@ -64,6 +70,7 @@ function reset() {
 function clear() {
     isJumpMode = false;
     vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', false);
+    typeDisposable.dispose();
 
     const editor = vscode.window.activeTextEditor;
     // TODO: change for each editors
@@ -74,6 +81,7 @@ function clear() {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+    extensionContext = context;
     const registerCommand = vscode.commands.registerCommand;
     context.subscriptions.push(
         registerCommand('jumpy.toggle', toggle),
