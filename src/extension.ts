@@ -82,5 +82,6 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {
-    clear();
+    // Clears any across all editors:
+    wordLabelDecorationType.dispose();
 }
