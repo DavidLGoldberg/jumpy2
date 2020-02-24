@@ -60,6 +60,8 @@ function reset() {
 
 function clear() {
     isJumpMode = false;
+    vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', false);
+
     const editor = vscode.window.activeTextEditor;
     // TODO: change for each editors
     if (editor) {
