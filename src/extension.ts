@@ -99,6 +99,7 @@ function handleKey(key: string) {
 }
 
 function reset() {
+    console.log('reset is called');
     stateMachine.ports.reset.send(null);
 }
 

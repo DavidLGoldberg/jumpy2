@@ -10,7 +10,8 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:jumpy.toggle"
+        "onCommand:jumpy.toggle",
+        "onCommand:jumpy.reset"
     ],
     "main": "./out/extension.js",
     "contributes": {
@@ -32,6 +33,16 @@
             {
                 "command": "jumpy.toggle",
                 "key": "shift+enter"
+            },
+            {
+                "command": "jumpy.reset",
+                "key": "backspace",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.reset",
+                "key": "shift+backspace",
+                "when": "jumpy.jump-mode"
             },
             {
                 "command": "jumpy.clear",

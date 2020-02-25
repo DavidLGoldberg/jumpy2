@@ -79,3 +79,16 @@ open settings as json and add
     }
   ],
 ```
+
+If you want to use backspace for reset. This currently removes backspace from working in vim in normal mode
+
+```
+    {
+      "commands": [
+        "jumpy.reset"
+      ],
+      "before": [
+        "backspace"
+      ],
+    }
+```
