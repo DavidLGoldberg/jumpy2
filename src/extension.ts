@@ -6,12 +6,10 @@ import { LabelEnvironment, Label } from './label-interface';
 import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
 import * as _ from 'lodash';
-import { getKeySet } from './keys';
+import { getKeySet, getAllKeys } from './keys';
 
 const stateMachine = elmApp.Elm.StateMachine.init();
 let isJumpMode = false; // TODO: change with state machine i guess.
-let extensionContext: vscode.ExtensionContext;
-let typeDisposable: vscode.Disposable;
 
 function enterJumpMode() {
     vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
@@ -43,16 +41,10 @@ function enterJumpMode() {
 
     // TODO: This will eventually have to be for each, or some kind of observer.
     const editor = vscode.window.activeTextEditor;
+
     if (editor) {
         editor.setDecorations(wordLabelDecorationType, decorations);
     }
-
-    typeDisposable = vscode.commands.registerCommand('type', args => {
-        // const key: string = args.text;
-        // console.log(key);
-        // stateMachine.ports.key.send(key.charCodeAt(0));
-    });
-    extensionContext.subscriptions.push(typeDisposable);
 }
 
 function toggle() {
@@ -63,6 +55,10 @@ function toggle() {
     }
 }
 
+function handleKey(key: string) {
+    console.log(key);
+}
+
 function reset() {
     stateMachine.ports.reset.send(null);
 }
@@ -70,7 +66,6 @@ function reset() {
 function clear() {
     isJumpMode = false;
     vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', false);
-    typeDisposable.dispose();
 
     const editor = vscode.window.activeTextEditor;
     // TODO: change for each editors
@@ -81,12 +76,19 @@ function clear() {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    extensionContext = context;
     const registerCommand = vscode.commands.registerCommand;
+
     context.subscriptions.push(
         registerCommand('jumpy.toggle', toggle),
         registerCommand('jumpy.reset', reset),
         registerCommand('jumpy.clear', clear)
+    );
+
+    const { lowerCharacters, upperCharacters } = getAllKeys([]);
+    context.subscriptions.concat(
+        lowerCharacters
+            .concat(upperCharacters)
+            .map(chr => registerCommand('jumpy.' + chr, () => handleKey(chr)))
     );
 }
 

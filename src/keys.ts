@@ -1,8 +1,6 @@
-'use babel';
-
 import * as _ from 'lodash';
 
-export function getKeySet(customKeys: Array<string>) {
+export function getAllKeys(customKeys: Array<string>) {
     let lowerCharacters: Array<string> = [];
     let upperCharacters: Array<string> = [];
 
@@ -21,6 +19,12 @@ export function getKeySet(customKeys: Array<string>) {
             upperCharacters.push(key.toUpperCase());
         }
     }
+
+    return { lowerCharacters, upperCharacters };
+}
+
+export function getKeySet(customKeys: Array<string>) {
+    const { lowerCharacters, upperCharacters } = getAllKeys(customKeys);
 
     const keys: Array<string> = [];
 

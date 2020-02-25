@@ -31,25 +31,281 @@
         "keybindings": [
             {
                 "command": "jumpy.toggle",
-                "key": "shift+enter",
-                "mac": "shift+enter"
+                "key": "shift+enter"
             },
             {
                 "command": "jumpy.clear",
                 "key": "enter",
-                "mac": "enter",
                 "when": "jumpy.jump-mode"
             },
             {
                 "command": "jumpy.clear",
                 "key": "escape",
-                "mac": "escape",
                 "when": "jumpy.jump-mode"
             },
             {
                 "command": "jumpy.clear",
                 "key": "space",
-                "mac": "space",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.a",
+                "key": "a",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.b",
+                "key": "b",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.c",
+                "key": "c",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.d",
+                "key": "d",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.e",
+                "key": "e",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.f",
+                "key": "f",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.g",
+                "key": "g",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.h",
+                "key": "h",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.i",
+                "key": "i",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.j",
+                "key": "j",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.k",
+                "key": "k",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.l",
+                "key": "l",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.m",
+                "key": "m",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.n",
+                "key": "n",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.o",
+                "key": "o",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.p",
+                "key": "p",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.q",
+                "key": "q",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.r",
+                "key": "r",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.s",
+                "key": "s",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.t",
+                "key": "t",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.u",
+                "key": "u",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.v",
+                "key": "v",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.w",
+                "key": "w",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.x",
+                "key": "x",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.y",
+                "key": "y",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.z",
+                "key": "z",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.A",
+                "key": "shift+a",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.B",
+                "key": "shift+b",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.C",
+                "key": "shift+c",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.D",
+                "key": "shift+d",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.E",
+                "key": "shift+e",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.F",
+                "key": "shift+f",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.G",
+                "key": "shift+g",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.H",
+                "key": "shift+h",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.I",
+                "key": "shift+i",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.J",
+                "key": "shift+j",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.K",
+                "key": "shift+k",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.L",
+                "key": "shift+l",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.M",
+                "key": "shift+m",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.N",
+                "key": "shift+n",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.O",
+                "key": "shift+o",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.P",
+                "key": "shift+p",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.Q",
+                "key": "shift+q",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.R",
+                "key": "shift+r",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.S",
+                "key": "shift+s",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.T",
+                "key": "shift+t",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.U",
+                "key": "shift+u",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.V",
+                "key": "shift+v",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.W",
+                "key": "shift+w",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.X",
+                "key": "shift+x",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.Y",
+                "key": "shift+y",
+                "when": "jumpy.jump-mode"
+            },
+            {
+                "command": "jumpy.Z",
+                "key": "shift+z",
                 "when": "jumpy.jump-mode"
             }
         ]
