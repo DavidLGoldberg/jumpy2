@@ -1,11 +1,12 @@
 import * as vscode from 'vscode';
+import * as _ from 'lodash';
 // @ts-ignore
 // import * as elmApp from './elm/StateMachine';
 import * as elmApp from '../out/elm/StateMachine';
 import { LabelEnvironment, Label } from './label-interface';
 import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
-import * as _ from 'lodash';
+import labelReducer from './label-reducer';
 import { getKeySet, getAllKeys } from './keys';
 
 const stateMachine = elmApp.Elm.StateMachine.init();
@@ -14,6 +15,43 @@ let isJumpMode = false; // TODO: change with state machine i guess.
 function enterJumpMode() {
     isJumpMode = true; // TODO: I hate this, but 'getContext' is not as straight forward
     vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
+
+    // Subscribe:
+    stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
+        console.log('valid key entered', keyLabel);
+        // for (const label of drawnLabels) {
+        //     if (!label.keyLabel || !label.element) {
+        //         continue;
+        //     }
+        //     if (!label.keyLabel.startsWith(keyLabel)) {
+        //         label.element.classList.add('irrelevant');
+        //     }
+        // }
+
+        // currentLabels = labelReducer(currentLabels, keyLabel);
+    });
+
+    // stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
+    //     // TODO: change this to get rid of lodash in this file!
+    //     _.find(currentLabels, label => label.keyLabel === keyLabel).jump();
+    // });
+
+    // Why did I ever have this? I can probably remove it...Maybe it was sort of an ack back for race conditions...
+    // stateMachine.ports.activeChanged.subscribe((active: boolean) => {
+    //     this.active = active;
+
+    //     if (!this.active) {
+    //         this.turnOffListeners();
+    //         this.clearJumpMode();
+    //     }
+    // });
+
+    stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
+        console.log(statusMarkup);
+        // if (this.statusBarElement) {
+        //     this.statusBarElement.innerHTML = statusMarkup;
+        // }
+    });
 
     const environment: LabelEnvironment = {
         // keys: getKeySet(atom.config.get('jumpy.customKeys')),
