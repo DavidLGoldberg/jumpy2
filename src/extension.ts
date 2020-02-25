@@ -12,6 +12,11 @@ import { getKeySet, getAllKeys } from './keys';
 const stateMachine = elmApp.Elm.StateMachine.init();
 let isJumpMode = false; // TODO: change with state machine i guess.
 
+const statusBarItem: vscode.StatusBarItem = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Left,
+    10
+);
+
 // Subscribe:
 stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
     console.log('valid key entered', keyLabel);
@@ -43,10 +48,13 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
 // });
 
 stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
+    if (statusMarkup) {
+        statusBarItem.text = statusMarkup;
+        statusBarItem.show();
+    } else {
+        statusBarItem.hide();
+    }
     console.log(statusMarkup);
-    // if (this.statusBarElement) {
-    //     this.statusBarElement.innerHTML = statusMarkup;
-    // }
 });
 
 function enterJumpMode() {
