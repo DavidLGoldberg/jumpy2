@@ -57,6 +57,7 @@ function toggle() {
 
 function handleKey(key: string) {
     console.log(key);
+    stateMachine.ports.key.send(key.charCodeAt(0));
 }
 
 function reset() {
