@@ -35,16 +35,6 @@
                 "key": "shift+enter"
             },
             {
-                "command": "jumpy.reset",
-                "key": "backspace",
-                "when": "jumpy.jump-mode"
-            },
-            {
-                "command": "jumpy.reset",
-                "key": "shift+backspace",
-                "when": "jumpy.jump-mode"
-            },
-            {
                 "command": "jumpy.clear",
                 "key": "enter",
                 "when": "jumpy.jump-mode"

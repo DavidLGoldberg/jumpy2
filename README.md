@@ -82,13 +82,37 @@ open settings as json and add
 
 If you want to use backspace for reset. This currently removes backspace from working in vim in normal mode
 
+in key settings (TODO tell how to get here):
+
 ```
+    // Remove vim's
     {
-      "commands": [
-        "jumpy.reset"
-      ],
-      "before": [
-        "backspace"
-      ],
+        "key": "backspace",
+        "command": "-extension.vim_backspace",
+        "when": "editorTextFocus && vim.active && !inDebugRepl"
+    },
+    {
+        "key": "shift+backspace",
+        "command": "-extension.vim_shift+backspace",
+        "when": "editorTextFocus && vim.active && vim.use<shift+BS> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
+    },
+
+    // Set Jumpy's
+    {
+        "key": "backspace",
+        "command": "jumpy.reset",
+        "when": "jumpy.jump-mode"
     }
+
+    // Set more useful backspace, shift+backspace back and forward functionality (especially for Jumpy!)
+    {
+        "key": "backspace",
+        "command": "workbench.action.navigateBack",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal'"
+    },
+    {
+        "key": "shift+backspace",
+        "command": "workbench.action.navigateForward",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal'"
+    },
 ```
