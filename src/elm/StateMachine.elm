@@ -96,6 +96,7 @@ onKeyPress : (Int -> msg) -> Attribute msg
 onKeyPress tagger =
     on "keypress" (Json.map tagger keyCode)
 
+-- ----------------------------------- Statuses
 
 clearStatus : Model -> Model
 clearStatus model =
@@ -105,6 +106,16 @@ clearStatus model =
 resetStatus : Model -> Model
 resetStatus model =
     { model | status = "<div id='status-bar-jumpy'>Jumpy: <span class='status'>Jump Mode!</span></div>" }
+
+setNoMatchStatus : Model -> Model
+setNoMatchStatus model =
+    { model | status = "<div id='status-bar-jumpy' class='no-match'>Jumpy: <span>No Match! 😞</span></div>" }
+
+
+addKeyToStatus : String -> Model -> Model
+addKeyToStatus keyEntered model =
+    { model | status = "<div id='status-bar-jumpy'>Jumpy: <span class='status'>" ++ keyEntered ++ "</span></div>" }
+-- ----------------------------------- Statuses
 
 
 resetKeys : Model -> Model
@@ -118,15 +129,6 @@ turnOff model =
         |> resetKeys
         |> clearStatus
 
-
-setNoMatchStatus : Model -> Model
-setNoMatchStatus model =
-    { model | status = "<div id='status-bar-jumpy' class='no-match'>Jumpy: <span>No Match! 😞</span></div>" }
-
-
-addKeyToStatus : String -> Model -> Model
-addKeyToStatus keyEntered model =
-    { model | status = "<div id='status-bar-jumpy'>Jumpy: <span class='status'>" ++ keyEntered ++ "</span></div>" }
 
 
 modelAndStatus : Model -> ( Model, Cmd Msg )
