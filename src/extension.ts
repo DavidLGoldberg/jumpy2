@@ -14,7 +14,7 @@ let isJumpMode = false; // TODO: change with state machine i guess.
 
 const statusBarItem: vscode.StatusBarItem = vscode.window.createStatusBarItem(
     vscode.StatusBarAlignment.Left,
-    10
+    1000
 );
 
 // Subscribe:
