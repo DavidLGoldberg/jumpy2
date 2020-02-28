@@ -1,11 +1,8 @@
-port module StateMachine exposing (Flags, Labels, Model, Msg(..), activeChanged, addKeyToStatus, clearStatus, exit, getLabels, init, key, labelJumped, main, modelAndJumped, modelAndStatus, onKeyPress, reset, resetKeys, resetStatus, setNoMatchStatus, statusChanged, turnOff, turnOn, update, validKeyEntered)
+port module StateMachine exposing (Flags, Labels, Model, Msg(..), activeChanged, addKeyToStatus, clearStatus, exit, getLabels, init, key, labelJumped, main, modelAndJumped, modelAndStatus, reset, resetKeys, resetStatus, setNoMatchStatus, statusChanged, turnOff, turnOn, update, validKeyEntered)
 
 import Char
-import Html as Html exposing (..)
-import Html.Events as Events exposing (..)
-import Json.Decode as Json
 import List exposing (any)
-import String exposing (..)
+import String exposing (length, startsWith)
 
 
 main : Program Flags Model Msg
@@ -14,7 +11,7 @@ main =
         { init = init
         , update = update
         , subscriptions =
-            \model ->
+            \_ ->
                 Sub.batch
                     [ getLabels LoadLabels
                     , key KeyEntered
@@ -81,7 +78,7 @@ type alias Flags =
 
 
 init : Flags -> ( Model, Cmd Msg )
-init flags =
+init _ =
     ( { active = False
       , keysEntered = ""
       , lastJumped = ""
@@ -92,11 +89,9 @@ init flags =
     )
 
 
-onKeyPress : (Int -> msg) -> Attribute msg
-onKeyPress tagger =
-    on "keypress" (Json.map tagger keyCode)
 
 -- ----------------------------------- Statuses
+
 
 clearStatus : Model -> Model
 clearStatus model =
@@ -107,6 +102,7 @@ resetStatus : Model -> Model
 resetStatus model =
     { model | status = "<div id='status-bar-jumpy'>Jumpy: <span class='status'>Jump Mode!</span></div>" }
 
+
 setNoMatchStatus : Model -> Model
 setNoMatchStatus model =
     { model | status = "<div id='status-bar-jumpy' class='no-match'>Jumpy: <span>No Match! 😞</span></div>" }
@@ -115,6 +111,9 @@ setNoMatchStatus model =
 addKeyToStatus : String -> Model -> Model
 addKeyToStatus keyEntered model =
     { model | status = "<div id='status-bar-jumpy'>Jumpy: <span class='status'>" ++ keyEntered ++ "</span></div>" }
+
+
+
 -- ----------------------------------- Statuses
 
 
@@ -128,7 +127,6 @@ turnOff model =
     { model | active = False }
         |> resetKeys
         |> clearStatus
-
 
 
 modelAndStatus : Model -> ( Model, Cmd Msg )
