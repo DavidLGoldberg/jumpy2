@@ -1,9 +1,9 @@
 port module StateMachineVSC exposing (Flags, Labels, Model, Msg(..), activeChanged, exit, getLabels, init, key, labelJumped, main, modelAndJumped, modelAndStatus, reset, resetKeys, statusChanged, turnOff, turnOn, update, validKeyEntered)
 
-import AtomStatusFunctions exposing (addKeyToStatus, clearStatus, resetStatus, setNoMatchStatus)
 import Char
 import List exposing (any)
 import String exposing (length, startsWith)
+import VSCStatusFunctions exposing (addKeyToStatus, clearStatus, resetStatus, setNoMatchStatus)
 
 
 main : Program Flags Model Msg

@@ -8,14 +8,14 @@ clearStatus =
 
 resetStatus : String
 resetStatus =
-    "<div id='status-bar-jumpy'>Jumpy: <span class='status'>Jump Mode!</span></div>"
+    "Jump Mode!"
 
 
 setNoMatchStatus : String
 setNoMatchStatus =
-    "<div id='status-bar-jumpy' class='no-match'>Jumpy: <span>No Match! 😞</span></div>"
+    "No Match! 😞"
 
 
 addKeyToStatus : String -> String
 addKeyToStatus keyEntered =
-    "<div id='status-bar-jumpy'>Jumpy: <span class='status'>" ++ keyEntered ++ "</span></div>"
+    keyEntered

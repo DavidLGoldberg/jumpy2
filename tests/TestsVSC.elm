@@ -56,7 +56,7 @@ suite =
                             { initial
                                 | labels = labels
                                 , active = True
-                                , status = "<div id='status-bar-jumpy' class='no-match'>Jumpy: <span>No Match! 😞</span></div>"
+                                , status = "No Match! 😞"
                             }
             , test "adds a matched key" <|
                 \_ ->
@@ -71,7 +71,7 @@ suite =
                                 | labels = labels
                                 , active = True
                                 , keysEntered = "a"
-                                , status = "<div id='status-bar-jumpy'>Jumpy: <span class='status'>a</span></div>"
+                                , status = "a"
                             }
             ]
         , describe "turning on/off"
@@ -85,7 +85,7 @@ suite =
                                 | labels = labels
                                 , active = True
                                 , keysEntered = ""
-                                , status = "<div id='status-bar-jumpy'>Jumpy: <span class='status'>Jump Mode!</span></div>"
+                                , status = "Jump Mode!"
                             }
             , test "reports active False after an exit" <|
                 \_ ->
