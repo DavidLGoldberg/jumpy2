@@ -1,7 +1,7 @@
-module TestsAtom exposing (suite)
+module TestsVSC exposing (suite)
 
 import Expect exposing (Expectation)
-import StateMachineAtom exposing (Msg(..), resetKeys, update)
+import StateMachineVSC exposing (Msg(..), resetKeys, update)
 import Test exposing (..)
 
 
