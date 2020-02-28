@@ -51,12 +51,9 @@ stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
     if (statusMarkup) {
         statusBarItem.text = 'Jumpy: ' + statusMarkup;
 
-        if (statusMarkup.includes('No Match')) {
-            // TODO: fix colors to go with themes
-            statusBarItem.color = 'red';
-        } else {
-            statusBarItem.color = 'green';
-        }
+        statusBarItem.color = statusMarkup.includes('No Match')
+            ? new vscode.ThemeColor('errorForeground')
+            : new vscode.ThemeColor('editorInfo.foreground');
 
         statusBarItem.show();
     } else {
