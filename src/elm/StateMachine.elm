@@ -1,5 +1,6 @@
-port module StateMachine exposing (Flags, Labels, Model, Msg(..), activeChanged, addKeyToStatus, clearStatus, exit, getLabels, init, key, labelJumped, main, modelAndJumped, modelAndStatus, reset, resetKeys, resetStatus, setNoMatchStatus, statusChanged, turnOff, turnOn, update, validKeyEntered)
+port module StateMachine exposing (Flags, Labels, Model, Msg(..), activeChanged, exit, getLabels, init, key, labelJumped, main, modelAndJumped, modelAndStatus, reset, resetKeys, statusChanged, turnOff, turnOn, update, validKeyEntered)
 
+import AtomStatusFunctions exposing (addKeyToStatus, clearStatus, resetStatus, setNoMatchStatus)
 import Char
 import List exposing (any)
 import String exposing (length, startsWith)
@@ -89,34 +90,6 @@ init _ =
     )
 
 
-
--- ----------------------------------- Statuses
-
-
-clearStatus : Model -> Model
-clearStatus model =
-    { model | status = "" }
-
-
-resetStatus : Model -> Model
-resetStatus model =
-    { model | status = "<div id='status-bar-jumpy'>Jumpy: <span class='status'>Jump Mode!</span></div>" }
-
-
-setNoMatchStatus : Model -> Model
-setNoMatchStatus model =
-    { model | status = "<div id='status-bar-jumpy' class='no-match'>Jumpy: <span>No Match! 😞</span></div>" }
-
-
-addKeyToStatus : String -> Model -> Model
-addKeyToStatus keyEntered model =
-    { model | status = "<div id='status-bar-jumpy'>Jumpy: <span class='status'>" ++ keyEntered ++ "</span></div>" }
-
-
-
--- ----------------------------------- Statuses
-
-
 resetKeys : Model -> Model
 resetKeys model =
     { model | keysEntered = "" }
@@ -126,7 +99,7 @@ turnOff : Model -> Model
 turnOff model =
     { model | active = False }
         |> resetKeys
-        |> clearStatus
+        |> (\m -> { m | status = clearStatus })
 
 
 modelAndStatus : Model -> ( Model, Cmd Msg )
@@ -154,7 +127,7 @@ modelAndJumped model =
 turnOn : Model -> Model
 turnOn model =
     { model | active = True }
-        |> resetStatus
+        |> (\m -> { m | status = resetStatus })
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -175,7 +148,7 @@ update msg model =
             if model.active then
                 if not keysEnteredMatch then
                     model
-                        |> setNoMatchStatus
+                        |> (\m -> { m | status = setNoMatchStatus })
                         |> modelAndStatus
 
                 else
@@ -183,7 +156,7 @@ update msg model =
                         0 ->
                             -- FIRST LETTER ----------
                             { model | keysEntered = newKeysEntered }
-                                |> addKeyToStatus keyEntered
+                                |> (\m -> { m | status = addKeyToStatus keyEntered })
                                 |> modelAndStatus
 
                         1 ->
@@ -202,7 +175,7 @@ update msg model =
             if model.active then
                 model
                     |> resetKeys
-                    |> resetStatus
+                    |> (\m -> { m | status = resetStatus })
                     |> modelAndStatus
 
             else
