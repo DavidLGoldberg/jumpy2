@@ -1,8 +1,7 @@
 module TestsAtom exposing (suite)
 
 import Expect exposing (Expectation)
-import Fuzz exposing (Fuzzer, int, list, string)
-import StateMachine exposing (Model, Msg(..), resetKeys, update)
+import StateMachineAtom exposing (Msg(..), resetKeys, update)
 import Test exposing (..)
 
 

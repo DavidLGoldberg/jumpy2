@@ -2,12 +2,12 @@ default: elm typescript
 
 elm:
 	# add target for `npm install uglify-js` or -g?
-	node_modules/elm/bin/elm make src/elm/StateMachine.elm --output=out/elm/StateMachine.js --optimize
-	node_modules/uglify-js/bin/uglifyjs out/elm/StateMachine.js --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' | node_modules/uglify-js/bin/uglifyjs --mangle --output=out/elm/StateMachine.js
+	node_modules/elm/bin/elm make src/elm/StateMachineAtom.elm --output=out/elm/StateMachineAtom.js --optimize
+	node_modules/uglify-js/bin/uglifyjs out/elm/StateMachineAtom.js --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' | node_modules/uglify-js/bin/uglifyjs --mangle --output=out/elm/StateMachineAtom.js
 	node_modules/elm-test/bin/elm-test
 
 elm-debug:
-	node_modules/elm/bin/elm make src/elm/StateMachine.elm --output=out/elm/StateMachine.js
+	node_modules/elm/bin/elm make src/elm/StateMachineAtom.elm --output=out/elm/StateMachineAtom.js
 	# add target for `npm install -g elm-test` or not -g?
 	node_modules/elm-test/bin/elm-test
 

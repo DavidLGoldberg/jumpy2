@@ -1,4 +1,4 @@
-port module StateMachine exposing (Flags, Labels, Model, Msg(..), activeChanged, exit, getLabels, init, key, labelJumped, main, modelAndJumped, modelAndStatus, reset, resetKeys, statusChanged, turnOff, turnOn, update, validKeyEntered)
+port module StateMachineAtom exposing (Flags, Labels, Model, Msg(..), activeChanged, exit, getLabels, init, key, labelJumped, main, modelAndJumped, modelAndStatus, reset, resetKeys, statusChanged, turnOff, turnOn, update, validKeyEntered)
 
 import AtomStatusFunctions exposing (addKeyToStatus, clearStatus, resetStatus, setNoMatchStatus)
 import Char

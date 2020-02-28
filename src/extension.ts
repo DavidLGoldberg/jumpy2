@@ -2,14 +2,14 @@ import * as vscode from 'vscode';
 import * as _ from 'lodash';
 // @ts-ignore
 // import * as elmApp from './elm/StateMachine';
-import * as elmApp from '../out/elm/StateMachine';
+import * as elmApp from '../out/elm/StateMachineAtom';
 import { LabelEnvironment, Label } from './label-interface';
 import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
 import labelReducer from './label-reducer';
 import { getKeySet, getAllKeys } from './keys';
 
-const stateMachine = elmApp.Elm.StateMachine.init();
+const stateMachine = elmApp.Elm.StateMachineAtom.init();
 let isJumpMode = false; // TODO: change with state machine i guess.
 
 const statusBarItem: vscode.StatusBarItem = vscode.window.createStatusBarItem(
