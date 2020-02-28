@@ -50,6 +50,14 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
 stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
     if (statusMarkup) {
         statusBarItem.text = 'Jumpy: ' + statusMarkup;
+
+        if (statusMarkup.includes('No Match')) {
+            // TODO: fix colors to go with themes
+            statusBarItem.color = 'red';
+        } else {
+            statusBarItem.color = 'green';
+        }
+
         statusBarItem.show();
     } else {
         statusBarItem.hide();
