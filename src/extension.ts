@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import * as _ from 'lodash';
 // @ts-ignore
 // import * as elmApp from './elm/StateMachineVSC';
 import * as elmApp from '../out/elm/StateMachineVSC';
@@ -17,6 +16,12 @@ const statusBarItem: vscode.StatusBarItem = vscode.window.createStatusBarItem(
     1000
 );
 
+// This is GROSS but ...YOLO.
+// This is a global, deal with it.
+declare var allLabels: Array<Label>;
+// @ts-ignore
+globalThis.allLabels = Array<Label>();
+
 // Subscribe:
 stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
     console.log('valid key entered', keyLabel);
@@ -32,20 +37,18 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
     // currentLabels = labelReducer(currentLabels, keyLabel);
 });
 
-// stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
-//     // TODO: change this to get rid of lodash in this file!
-//     _.find(currentLabels, label => label.keyLabel === keyLabel).jump();
-// });
+stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
+    const foundLabel = allLabels.find(label => label.keyLabel === keyLabel);
+    if (foundLabel) {
+        foundLabel.jump();
+    }
+});
 
-// Why did I ever have this? I can probably remove it...Maybe it was sort of an ack back for race conditions...
-// stateMachine.ports.activeChanged.subscribe((active: boolean) => {
-//     this.active = active;
-
-//     if (!this.active) {
-//         this.turnOffListeners();
-//         this.clearJumpMode();
-//     }
-// });
+stateMachine.ports.activeChanged.subscribe((active: boolean) => {
+    if (!active) {
+        _clear();
+    }
+});
 
 stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
     if (statusMarkup) {
@@ -77,7 +80,7 @@ function enterJumpMode() {
 
     const wordLabels: Array<Label> = getWordLabels(environment);
     // Atom architecture (copied here) allows for other label providers:
-    const allLabels: Array<Label> = [...wordLabels];
+    allLabels.push(...wordLabels);
     stateMachine.ports.getLabels.send(
         allLabels
             // TODO: make sure if this line makes sense here.
@@ -105,17 +108,15 @@ function toggle() {
     }
 }
 
-function handleKey(key: string) {
-    console.log(key);
+function sendKey(key: string) {
     stateMachine.ports.key.send(key.charCodeAt(0));
 }
 
 function reset() {
-    console.log('reset is called');
     stateMachine.ports.reset.send(null);
 }
 
-function clear() {
+function _clear() {
     isJumpMode = false;
     vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', false);
 
@@ -124,6 +125,9 @@ function clear() {
     if (editor) {
         editor.setDecorations(wordLabelDecorationType, []);
     }
+}
+
+function clear() {
     stateMachine.ports.exit.send(null);
 }
 
@@ -140,12 +144,12 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.concat(
         lowerCharacters
             .concat(upperCharacters)
-            .map(chr => registerCommand('jumpy.' + chr, () => handleKey(chr)))
+            .map(chr => registerCommand('jumpy.' + chr, () => sendKey(chr)))
     );
 }
 
 export function deactivate() {
-    clear();
+    _clear();
 
     statusBarItem.dispose();
 

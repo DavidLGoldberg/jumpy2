@@ -38,7 +38,16 @@ class WordLabel implements Label {
 
     animateBeacon() {}
 
-    jump() {}
+    jump() {
+        if (this.textEditor) {
+            this.textEditor.selection = new vscode.Selection(
+                this.lineNumber,
+                this.column,
+                this.lineNumber,
+                this.column
+            );
+        }
+    }
 }
 
 const labeler: Labeler = function(env: LabelEnvironment): Array<WordLabel> {
