@@ -84,12 +84,7 @@ function enterJumpMode() {
     const wordLabels: Array<Label> = getWordLabels(environment);
     // Atom architecture (copied here) allows for other label providers:
     allLabels.push(...wordLabels);
-    stateMachine.ports.getLabels.send(
-        allLabels
-            // TODO: make sure if this line makes sense here.
-            // .filter(label => label.keyLabel) // ie. tabs open after limit reached
-            .map(label => label.keyLabel)
-    );
+    stateMachine.ports.getLabels.send(allLabels.map(label => label.keyLabel));
 
     const decorations: vscode.DecorationOptions[] = allLabels.map(label =>
         label.getDecoration()
