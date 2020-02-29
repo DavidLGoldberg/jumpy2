@@ -19,6 +19,7 @@ const statusBarItem: vscode.StatusBarItem = vscode.window.createStatusBarItem(
 // This is GROSS but ...YOLO.
 // This is a global, deal with it.
 declare var allLabels: Array<Label>;
+// TODO: Can I just move this down below instead of the clear array?
 // @ts-ignore
 globalThis.allLabels = Array<Label>();
 
@@ -77,6 +78,8 @@ function enterJumpMode() {
             wordsPattern: new RegExp('([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}', 'g'),
         },
     };
+
+    allLabels.length = 0; // Clear the array from previous runs.
 
     const wordLabels: Array<Label> = getWordLabels(environment);
     // Atom architecture (copied here) allows for other label providers:
