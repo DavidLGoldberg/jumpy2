@@ -10,8 +10,7 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:jumpy.toggle",
-        "onCommand:jumpy.reset"
+        "onCommand:jumpy.toggle"
     ],
     "main": "./out/extension.js",
     "contributes": {
