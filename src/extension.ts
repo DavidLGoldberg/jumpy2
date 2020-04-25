@@ -53,7 +53,10 @@ stateMachine.ports.activeChanged.subscribe((active: boolean) => {
 
 stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
     if (statusMarkup) {
-        statusBarItem.text = 'Jumpy: ' + statusMarkup;
+        // cycle between the frog, rabbit, kangaroo, monkey
+        // easter eggs for christmas
+        // magic mushroom? mario noise?
+        statusBarItem.text = '🐰 Jumpy: ' + statusMarkup;
 
         statusBarItem.color = statusMarkup.includes('No Match')
             ? new vscode.ThemeColor('errorForeground')
