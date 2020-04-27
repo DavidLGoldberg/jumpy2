@@ -129,24 +129,45 @@ function _clear() {
 }
 
 function clear() {
+    console.log('1111clear is called');
     stateMachine.ports.exit.send(null);
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    const registerCommand = vscode.commands.registerCommand;
+    const { subscriptions } = context;
+    const { registerCommand } = vscode.commands;
 
-    context.subscriptions.push(
+    subscriptions.push(
         registerCommand('jumpy.toggle', toggle),
         registerCommand('jumpy.reset', reset),
         registerCommand('jumpy.clear', clear)
     );
 
     const { lowerCharacters, upperCharacters } = getAllKeys([]);
-    context.subscriptions.concat(
+    // ! TODO: I need to get this to send key only when jumpy is open duh!!!
+    // ! right now at least broken when things like cmd+p ruin focus etc.
+    subscriptions.concat(
         lowerCharacters
             .concat(upperCharacters)
-            .map(chr => registerCommand('jumpy.' + chr, () => sendKey(chr)))
+            .map((chr) => registerCommand('jumpy.' + chr, () => sendKey(chr)))
     );
+
+    const events = [
+        vscode.window.onDidChangeActiveTerminal,
+        vscode.window.onDidChangeActiveTextEditor,
+        vscode.window.onDidChangeTextEditorOptions,
+        vscode.window.onDidChangeTextEditorSelection,
+        vscode.window.onDidChangeTextEditorViewColumn,
+        vscode.window.onDidChangeTextEditorVisibleRanges,
+        vscode.window.onDidChangeVisibleTextEditors,
+        vscode.window.onDidChangeWindowState,
+        vscode.window.onDidCloseTerminal,
+        vscode.window.onDidOpenTerminal,
+        vscode.workspace.onDidChangeTextDocument,
+        vscode.workspace.onDidOpenTextDocument,
+    ];
+
+    subscriptions.push(...events.map((event) => event(() => clear())));
 }
 
 export function deactivate() {
