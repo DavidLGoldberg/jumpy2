@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+import * as _ from 'lodash';
+
 // @ts-ignore
 // import * as elmApp from './elm/StateMachineVSC';
 import * as elmApp from '../out/elm/StateMachineVSC';
@@ -53,10 +55,16 @@ stateMachine.ports.activeChanged.subscribe((active: boolean) => {
 
 stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
     if (statusMarkup) {
-        // cycle between the frog, rabbit, kangaroo, monkey
+        // TODO: Move to config:
+        const jumpers = ['🐒', '🐸', '🐬', '🦗', '🕷️', '🐰', '🦘'];
+
+        // Cycle between the jumpers!
+        const jumperPrefix = _.sample(jumpers) + ' ';
+
+        // TODO:
         // easter eggs for christmas
         // magic mushroom? mario noise?
-        statusBarItem.text = '🐰 Jumpy: ' + statusMarkup;
+        statusBarItem.text = `${jumperPrefix}Jumpy: ${statusMarkup}`;
 
         statusBarItem.color = statusMarkup.includes('No Match')
             ? new vscode.ThemeColor('errorForeground')
