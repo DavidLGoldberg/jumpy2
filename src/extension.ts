@@ -58,11 +58,21 @@ stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
         // TODO: Move to config:
         const jumpers = ['🐒', '🐸', '🐬', '🦗', '🕷️', '🐰', '🦘'];
 
-        // Cycle between the jumpers!
-        const jumperPrefix = _.sample(jumpers) + ' ';
+        const date = new Date();
+        const today = `${date.getMonth() + 1}/${date.getDate()}`;
+
+        // Cycle between the jumpers! Add in Holiday cheer!
+        const holidayEmojis: Record<string, string[]> = {
+            '1/1': ['🎉', '🥳'],
+            '10/31': ['🎃', '👻', '🍬', '🔮', '🕸️', '🧛', '🧟'],
+            '12/25': ['🎄', '⛄'],
+        };
+        const todaysEmojis: string[] = holidayEmojis[today] || [];
+        const jumperPrefix = todaysEmojis.length
+            ? _.sample(todaysEmojis) + ' '
+            : _.sample(jumpers) + ' ';
 
         // TODO:
-        // easter eggs for christmas
         // magic mushroom? mario noise?
         statusBarItem.text = `${jumperPrefix}Jumpy: ${statusMarkup}`;
 
