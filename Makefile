@@ -17,9 +17,8 @@ typescript:
 	# for now typescript gets built with atom-typescript.
 
 graph:
-	# *** needs work for vs code ***
 	# make graph (svg) of architecture
-	node_modules/madge/bin/cli.js --image graph.svg ./dist
+	npx madge --image ./.madge/graph.svg ./out
 
 test:
 	# *** needs work for vs code ***
@@ -28,4 +27,4 @@ test:
 
 count:
 	# *** needs work for vs code ***
-	rg --files | grep -v \.js$ | grep -v dist | grep -v \.png$ | grep -v \.gif$ | grep -v package-lock.json | xargs wc -l | sort -n
+	rg --files | grep -v \.js$ | grep -v out | grep -v \.png$ | grep -v \.gif$ | grep -v package-lock.json | xargs wc -l | sort -n

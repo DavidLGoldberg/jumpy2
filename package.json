@@ -323,11 +323,12 @@
         "@types/node": "^10.12.21",
         "@types/vscode": "^1.38.0",
         "glob": "^7.1.4",
+        "madge": "^4.0.0",
         "mocha": "^6.1.4",
-        "typescript": "^3.3.1",
         "tslint": "^5.12.1",
-        "vscode-test": "^1.0.2",
-        "uglify-js": "^3.8.0"
+        "typescript": "^3.3.1",
+        "uglify-js": "^3.8.0",
+        "vscode-test": "^1.0.2"
     },
     "dependencies": {
         "@types/lodash": "4.14.141",
