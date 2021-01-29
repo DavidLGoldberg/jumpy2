@@ -21,9 +21,8 @@ graph:
 	npx madge --image ./.madge/graph.svg ./out
 
 test:
-	# *** needs work for vs code ***
 	node_modules/elm-test/bin/elm-test
-	apm test
+	# TODO: Test vs code side
 
 count:
 	# *** needs work for vs code ***
