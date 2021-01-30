@@ -101,7 +101,7 @@ in key settings (TODO tell how to get here):
     {
         "key": "backspace",
         "command": "jumpy.reset",
-        "when": "jumpy.jump-mode"
+        "when": "jumpy.jump-mode && editorTextFocus"
     }
 
     // Set more useful backspace, shift+backspace back and forward functionality (especially for Jumpy!)

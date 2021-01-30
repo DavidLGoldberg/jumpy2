@@ -31,282 +31,283 @@
         "keybindings": [
             {
                 "command": "jumpy.toggle",
-                "key": "shift+enter"
+                "key": "shift+enter",
+                "when": "editorTextFocus"
             },
             {
                 "command": "jumpy.clear",
                 "key": "enter",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.clear",
                 "key": "escape",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.clear",
                 "key": "space",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.a",
                 "key": "a",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.b",
                 "key": "b",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.c",
                 "key": "c",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.d",
                 "key": "d",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.e",
                 "key": "e",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.f",
                 "key": "f",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.g",
                 "key": "g",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.h",
                 "key": "h",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.i",
                 "key": "i",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.j",
                 "key": "j",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.k",
                 "key": "k",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.l",
                 "key": "l",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.m",
                 "key": "m",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.n",
                 "key": "n",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.o",
                 "key": "o",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.p",
                 "key": "p",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.q",
                 "key": "q",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.r",
                 "key": "r",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.s",
                 "key": "s",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.t",
                 "key": "t",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.u",
                 "key": "u",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.v",
                 "key": "v",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.w",
                 "key": "w",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.x",
                 "key": "x",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.y",
                 "key": "y",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.z",
                 "key": "z",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.A",
                 "key": "shift+a",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.B",
                 "key": "shift+b",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.C",
                 "key": "shift+c",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.D",
                 "key": "shift+d",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.E",
                 "key": "shift+e",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.F",
                 "key": "shift+f",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.G",
                 "key": "shift+g",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.H",
                 "key": "shift+h",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.I",
                 "key": "shift+i",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.J",
                 "key": "shift+j",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.K",
                 "key": "shift+k",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.L",
                 "key": "shift+l",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.M",
                 "key": "shift+m",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.N",
                 "key": "shift+n",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.O",
                 "key": "shift+o",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.P",
                 "key": "shift+p",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.Q",
                 "key": "shift+q",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.R",
                 "key": "shift+r",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.S",
                 "key": "shift+s",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.T",
                 "key": "shift+t",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.U",
                 "key": "shift+u",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.V",
                 "key": "shift+v",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.W",
                 "key": "shift+w",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.X",
                 "key": "shift+x",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.Y",
                 "key": "shift+y",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             },
             {
                 "command": "jumpy.Z",
                 "key": "shift+z",
-                "when": "jumpy.jump-mode"
+                "when": "jumpy.jump-mode && editorTextFocus"
             }
         ]
     },
