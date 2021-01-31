@@ -45,7 +45,7 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
 });
 
 stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
-    const foundLabel = allLabels.find(label => label.keyLabel === keyLabel);
+    const foundLabel = allLabels.find((label) => label.keyLabel === keyLabel);
     if (foundLabel) {
         foundLabel.jump();
     }
@@ -151,7 +151,6 @@ function _clear() {
 }
 
 function clear() {
-    console.log('1111clear is called');
     stateMachine.ports.exit.send(null);
 }
 

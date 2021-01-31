@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import { TextEditor, DecorationOptions } from 'vscode';
 
 export interface LabelEnvironment {
     keys: Array<string>;
@@ -7,9 +7,9 @@ export interface LabelEnvironment {
 
 export interface Label {
     keyLabel: string;
-    textEditor: vscode.TextEditor | undefined;
+    textEditor: TextEditor | undefined;
     settings: any;
-    getDecoration(): vscode.DecorationOptions;
+    getDecoration(): DecorationOptions;
     animateBeacon(input: any): void;
     jump(): void;
     destroy(): void;
