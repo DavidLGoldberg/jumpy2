@@ -1,5 +1,3 @@
-'use babel';
-
 import * as vscode from 'vscode';
 import { LabelEnvironment, Label, Labeler } from '../label-interface';
 import { Range, Position } from 'vscode';
@@ -10,7 +8,7 @@ class WordLabel implements Label {
     lineNumber!: number;
     column!: number;
     settings: any;
-    marker!: vscode.Range;
+    marker!: Range;
 
     destroy() {}
 
@@ -38,8 +36,17 @@ class WordLabel implements Label {
 
     animateBeacon() {}
 
-    jump() {
+    async jump() {
         if (this.textEditor) {
+            if (this.textEditor !== vscode.window.activeTextEditor) {
+                await vscode.window.showTextDocument(
+                    this.textEditor.document.uri,
+                    {
+                        preview: false,
+                        viewColumn: this.textEditor.viewColumn,
+                    }
+                );
+            }
             this.textEditor.selection = new vscode.Selection(
                 this.lineNumber,
                 this.column,
@@ -50,10 +57,12 @@ class WordLabel implements Label {
     }
 }
 
-const labeler: Labeler = function(env: LabelEnvironment): Array<WordLabel> {
+const labeler: Labeler = function (
+    env: LabelEnvironment,
+    editor: vscode.TextEditor
+): Array<WordLabel> {
     const labels: Array<WordLabel> = [];
 
-    const editor = vscode.window.activeTextEditor;
     if (editor) {
         const visibleRanges = editor.visibleRanges;
         const document = editor.document;

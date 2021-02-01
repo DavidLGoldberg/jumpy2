@@ -32,6 +32,8 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
     // This is only here for the label reducer right?
     console.log('valid key entered', keyLabel);
 
+    // ---------------------------------------------------------------------
+    // TODO: I still need to do this (irrelevant label cleanup) ------------
     // for (const label of drawnLabels) {
     //     if (!label.keyLabel || !label.element) {
     //         continue;
@@ -42,6 +44,7 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
     // }
 
     // currentLabels = labelReducer(currentLabels, keyLabel);
+    // ---------------------------------------------------------------------
 });
 
 stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
@@ -106,21 +109,21 @@ function enterJumpMode() {
 
     allLabels.length = 0; // Clear the array from previous runs.
 
-    const wordLabels: Array<Label> = getWordLabels(environment);
-    // Atom architecture (copied here) allows for other label providers:
-    allLabels.push(...wordLabels);
-    stateMachine.ports.getLabels.send(allLabels.map(label => label.keyLabel));
+    const editors = vscode.window.visibleTextEditors;
 
-    const decorations: vscode.DecorationOptions[] = allLabels.map(label =>
-        label.getDecoration()
-    );
+    editors.forEach((editor) => {
+        // Atom architecture (copied here) allows for other label providers:
+        allLabels = [...allLabels, ...getWordLabels(environment, editor)];
+        stateMachine.ports.getLabels.send(
+            allLabels.map((label) => label.keyLabel)
+        );
 
-    // TODO: This will eventually have to be for each, or some kind of observer.
-    const editor = vscode.window.activeTextEditor;
+        const decorations: vscode.DecorationOptions[] = allLabels.map((label) =>
+            label.getDecoration()
+        );
 
-    if (editor) {
         editor.setDecorations(wordLabelDecorationType, decorations);
-    }
+    });
 }
 
 function toggle() {
@@ -143,11 +146,12 @@ function _clear() {
     isJumpMode = false;
     vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', false);
 
-    const editor = vscode.window.activeTextEditor;
-    // TODO: change for each editors
-    if (editor) {
-        editor.setDecorations(wordLabelDecorationType, []);
-    }
+    const editors = vscode.window.visibleTextEditors;
+    editors.forEach((editor) => {
+        if (editor) {
+            editor.setDecorations(wordLabelDecorationType, []);
+        }
+    });
 }
 
 function clear() {
