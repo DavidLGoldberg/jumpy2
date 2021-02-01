@@ -94,17 +94,16 @@ function enterJumpMode() {
 
     editors.forEach((editor) => {
         // Atom architecture (copied here) allows for other label providers:
-        allLabels = [...allLabels, ...getWordLabels(environment, editor)];
-        stateMachine.ports.getLabels.send(
-            allLabels.map((label) => label.keyLabel)
-        );
+        const editorLabels = getWordLabels(environment, editor);
+        allLabels = [...allLabels, ...editorLabels];
 
-        const decorations: vscode.DecorationOptions[] = allLabels.map((label) =>
-            label.getDecoration()
+        const decorations: vscode.DecorationOptions[] = editorLabels.map(
+            (label) => label.getDecoration()
         );
 
         editor.setDecorations(wordLabelDecorationType, decorations);
     });
+    stateMachine.ports.getLabels.send(allLabels.map((label) => label.keyLabel));
 }
 
 function toggle() {
