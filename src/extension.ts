@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import * as _ from 'lodash';
 
 // @ts-ignore
 // import * as elmApp from './elm/StateMachineVSC';
@@ -8,6 +7,7 @@ import { LabelEnvironment, Label } from './label-interface';
 import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
 import labelReducer from './label-reducer';
+import statusPrinter from './statusPrinter';
 import { getKeySet, getAllKeys } from './keys';
 
 const stateMachine = elmApp.Elm.StateMachineVSC.init();
@@ -62,26 +62,7 @@ stateMachine.ports.activeChanged.subscribe((active: boolean) => {
 
 stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
     if (statusMarkup) {
-        // TODO: Move to config:
-        const jumpers = ['🐒', '🐸', '🐬', '🦗', '🕷️', '🐰', '🦘'];
-
-        const date = new Date();
-        const today = `${date.getMonth() + 1}/${date.getDate()}`;
-
-        // Cycle between the jumpers! Add in Holiday cheer!
-        const holidayEmojis: Record<string, string[]> = {
-            '1/1': ['🎉', '🥳'],
-            '10/31': ['🎃', '👻', '🍬', '🔮', '🕸️', '🧛', '🧟'],
-            '12/25': ['🎄', '⛄'],
-        };
-        const todaysEmojis: string[] = holidayEmojis[today] || [];
-        const jumperPrefix = todaysEmojis.length
-            ? _.sample(todaysEmojis) + ' '
-            : _.sample(jumpers) + ' ';
-
-        // TODO:
-        // magic mushroom? mario noise?
-        statusBarItem.text = `${jumperPrefix}Jumpy: ${statusMarkup}`;
+        statusBarItem.text = statusPrinter(statusMarkup);
 
         statusBarItem.color = statusMarkup.includes('No Match')
             ? new vscode.ThemeColor('errorForeground')
