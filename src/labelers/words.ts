@@ -61,6 +61,7 @@ const labeler: Labeler = function (
     env: LabelEnvironment,
     editor: vscode.TextEditor
 ): Array<WordLabel> {
+    const usedKeys = env.keys; // Intentionally mutate from calling env
     const labels: Array<WordLabel> = [];
 
     if (editor) {
@@ -72,9 +73,9 @@ const labeler: Labeler = function (
             let word: any;
             while (
                 (word = env.settings.wordsPattern.exec(line)) !== null &&
-                env.keys.length
+                usedKeys.length
             ) {
-                const keyLabel = env.keys.shift();
+                const keyLabel = usedKeys.shift();
 
                 const column = word.index;
                 const label = new WordLabel();

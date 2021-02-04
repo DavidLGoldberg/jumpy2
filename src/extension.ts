@@ -13,6 +13,11 @@ import { getKeySet, getAllKeys } from './keys';
 const stateMachine = elmApp.Elm.StateMachineVSC.init();
 let isJumpMode = false; // TODO: change with state machine i guess.
 
+//TODO: get custom keys from settings / config
+// keys: getKeySet(atom.config.get('jumpy.customKeys')),
+const keySet = getKeySet([]);
+const allKeys = getAllKeys([]);
+
 const statusBarItem: vscode.StatusBarItem = vscode.window.createStatusBarItem(
     vscode.StatusBarAlignment.Left,
     1000
@@ -79,9 +84,7 @@ function enterJumpMode() {
     vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
 
     const environment: LabelEnvironment = {
-        // keys: getKeySet(atom.config.get('jumpy.customKeys')),
-        //TODO: get custom keys from settings / config
-        keys: getKeySet([]),
+        keys: [...keySet],
         settings: {
             //TODO: get match from settings / config
             wordsPattern: new RegExp('([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}', 'g'),
@@ -90,9 +93,7 @@ function enterJumpMode() {
 
     allLabels.length = 0; // Clear the array from previous runs.
 
-    const editors = vscode.window.visibleTextEditors;
-
-    editors.forEach((editor) => {
+    vscode.window.visibleTextEditors.forEach((editor) => {
         // Atom architecture (copied here) allows for other label providers:
         const editorLabels = getWordLabels(environment, editor);
         allLabels = [...allLabels, ...editorLabels];
@@ -148,11 +149,10 @@ export function activate(context: vscode.ExtensionContext) {
         registerCommand('jumpy.clear', clear)
     );
 
-    const { lowerCharacters, upperCharacters } = getAllKeys([]);
     subscriptions.concat(
-        lowerCharacters
-            .concat(upperCharacters)
-            .map((chr) => registerCommand(`jumpy.${chr}`, () => sendKey(chr)))
+        [...allKeys.lowerCharacters, ...allKeys.upperCharacters].map((chr) =>
+            registerCommand(`jumpy.${chr}`, () => sendKey(chr))
+        )
     );
 
     const events = [

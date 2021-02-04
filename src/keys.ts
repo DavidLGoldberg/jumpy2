@@ -8,11 +8,11 @@ export function getAllKeys(customKeys: Array<string>) {
         lowerCharacters = _.range(
             'a'.charCodeAt(0),
             'z'.charCodeAt(0) + 1 /* for inclusive*/
-        ).map(c => String.fromCharCode(c));
+        ).map((c) => String.fromCharCode(c));
         upperCharacters = _.range(
             'A'.charCodeAt(0),
             'Z'.charCodeAt(0) + 1 /* for inclusive*/
-        ).map(c => String.fromCharCode(c));
+        ).map((c) => String.fromCharCode(c));
     } else {
         for (let key of customKeys) {
             lowerCharacters.push(key.toLowerCase());
@@ -20,7 +20,10 @@ export function getAllKeys(customKeys: Array<string>) {
         }
     }
 
-    return { lowerCharacters, upperCharacters };
+    return {
+        lowerCharacters: <ReadonlyArray<string>>lowerCharacters,
+        upperCharacters: <ReadonlyArray<string>>upperCharacters,
+    };
 }
 
 export function getKeySet(customKeys: Array<string>) {
@@ -48,6 +51,5 @@ export function getKeySet(customKeys: Array<string>) {
         }
     }
 
-    // TODO: use TS's ReadonlyArray?
-    return keys;
+    return <ReadonlyArray<string>>keys;
 }
