@@ -149,8 +149,6 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     const { lowerCharacters, upperCharacters } = getAllKeys([]);
-    // ! TODO: I need to get this to send key only when jumpy is open duh!!!
-    // ! right now at least broken when things like cmd+p ruin focus etc.
     subscriptions.concat(
         lowerCharacters
             .concat(upperCharacters)
