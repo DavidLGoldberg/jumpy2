@@ -152,7 +152,7 @@ export function activate(context: vscode.ExtensionContext) {
     subscriptions.concat(
         lowerCharacters
             .concat(upperCharacters)
-            .map((chr) => registerCommand('jumpy.' + chr, () => sendKey(chr)))
+            .map((chr) => registerCommand(`jumpy.${chr}`, () => sendKey(chr)))
     );
 
     const events = [
