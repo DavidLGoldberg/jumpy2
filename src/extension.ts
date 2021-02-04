@@ -6,7 +6,6 @@ import * as elmApp from '../out/elm/StateMachineVSC';
 import { LabelEnvironment, Label } from './label-interface';
 import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
-import labelReducer from './label-reducer';
 import statusPrinter from './statusPrinter';
 import { getKeySet, getAllKeys } from './keys';
 
@@ -37,19 +36,9 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
     // This is only here for the label reducer right?
     console.log('valid key entered', keyLabel);
 
-    // ---------------------------------------------------------------------
-    // TODO: I still need to do this (irrelevant label cleanup) ------------
-    // for (const label of drawnLabels) {
-    //     if (!label.keyLabel || !label.element) {
-    //         continue;
-    //     }
-    //     if (!label.keyLabel.startsWith(keyLabel)) {
-    //         label.element.classList.add('irrelevant');
-    //     }
-    // }
-
-    // currentLabels = labelReducer(currentLabels, keyLabel);
-    // ---------------------------------------------------------------------
+    if (keyLabel) {
+        _renderLabels(keyLabel);
+    }
 });
 
 stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
@@ -79,7 +68,7 @@ stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
     }
 });
 
-function _renderLabels() {
+function _renderLabels(enteredKey?: string) {
     const environment: LabelEnvironment = {
         keys: [...keySet],
         settings: {
@@ -95,9 +84,11 @@ function _renderLabels() {
         const editorLabels = getWordLabels(environment, editor);
         allLabels = [...allLabels, ...editorLabels];
 
-        const decorations: vscode.DecorationOptions[] = editorLabels.map(
-            (label) => label.getDecoration()
-        );
+        const decorations: vscode.DecorationOptions[] = editorLabels
+            .filter((label) =>
+                enteredKey ? label.keyLabel.startsWith(enteredKey) : true
+            )
+            .map((label) => label.getDecoration());
 
         editor.setDecorations(wordLabelDecorationType, decorations);
     });
@@ -120,11 +111,14 @@ function toggle() {
 }
 
 function sendKey(key: string) {
+    _clearLabels(); // Might be smoother if moved back in key press only
     stateMachine.ports.key.send(key.charCodeAt(0));
 }
 
 function reset() {
     stateMachine.ports.reset.send(null);
+    _clearLabels();
+    _renderLabels();
 }
 
 function _clearLabels() {
