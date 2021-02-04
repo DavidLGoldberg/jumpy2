@@ -79,10 +79,7 @@ stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
     }
 });
 
-function enterJumpMode() {
-    isJumpMode = true; // TODO: I hate this, but 'getContext' is not as straight forward
-    vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
-
+function _renderLabels() {
     const environment: LabelEnvironment = {
         keys: [...keySet],
         settings: {
@@ -104,6 +101,13 @@ function enterJumpMode() {
 
         editor.setDecorations(wordLabelDecorationType, decorations);
     });
+}
+
+function enterJumpMode() {
+    isJumpMode = true; // TODO: I hate this, but 'getContext' is not as straight forward
+    vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
+
+    _renderLabels();
     stateMachine.ports.getLabels.send(allLabels.map((label) => label.keyLabel));
 }
 
@@ -123,16 +127,16 @@ function reset() {
     stateMachine.ports.reset.send(null);
 }
 
+function _clearLabels() {
+    vscode.window.visibleTextEditors.forEach((editor) => {
+        editor.setDecorations(wordLabelDecorationType, []);
+    });
+}
+
 function _clear() {
     isJumpMode = false;
     vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', false);
-
-    const editors = vscode.window.visibleTextEditors;
-    editors.forEach((editor) => {
-        if (editor) {
-            editor.setDecorations(wordLabelDecorationType, []);
-        }
-    });
+    _clearLabels();
 }
 
 function clear() {
