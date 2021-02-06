@@ -71,11 +71,14 @@ stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
 
 function _renderLabels(enteredKey?: string) {
     // TODO: Clean this up a bit? Do I need to only call this once, or is it efficient / cached
-    // TODO: Also, turn this into a regex as opposed to a string
+    // Intentionally not using "pattern" type although it does exist.
+    // It didn't facilitate adding in a regex when I tried,
+    // and forced the user to leave the settings UI.
     const wordPattern: string | undefined = vscode.workspace
         .getConfiguration('jumpy2')
         .get('wordPattern');
 
+    // TODO: another refactor to handle any "labeler" would be necessary this func ^ is too word centric atm.  As opposed to the last iteration of the Atom architecture
     if (!wordPattern) {
         return;
     }
@@ -162,6 +165,11 @@ export function activate(context: vscode.ExtensionContext) {
         )
     );
 
+    /* NOTE: Effectively I want "all" events.  I don't think such an event exists,
+    and even if it did it wouldn't be future proof. Luckily, things like command pallette,
+    finds, etc...work nicely with jumpy atm, despite not clearing them.
+    Instead, upon exit of these you can resume where Jumpy left off! */
+    // TODO: Refactor out vscode
     const events = [
         vscode.window.onDidChangeActiveTerminal,
         vscode.window.onDidChangeActiveTextEditor,
