@@ -5,8 +5,7 @@ function getWidth() {
     const retrievedFontSize: number | undefined = editorConfig.get<number>(
         'fontSize'
     );
-    const fontSize = retrievedFontSize ? retrievedFontSize : 10;
-    return fontSize;
+    return retrievedFontSize ? retrievedFontSize : 10;
 }
 
 const width = getWidth();
