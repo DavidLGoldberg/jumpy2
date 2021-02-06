@@ -70,11 +70,20 @@ stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
 });
 
 function _renderLabels(enteredKey?: string) {
+    // TODO: Clean this up a bit? Do I need to only call this once, or is it efficient / cached
+    // TODO: Also, turn this into a regex as opposed to a string
+    const wordPattern: string | undefined = vscode.workspace
+        .getConfiguration('jumpy2')
+        .get('wordPattern');
+
+    if (!wordPattern) {
+        return;
+    }
+
     const environment: LabelEnvironment = {
         keys: [...keySet],
         settings: {
-            //TODO: get match from settings / config
-            wordsPattern: new RegExp('([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}', 'g'),
+            wordsPattern: new RegExp(wordPattern, 'g'),
         },
     };
 
