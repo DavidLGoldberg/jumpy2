@@ -37,6 +37,7 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
     console.log('valid key entered', keyLabel);
 
     if (keyLabel) {
+        _clearLabels();
         _renderLabels(keyLabel);
     }
 });
@@ -111,7 +112,6 @@ function toggle() {
 }
 
 function sendKey(key: string) {
-    _clearLabels(); // Might be smoother if moved back in key press only
     stateMachine.ports.key.send(key.charCodeAt(0));
 }
 
