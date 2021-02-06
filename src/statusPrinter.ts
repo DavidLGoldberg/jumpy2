@@ -1,6 +1,6 @@
 import { sample } from 'lodash';
 
-export default function statusPrinter(statusMarkup: string) {
+function getJumper(): string {
     // TODO: Move to config:
     const jumpers = ['🐒', '🐸', '🐬', '🦗', '🕷️', '🐰', '🦘'];
 
@@ -13,13 +13,18 @@ export default function statusPrinter(statusMarkup: string) {
         '10/31': ['🎃', '👻', '🍬', '🔮', '🕸️', '🧛', '🧟'],
         '12/25': ['🎄', '⛄'],
     };
+
     const todaysEmojis: string[] = holidayEmojis[today] || [];
-    const jumperPrefix = todaysEmojis.length
+
+    return todaysEmojis.length
         ? sample(todaysEmojis) + ' '
         : sample(jumpers) + ' ';
 
     // TODO:
     // magic mushroom? mario noise?
+}
 
-    return `${jumperPrefix}Jumpy: ${statusMarkup}`;
+export default function statusPrinter(statusMarkup: string) {
+    const useJumperEmoji = true; // TODO: Move to config:
+    return `${useJumperEmoji ? getJumper() : ''}Jumpy: ${statusMarkup}`;
 }
