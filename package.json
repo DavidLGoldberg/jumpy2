@@ -41,6 +41,11 @@
                     "type": "string",
                     "default": "([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}",
                     "description": "Regex pattern for Jumpy2 to use in text editors."
+                },
+                "jumpy2.jumperEmojis.active": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether or not Jumpy2 will display an emoji 'jumper' on activate!"
                 }
             }
         },

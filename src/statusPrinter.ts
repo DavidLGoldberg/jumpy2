@@ -1,4 +1,5 @@
 import { sample } from 'lodash';
+import { workspace } from 'vscode';
 
 function getJumper(): string {
     // TODO: Move to config:
@@ -25,6 +26,9 @@ function getJumper(): string {
 }
 
 export default function statusPrinter(statusMarkup: string) {
-    const useJumperEmoji = true; // TODO: Move to config:
+    const useJumperEmoji = workspace
+        .getConfiguration('jumpy2')
+        .get('jumperEmojis.active');
+
     return `${useJumperEmoji ? getJumper() : ''}Jumpy: ${statusMarkup}`;
 }
