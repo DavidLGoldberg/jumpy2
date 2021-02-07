@@ -1,7 +1,7 @@
-import * as vscode from 'vscode';
+import { DecorationRangeBehavior, ThemeColor, window, workspace } from 'vscode';
 
 function getWidth() {
-    const editorConfig = vscode.workspace.getConfiguration('editor', null);
+    const editorConfig = workspace.getConfiguration('editor', null);
     const retrievedFontSize: number | undefined = editorConfig.get<number>(
         'fontSize'
     );
@@ -10,20 +10,32 @@ function getWidth() {
 
 const width = getWidth();
 
-const wordLabelDecorationType = vscode.window.createTextEditorDecorationType({
+// Theme color  options from package.json's `contributes.colors`:
+const labelBackgroundColor = new ThemeColor('jumpy2.labelBackgroundColor');
+const labelFontColor = new ThemeColor('jumpy2.labelFontColor');
+
+// TODO: add a "high contrast" color as well
+const wordLabelDecorationType = window.createTextEditorDecorationType({
     after: {
         textDecoration: 'none',
         margin: `0 2px 0 ${-width - 2}px`,
         width: `${width}px`,
+        fontWeight: 'bold', // TODO: Evaluate ...is this good...or ...option?
     },
     opacity: '0',
     light: {
-        backgroundColor: 'gray',
+        backgroundColor: labelBackgroundColor, // TODO: find better vs code values (in package.json)
+        after: {
+            color: labelFontColor, // TODO: find better vs code values (in package.json)
+        },
     },
     dark: {
-        backgroundColor: 'green',
+        backgroundColor: labelBackgroundColor, // TODO: find better vs code values (in package.json)
+        after: {
+            color: labelFontColor, // TODO: find better vs code values (in package.json)
+        },
     },
-    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
+    rangeBehavior: DecorationRangeBehavior.ClosedClosed,
 });
 
 export default wordLabelDecorationType;

@@ -20,6 +20,7 @@ class WordLabel implements Label {
             new Position(lineNumber, column + 2)
         );
 
+        // TODO: TEST! Do I need a light mode? (probably)
         const decoration = {
             range: this.marker,
             renderOptions: {
