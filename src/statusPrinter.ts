@@ -3,7 +3,9 @@ import { workspace } from 'vscode';
 
 function getJumper(): string {
     // TODO: Move to config:
-    const jumpers = ['🐒', '🐸', '🐬', '🦗', '🕷️', '🐰', '🦘'];
+    const jumpers: Array<string> | undefined = workspace
+        .getConfiguration('jumpy2')
+        .get('jumperEmojis.jumperSet');
 
     const date = new Date();
     const today = `${date.getMonth() + 1}/${date.getDate()}`;
@@ -21,8 +23,7 @@ function getJumper(): string {
         ? sample(todaysEmojis) + ' '
         : sample(jumpers) + ' ';
 
-    // TODO:
-    // magic mushroom? mario noise?
+    // TODO: magic mushroom? mario noise? (achievements, etc)
 }
 
 export default function statusPrinter(statusMarkup: string) {
@@ -30,5 +31,9 @@ export default function statusPrinter(statusMarkup: string) {
         .getConfiguration('jumpy2')
         .get('jumperEmojis.active');
 
-    return `${useJumperEmoji ? getJumper() : ''}Jumpy: ${statusMarkup}`;
+    const jumper = getJumper();
+
+    return `${
+        useJumperEmoji && jumper !== '' ? jumper : ''
+    }Jumpy: ${statusMarkup}`;
 }

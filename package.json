@@ -46,6 +46,19 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Whether or not Jumpy2 will display an emoji 'jumper' on activate!"
+                },
+                "jumpy2.jumperEmojis.jumperSet": {
+                    "type": "array",
+                    "default": [
+                        "🐒",
+                        "🐸",
+                        "🐬",
+                        "🦗",
+                        "🕷️",
+                        "🐰",
+                        "🦘"
+                    ],
+                    "description": "Whether or not Jumpy2 will display an emoji 'jumper' on activate!"
                 }
             }
         },
