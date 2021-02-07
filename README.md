@@ -116,3 +116,28 @@ in key settings (TODO tell how to get here):
         "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal'"
     },
 ```
+
+To set theme overrides (label background and font color):
+This will override the defaults for dark, light, and highcontrast respectively.
+In `settings.json` file:
+
+DON'T DO THIS (probably):
+
+```
+"workbench.colorCustomizations": {
+  "jumpy2.labelFontColor": "#97081b",
+  "jumpy2.labelBackgroundColor": "#00AA00"
+},
+```
+
+However, it is probably wise to leave the defaults, and rather scope this to a theme like so:
+DO THIS (probably):
+
+TODO: !!!! find this code block....it has like a [] around the theme, in the syntax
+
+```
+"workbench.colorCustomizations": {
+  "jumpy2.labelFontColor": "#97081b",
+  "jumpy2.labelBackgroundColor": "#00AA00"
+},
+```
