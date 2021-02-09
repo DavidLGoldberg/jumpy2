@@ -33,8 +33,7 @@ globalThis.allLabels = Array<Label>();
 stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
     // ! TODO: why is this always firing without a real key press ?
     // TODO: should I be unregistering this?
-    // This is only here for the label reducer right?
-    console.log('valid key entered', keyLabel);
+    // console.log('valid key entered', keyLabel);
 
     if (keyLabel) {
         _clearLabels();
