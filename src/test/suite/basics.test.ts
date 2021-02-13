@@ -83,6 +83,8 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.toggle');
         await commands.executeCommand('jumpy.z');
         await commands.executeCommand('jumpy.z');
+        // One extra to ensure it doesn't matter:
+        await commands.executeCommand('jumpy.z');
 
         await wait(ONE_SECOND);
 
@@ -92,6 +94,78 @@ suite('Basic test Suite', function () {
 
         assert.deepStrictEqual(position, new Position(0, 0));
 
+        await commands.executeCommand('jumpy.a');
+        await commands.executeCommand('jumpy.z');
+
+        await wait(ONE_SECOND);
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.deepStrictEqual(position, new Position(4, 15));
+    });
+
+    test('Multiple toggles', async function () {
+        let position: Position | undefined;
+        // Should do no change
+        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy.toggle');
+
+        await wait(ONE_SECOND);
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.deepStrictEqual(position, new Position(0, 0));
+
+        // Should reopen and jump
+        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy.toggle');
+        await wait(ONE_SECOND);
+        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy.a');
+        await commands.executeCommand('jumpy.z');
+
+        await wait(ONE_SECOND);
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.deepStrictEqual(position, new Position(4, 15));
+    });
+
+    test('Clear command', async function () {
+        let position: Position | undefined;
+        // Should do no change
+        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy.clear');
+
+        await wait(ONE_SECOND);
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.deepStrictEqual(position, new Position(0, 0));
+
+        // Should clear and still remain in place
+        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy.a');
+        await commands.executeCommand('jumpy.clear');
+
+        await wait(ONE_SECOND);
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.deepStrictEqual(position, new Position(0, 0));
+
+        // then should jump afterwards
+        await commands.executeCommand('jumpy.toggle');
         await commands.executeCommand('jumpy.a');
         await commands.executeCommand('jumpy.z');
 
