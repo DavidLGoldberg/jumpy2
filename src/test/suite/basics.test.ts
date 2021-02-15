@@ -27,14 +27,13 @@ suite('Basic test Suite', function () {
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
         await wait();
-
     });
 
     after(async () => {
         // TODO: close file?
     });
 
-    beforeEach(async function() {
+    beforeEach(async function () {
         // Reset cursor position to 0,0?
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
@@ -57,6 +56,22 @@ suite('Basic test Suite', function () {
         }
 
         assert.deepStrictEqual(position, new Position(4, 15));
+    });
+
+    test('Toggle and jump to camel', async function () {
+        let position: Position | undefined;
+
+        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy.e');
+        await commands.executeCommand('jumpy.c');
+
+        await wait(ONE_SECOND);
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.deepStrictEqual(position, new Position(30, 10));
     });
 
     test('Toggle reset and jump', async function () {
