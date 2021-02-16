@@ -34,11 +34,18 @@ suite('Basic test Suite', function () {
     });
 
     beforeEach(async function () {
+        // await commands.executeCommand('editor.unfoldAll');
+
         // Reset cursor position to 0,0?
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
 
+        await wait(ONE_SECOND);
+    });
+
+    afterEach(async function () {
+        await commands.executeCommand('editor.unfoldAll');
         await wait(ONE_SECOND);
     });
 
@@ -191,5 +198,41 @@ suite('Basic test Suite', function () {
         }
 
         assert.deepStrictEqual(position, new Position(4, 15));
+    });
+
+    test('Jump to folded text (start)', async function () {
+        let position: Position | undefined;
+
+        await commands.executeCommand('editor.foldAll');
+
+        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy.d');
+        await commands.executeCommand('jumpy.g');
+
+        await wait(ONE_SECOND);
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.deepStrictEqual(position, new Position(21, 2));
+    });
+
+    test('Jump to folded text (next)', async function () {
+        let position: Position | undefined;
+
+        await commands.executeCommand('editor.foldAll');
+
+        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy.d');
+        await commands.executeCommand('jumpy.h');
+
+        await wait(ONE_SECOND);
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.deepStrictEqual(position, new Position(22, 2));
     });
 });
