@@ -34,7 +34,8 @@ suite('Basic test Suite', function () {
     });
 
     beforeEach(async function () {
-        // await commands.executeCommand('editor.unfoldAll');
+        await commands.executeCommand('editor.unfoldAll');
+        await wait(ONE_SECOND);
 
         // Reset cursor position to 0,0?
         if (window.activeTextEditor) {
@@ -44,10 +45,7 @@ suite('Basic test Suite', function () {
         await wait(ONE_SECOND);
     });
 
-    afterEach(async function () {
-        await commands.executeCommand('editor.unfoldAll');
-        await wait(ONE_SECOND);
-    });
+    afterEach(async function () {});
 
     test('Toggle and jump', async function () {
         let position: Position | undefined;
@@ -233,6 +231,6 @@ suite('Basic test Suite', function () {
             position = window.activeTextEditor.selection.active;
         }
 
-        assert.deepStrictEqual(position, new Position(22, 2));
+        assert.deepStrictEqual(position, new Position(24, 2));
     });
 });
