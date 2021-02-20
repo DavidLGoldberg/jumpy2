@@ -7,10 +7,9 @@ import { commands, Position, Selection, Uri, window } from 'vscode';
 // import * as Jumpy2 from '../../../src/extension';
 
 const ONE_MIN = 60000;
-const ONE_SECOND = 1000;
-const TWO_SECONDS = 1000;
+const QUARTER_SECOND = 250;
 
-async function wait(timeout = TWO_SECONDS): Promise<void> {
+async function wait(timeout = QUARTER_SECOND): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -20,7 +19,7 @@ const fixtureFile = path.resolve(
 );
 
 suite('Status Bar Suite', function () {
-    this.timeout(60000); // 1 min
+    this.timeout(ONE_MIN);
     before(async function () {
         window.showInformationMessage('Start all status bar tests.');
 
@@ -28,14 +27,14 @@ suite('Status Bar Suite', function () {
         await commands.executeCommand('vscode.open', uri);
         await wait();
     });
-    
-    beforeEach(async function() {
+
+    beforeEach(async function () {
         // Reset cursor position to 0,0?
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
 
-        await wait(ONE_SECOND);
+        await wait();
     });
 
     test('Toggle', async function () {
@@ -43,13 +42,13 @@ suite('Status Bar Suite', function () {
 
         //TODO FINISH
         await commands.executeCommand('jumpy.toggle');
-        await wait(ONE_SECOND);
+        await wait();
         //assert
         await commands.executeCommand('jumpy.a');
-        await wait(ONE_SECOND); // necessary?
+        await wait(); // necessary?
         //assert
         await commands.executeCommand('jumpy.z');
-        await wait(ONE_SECOND); // necessary?
+        await wait(); // necessary?
         //assert
 
         // TODO: test status bar

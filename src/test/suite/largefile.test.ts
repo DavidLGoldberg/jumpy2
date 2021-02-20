@@ -5,11 +5,10 @@ import { after, before, beforeEach } from 'mocha';
 import { commands, Selection, Position, Uri, window } from 'vscode';
 // This maybe for unit test stuff?
 // import * as Jumpy2 from '../../../src/extension';
+const ONE_MINUTE = 60000;
+const QUARTER_SECOND = 250;
 
-const ONE_SECOND = 1000;
-const TWO_SECONDS = 1000;
-
-async function wait(timeout = TWO_SECONDS): Promise<void> {
+async function wait(timeout = QUARTER_SECOND): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -19,7 +18,7 @@ const fixtureFile = path.resolve(
 );
 
 suite('Long file test Suite', function () {
-    this.timeout(60000); // 1 min
+    this.timeout(ONE_MINUTE);
     before(async function () {
         window.showInformationMessage('Start long file tests.');
 
@@ -38,7 +37,7 @@ suite('Long file test Suite', function () {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
 
-        await wait(ONE_SECOND);
+        await wait();
     });
 
     test('Toggle and jump', async function () {

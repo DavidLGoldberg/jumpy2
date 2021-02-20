@@ -7,10 +7,10 @@ import { commands, Selection, Position, Uri, window } from 'vscode';
 // import * as Jumpy2 from '../../../src/extension';
 
 const ONE_MIN = 60000;
-const ONE_SECOND = 1000;
-const TWO_SECONDS = 1000;
+const HALF_SECOND = 500;
+const QUARTER_SECOND = 250;
 
-async function wait(timeout = TWO_SECONDS): Promise<void> {
+async function wait(timeout = QUARTER_SECOND): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -20,7 +20,7 @@ const fixtureFile = path.resolve(
 );
 
 suite('Basic test Suite', function () {
-    this.timeout(60000); // 1 min
+    this.timeout(ONE_MIN);
     before(async function () {
         window.showInformationMessage('Start all basic tests.');
 
@@ -39,14 +39,14 @@ suite('Basic test Suite', function () {
 
     beforeEach(async function () {
         await commands.executeCommand('editor.unfoldAll');
-        await wait(ONE_SECOND);
+        await wait();
 
         // Reset cursor position to 0,0?
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
 
-        await wait(ONE_SECOND);
+        await wait();
     });
 
     afterEach(async function () {});
@@ -58,7 +58,7 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.a');
         await commands.executeCommand('jumpy.z');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -74,7 +74,7 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.e');
         await commands.executeCommand('jumpy.c');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -92,7 +92,7 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.b');
         await commands.executeCommand('jumpy.z');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -110,7 +110,7 @@ suite('Basic test Suite', function () {
         // One extra to ensure it doesn't matter:
         await commands.executeCommand('jumpy.z');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -121,7 +121,7 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.a');
         await commands.executeCommand('jumpy.z');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -136,7 +136,7 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.toggle');
         await commands.executeCommand('jumpy.toggle');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -147,12 +147,12 @@ suite('Basic test Suite', function () {
         // Should reopen and jump
         await commands.executeCommand('jumpy.toggle');
         await commands.executeCommand('jumpy.toggle');
-        await wait(ONE_SECOND);
+        await wait();
         await commands.executeCommand('jumpy.toggle');
         await commands.executeCommand('jumpy.a');
         await commands.executeCommand('jumpy.z');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -167,7 +167,7 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.toggle');
         await commands.executeCommand('jumpy.clear');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -180,7 +180,7 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.a');
         await commands.executeCommand('jumpy.clear');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -193,7 +193,7 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.a');
         await commands.executeCommand('jumpy.z');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -211,7 +211,7 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.d');
         await commands.executeCommand('jumpy.g');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
@@ -229,7 +229,7 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy.d');
         await commands.executeCommand('jumpy.h');
 
-        await wait(ONE_SECOND);
+        await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
