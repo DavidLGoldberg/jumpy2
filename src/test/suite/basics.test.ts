@@ -33,7 +33,8 @@ suite('Basic test Suite', function () {
     });
 
     after(async () => {
-        // TODO: close file?
+        await commands.executeCommand('editor.unfoldAll');
+        await commands.executeCommand('workbench.action.closeAllEditors');
     });
 
     beforeEach(async function () {

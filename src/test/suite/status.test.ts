@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as assert from 'assert';
-import { before, beforeEach } from 'mocha';
+import { after, before, beforeEach } from 'mocha';
 
 import { commands, Position, Selection, Uri, window } from 'vscode';
 // This maybe for unit test stuff?
@@ -26,6 +26,11 @@ suite('Status Bar Suite', function () {
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
         await wait();
+    });
+
+    after(async () => {
+        await commands.executeCommand('editor.unfoldAll');
+        await commands.executeCommand('workbench.action.closeAllEditors');
     });
 
     beforeEach(async function () {

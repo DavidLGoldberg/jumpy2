@@ -1,11 +1,10 @@
 import * as path from 'path';
 import * as assert from 'assert';
-import { after, before, beforeEach } from 'mocha';
+import { after, afterEach, before, beforeEach } from 'mocha';
 
 import { commands, Selection, Position, Uri, window } from 'vscode';
-// This maybe for unit test stuff?
-// import * as Jumpy2 from '../../../src/extension';
-const ONE_MINUTE = 60000;
+
+const ONE_MIN = 60000;
 const QUARTER_SECOND = 250;
 
 async function wait(timeout = QUARTER_SECOND): Promise<void> {
@@ -14,25 +13,40 @@ async function wait(timeout = QUARTER_SECOND): Promise<void> {
 
 const fixtureFile = path.resolve(
     __dirname,
-    '../../../src/test/fixtures/test_long_text.txt'
+    '../../../src/test/fixtures/test_text.md'
 );
 
-suite('Long file test Suite', function () {
-    this.timeout(ONE_MINUTE);
+suite('Multiple editor test Suite', function () {
+    this.timeout(ONE_MIN);
     before(async function () {
-        window.showInformationMessage('Start long file tests.');
+        window.showInformationMessage('Start multiple editor tests.');
+
+        await commands.executeCommand('workbench.action.zoomOut');
+        await commands.executeCommand('workbench.action.zoomOut');
+        await commands.executeCommand('workbench.action.zoomOut');
 
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
+
+        // NOTE: ******************** split editor right for these tests!
+        await commands.executeCommand('workbench.action.splitEditorRight');
+
         await wait();
     });
 
     after(async () => {
         await commands.executeCommand('editor.unfoldAll');
         await commands.executeCommand('workbench.action.closeAllEditors');
+
+        await commands.executeCommand('workbench.action.zoomIn');
+        await commands.executeCommand('workbench.action.zoomIn');
+        await commands.executeCommand('workbench.action.zoomIn');
     });
 
     beforeEach(async function () {
+        await commands.executeCommand('editor.unfoldAll');
+        await wait();
+
         // Reset cursor position to 0,0?
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
@@ -41,7 +55,9 @@ suite('Long file test Suite', function () {
         await wait();
     });
 
-    test('Toggle and jump', async function () {
+    afterEach(async function () {});
+
+    test('Toggle and jump across editors', async function () {
         let position: Position | undefined;
 
         await commands.executeCommand('jumpy.toggle');
@@ -54,13 +70,11 @@ suite('Long file test Suite', function () {
             position = window.activeTextEditor.selection.active;
         }
 
-        assert.deepStrictEqual(position, new Position(0, 101));
-
-        await wait();
+        assert.deepStrictEqual(position, new Position(4, 15));
 
         await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.A');
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy.f');
+        await commands.executeCommand('jumpy.n');
 
         await wait();
 
@@ -68,8 +82,6 @@ suite('Long file test Suite', function () {
             position = window.activeTextEditor.selection.active;
         }
 
-        assert.deepStrictEqual(position, new Position(26, 101));
-
-        await wait();
+        assert.deepStrictEqual(position, new Position(4, 15));
     });
 });
