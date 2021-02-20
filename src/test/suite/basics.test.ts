@@ -7,7 +7,6 @@ import { commands, Selection, Position, Uri, window } from 'vscode';
 // import * as Jumpy2 from '../../../src/extension';
 
 const ONE_MIN = 60000;
-const HALF_SECOND = 500;
 const QUARTER_SECOND = 250;
 
 async function wait(timeout = QUARTER_SECOND): Promise<void> {
