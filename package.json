@@ -1,11 +1,14 @@
 {
-    "name": "jumpy-vscode",
-    "displayName": "jumpy-vscode",
-    "description": "Jumpy for VS Code",
+    "name": "jumpy2",
+    "displayName": "Jumpy2",
+    "description": "Jumpy2 (for VS Code)",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.38.0"
     },
+    "publisher": "DavidLGoldberg",
+    "homepage": "https://github.com/DavidLGoldberg/jumpy2/blob/master/README.md",
+    "repository": "https://github.com/DavidLGoldberg/jumpy2",
     "categories": [
         "Other"
     ],
