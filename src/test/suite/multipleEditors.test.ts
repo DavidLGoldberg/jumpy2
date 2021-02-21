@@ -21,6 +21,7 @@ suite('Multiple editor test Suite', function () {
     before(async function () {
         window.showInformationMessage('Start multiple editor tests.');
 
+        await commands.executeCommand('workbench.action.zoomReset');
         await commands.executeCommand('workbench.action.zoomOut');
         await commands.executeCommand('workbench.action.zoomOut');
         await commands.executeCommand('workbench.action.zoomOut');

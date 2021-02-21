@@ -23,6 +23,7 @@ suite('Basic test Suite', function () {
     before(async function () {
         window.showInformationMessage('Start all basic tests.');
 
+        await commands.executeCommand('workbench.action.zoomReset');
         await commands.executeCommand('workbench.action.zoomOut');
         await commands.executeCommand('workbench.action.zoomOut');
         await commands.executeCommand('workbench.action.zoomOut');
