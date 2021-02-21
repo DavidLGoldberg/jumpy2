@@ -22,7 +22,7 @@ graph:
 
 test:
 	node_modules/elm-test/bin/elm-test
-	# TODO: Test vs code side
+	npm run test
 
 count:
 	# *** needs work for vs code ***
