@@ -1,10 +1,10 @@
-import * as vscode from 'vscode';
+import { Selection, TextEditor, window } from 'vscode';
 import { LabelEnvironment, Label, Labeler } from '../label-interface';
 import { Range, Position } from 'vscode';
 
 class WordLabel implements Label {
     keyLabel!: string;
-    textEditor: vscode.TextEditor | undefined;
+    textEditor: TextEditor | undefined;
     lineNumber!: number;
     column!: number;
     settings: any;
@@ -39,16 +39,13 @@ class WordLabel implements Label {
 
     async jump() {
         if (this.textEditor) {
-            if (this.textEditor !== vscode.window.activeTextEditor) {
-                await vscode.window.showTextDocument(
-                    this.textEditor.document.uri,
-                    {
-                        preview: false,
-                        viewColumn: this.textEditor.viewColumn,
-                    }
-                );
+            if (this.textEditor !== window.activeTextEditor) {
+                await window.showTextDocument(this.textEditor.document.uri, {
+                    preview: false,
+                    viewColumn: this.textEditor.viewColumn,
+                });
             }
-            this.textEditor.selection = new vscode.Selection(
+            this.textEditor.selection = new Selection(
                 this.lineNumber,
                 this.column,
                 this.lineNumber,
@@ -60,7 +57,7 @@ class WordLabel implements Label {
 
 const labeler: Labeler = function (
     env: LabelEnvironment,
-    editor: vscode.TextEditor
+    editor: TextEditor
 ): Array<WordLabel> {
     const usedKeys = env.keys; // Intentionally mutate from calling env
     const labels: Array<WordLabel> = [];

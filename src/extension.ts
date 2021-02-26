@@ -1,4 +1,13 @@
-import * as vscode from 'vscode';
+import {
+    commands,
+    DecorationOptions,
+    ExtensionContext,
+    StatusBarAlignment,
+    StatusBarItem,
+    ThemeColor,
+    window,
+    workspace,
+} from 'vscode';
 
 // @ts-ignore
 // import * as elmApp from './elm/StateMachineVSC';
@@ -17,8 +26,8 @@ let isJumpMode = false; // TODO: change with state machine i guess.
 const keySet = getKeySet([]);
 const allKeys = getAllKeys([]);
 
-const statusBarItem: vscode.StatusBarItem = vscode.window.createStatusBarItem(
-    vscode.StatusBarAlignment.Left,
+const statusBarItem: StatusBarItem = window.createStatusBarItem(
+    StatusBarAlignment.Left,
     1000
 );
 
@@ -59,8 +68,8 @@ stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
         statusBarItem.text = statusPrinter(statusMarkup);
 
         statusBarItem.color = statusMarkup.includes('No Match')
-            ? new vscode.ThemeColor('errorForeground')
-            : new vscode.ThemeColor('editorInfo.foreground');
+            ? new ThemeColor('errorForeground')
+            : new ThemeColor('editorInfo.foreground');
 
         statusBarItem.show();
     } else {
@@ -73,7 +82,7 @@ function _renderLabels(enteredKey?: string) {
     // Intentionally not using "pattern" type although it does exist.
     // It didn't facilitate adding in a regex when I tried,
     // and forced the user to leave the settings UI.
-    const wordPattern: string | undefined = vscode.workspace
+    const wordPattern: string | undefined = workspace
         .getConfiguration('jumpy2')
         .get('wordPattern');
 
@@ -91,12 +100,12 @@ function _renderLabels(enteredKey?: string) {
 
     allLabels.length = 0; // Clear the array from previous runs.
 
-    vscode.window.visibleTextEditors.forEach((editor) => {
+    window.visibleTextEditors.forEach((editor) => {
         // Atom architecture (copied here) allows for other label providers:
         const editorLabels = getWordLabels(environment, editor);
         allLabels = [...allLabels, ...editorLabels];
 
-        const decorations: vscode.DecorationOptions[] = editorLabels
+        const decorations: DecorationOptions[] = editorLabels
             .filter((label) =>
                 enteredKey ? label.keyLabel.startsWith(enteredKey) : true
             )
@@ -108,7 +117,7 @@ function _renderLabels(enteredKey?: string) {
 
 function enterJumpMode() {
     isJumpMode = true; // TODO: I hate this, but 'getContext' is not as straight forward
-    vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', true);
+    commands.executeCommand('setContext', 'jumpy.jump-mode', true);
 
     _renderLabels();
     stateMachine.ports.getLabels.send(allLabels.map((label) => label.keyLabel));
@@ -133,14 +142,14 @@ function reset() {
 }
 
 function _clearLabels() {
-    vscode.window.visibleTextEditors.forEach((editor) => {
+    window.visibleTextEditors.forEach((editor) => {
         editor.setDecorations(wordLabelDecorationType, []);
     });
 }
 
 function _clear() {
     isJumpMode = false;
-    vscode.commands.executeCommand('setContext', 'jumpy.jump-mode', false);
+    commands.executeCommand('setContext', 'jumpy.jump-mode', false);
     _clearLabels();
 }
 
@@ -148,9 +157,9 @@ function clear() {
     stateMachine.ports.exit.send(null);
 }
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: ExtensionContext) {
     const { subscriptions } = context;
-    const { registerCommand } = vscode.commands;
+    const { registerCommand } = commands;
 
     subscriptions.push(
         registerCommand('jumpy.toggle', toggle),
@@ -168,20 +177,19 @@ export function activate(context: vscode.ExtensionContext) {
     and even if it did it wouldn't be future proof. Luckily, things like command pallette,
     finds, etc...work nicely with jumpy atm, despite not clearing them.
     Instead, upon exit of these you can resume where Jumpy left off! */
-    // TODO: Refactor out vscode
     const events = [
-        vscode.window.onDidChangeActiveTerminal,
-        vscode.window.onDidChangeActiveTextEditor,
-        vscode.window.onDidChangeTextEditorOptions,
-        vscode.window.onDidChangeTextEditorSelection,
-        vscode.window.onDidChangeTextEditorViewColumn,
-        vscode.window.onDidChangeTextEditorVisibleRanges,
-        vscode.window.onDidChangeVisibleTextEditors,
-        vscode.window.onDidChangeWindowState,
-        vscode.window.onDidCloseTerminal,
-        vscode.window.onDidOpenTerminal,
-        vscode.workspace.onDidChangeTextDocument,
-        vscode.workspace.onDidOpenTextDocument,
+        window.onDidChangeActiveTerminal,
+        window.onDidChangeActiveTextEditor,
+        window.onDidChangeTextEditorOptions,
+        window.onDidChangeTextEditorSelection,
+        window.onDidChangeTextEditorViewColumn,
+        window.onDidChangeTextEditorVisibleRanges,
+        window.onDidChangeVisibleTextEditors,
+        window.onDidChangeWindowState,
+        window.onDidCloseTerminal,
+        window.onDidOpenTerminal,
+        workspace.onDidChangeTextDocument,
+        workspace.onDidOpenTextDocument,
     ];
 
     subscriptions.push(...events.map((event) => event(() => clear())));
