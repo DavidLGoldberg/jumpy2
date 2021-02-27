@@ -10,7 +10,6 @@ import {
 } from 'vscode';
 
 // @ts-ignore
-// import * as elmApp from './elm/StateMachineVSC';
 import * as elmApp from '../out/elm/StateMachineVSC';
 import { LabelEnvironment, Label } from './label-interface';
 import getWordLabels from './labelers/words';
