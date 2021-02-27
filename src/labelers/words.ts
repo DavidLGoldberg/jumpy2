@@ -20,16 +20,10 @@ class WordLabel implements Label {
             new Position(lineNumber, column + 2)
         );
 
-        // TODO: TEST! Do I need a light mode? (probably)
+        const label = { after: { contentText: keyLabel } };
         const decoration = {
             range: this.marker,
-            renderOptions: {
-                dark: {
-                    after: {
-                        contentText: keyLabel,
-                    },
-                },
-            },
+            renderOptions: { dark: label, light: label },
         };
 
         return decoration;

@@ -14,7 +14,6 @@ const width = getWidth();
 const labelBackgroundColor = new ThemeColor('jumpy2.labelBackgroundColor');
 const labelFontColor = new ThemeColor('jumpy2.labelFontColor');
 
-// TODO: add a "high contrast" color as well
 const wordLabelDecorationType = window.createTextEditorDecorationType({
     after: {
         textDecoration: 'none',
