@@ -31,12 +31,7 @@ const statusBarItem: StatusBarItem = window.createStatusBarItem(
     1000
 );
 
-// This is GROSS but ...YOLO.
-// This is a global, deal with it.
-declare var allLabels: Array<Label>;
-// TODO: Can I just move this down below instead of the clear array?
-// @ts-ignore
-globalThis.allLabels = Array<Label>();
+let allLabels: Array<Label> = new Array<Label>();
 
 // Subscribe:
 stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
