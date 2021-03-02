@@ -1,5 +1,5 @@
 import { Selection, TextEditor, window } from 'vscode';
-import { LabelEnvironment, Label, Labeler } from '../label-interface';
+import { LabelEnvironment, Label, Labeler, Settings } from '../label-interface';
 import { Range, Position } from 'vscode';
 
 class WordLabel implements Label {
@@ -7,7 +7,7 @@ class WordLabel implements Label {
     textEditor: TextEditor | undefined;
     lineNumber!: number;
     column!: number;
-    settings: any;
+    settings: Settings | undefined;
     marker!: Range;
 
     destroy() {}

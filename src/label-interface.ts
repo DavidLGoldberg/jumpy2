@@ -1,14 +1,18 @@
 import { TextEditor, DecorationOptions } from 'vscode';
 
+export interface Settings {
+    wordsPattern: RegExp;
+}
+
 export interface LabelEnvironment {
     keys: Array<string>;
-    settings: any;
+    settings: Settings;
 }
 
 export interface Label {
     keyLabel: string;
     textEditor: TextEditor | undefined;
-    settings: any;
+    settings: Settings | undefined;
     getDecoration(): DecorationOptions;
     animateBeacon(input: any): void;
     jump(): void;
