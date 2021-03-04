@@ -24,6 +24,14 @@ test:
 	node_modules/elm-test/bin/elm-test
 	npm run test
 
+package:
+	vsce package
+
+newestpackage:=$(shell ls -snew jumpy2*vsix | head -1 | cut -d" " -f14)
+
+install: package
+	code --install-extension $(newestpackage)
+
 count:
 	# *** needs work for vs code ***
 	rg --files | grep -v \.js$ | grep -v out | grep -v \.png$ | grep -v \.gif$ | grep -v package-lock.json | xargs wc -l | sort -n
