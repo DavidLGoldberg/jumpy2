@@ -2,6 +2,7 @@ import { TextEditor, DecorationOptions } from 'vscode';
 
 export interface Settings {
     wordsPattern: RegExp;
+    customKeys: ReadonlyArray<string>;
 }
 
 export interface LabelEnvironment {

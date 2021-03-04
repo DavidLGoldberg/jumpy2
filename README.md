@@ -104,3 +104,23 @@ TODO: !!!! find this code block....it has like a [] around the theme, in the syn
   "jumpy2.labelBackgroundColor": "#00AA00"
 },
 ```
+
+Custom faster keys:
+
+```
+"jumpy2.customKeys": {
+    "type": "array",
+    "default": "fjdkslaghrueiwoncmv",
+    "description": "Default characters to use"
+},
+```
+
+Default easier for beginners? / probably better for larger screens (more labels before we resort to uppercase).
+
+```
+"jumpy2.customKeys": {
+    "type": "array",
+    "default": "abcdefghijklmnopqrstuvwxyz",
+    "description": "Default characters to use"
+},
+```

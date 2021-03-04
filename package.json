@@ -40,10 +40,15 @@
         "configuration": {
             "title": "Jumpy2",
             "properties": {
+                "jumpy2.customKeys": {
+                    "type": "string",
+                    "default": "abcdefghijklmnopqrstuvwxyz",
+                    "description": "Default characters to use"
+                },
                 "jumpy2.wordPattern": {
                     "type": "string",
                     "default": "([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}",
-                    "description": "Regex pattern for Jumpy2 to use in text editors."
+                    "description": "Regex pattern for Jumpy2 to use in text editors"
                 },
                 "jumpy2.jumperEmojis.active": {
                     "type": "boolean",

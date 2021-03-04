@@ -11,7 +11,7 @@ import {
 
 // @ts-ignore
 import * as elmApp from '../out/elm/StateMachineVSC';
-import { LabelEnvironment, Label } from './label-interface';
+import { LabelEnvironment, Label, Settings } from './label-interface';
 import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
 import statusPrinter from './statusPrinter';
@@ -20,10 +20,22 @@ import { getKeySet, getAllKeys } from './keys';
 const stateMachine = elmApp.Elm.StateMachineVSC.init();
 let isJumpMode = false; // TODO: change with state machine i guess.
 
-//TODO: get custom keys from settings / config
-// keys: getKeySet(atom.config.get('jumpy.customKeys')),
-const keySet = getKeySet([]);
-const allKeys = getAllKeys([]);
+const getSettings = (): Settings => {
+    return {
+        // Intentionally not using "pattern" type although it does exist.
+        // It didn't facilitate adding in a regex when I tried,
+        // and forced the user to leave the settings UI.
+        wordsPattern: new RegExp(
+            <string | undefined>(
+                workspace.getConfiguration('jumpy2').get('wordPattern')
+            ) || '',
+            'g'
+        ),
+        customKeys: Array.from(
+            <string>workspace.getConfiguration('jumpy2').get('customKeys')
+        ),
+    };
+};
 
 const statusBarItem: StatusBarItem = window.createStatusBarItem(
     StatusBarAlignment.Left,
@@ -72,24 +84,14 @@ stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
 });
 
 function _renderLabels(enteredKey?: string) {
-    // TODO: Clean this up a bit? Do I need to only call this once, or is it efficient / cached
-    // Intentionally not using "pattern" type although it does exist.
-    // It didn't facilitate adding in a regex when I tried,
-    // and forced the user to leave the settings UI.
-    const wordPattern: string | undefined = workspace
-        .getConfiguration('jumpy2')
-        .get('wordPattern');
-
     // TODO: another refactor to handle any "labeler" would be necessary this func ^ is too word centric atm.  As opposed to the last iteration of the Atom architecture
-    if (!wordPattern) {
+    if (!getSettings().wordsPattern) {
         return;
     }
 
     const environment: LabelEnvironment = {
-        keys: [...keySet],
-        settings: {
-            wordsPattern: new RegExp(wordPattern, 'g'),
-        },
+        keys: [...getKeySet(getSettings().customKeys)],
+        settings: getSettings(),
     };
 
     allLabels.length = 0; // Clear the array from previous runs.
@@ -161,6 +163,7 @@ export function activate(context: ExtensionContext) {
         registerCommand('jumpy.clear', clear)
     );
 
+    const allKeys = getAllKeys(getSettings().customKeys);
     subscriptions.concat(
         [...allKeys.lowerCharacters, ...allKeys.upperCharacters].map((chr) =>
             registerCommand(`jumpy.${chr}`, () => sendKey(chr))
