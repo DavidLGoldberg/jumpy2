@@ -46,13 +46,13 @@ suite('Status Bar Suite', function () {
         let position: Position | undefined;
 
         //TODO FINISH
-        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy2.toggle');
         await wait();
         //assert
-        await commands.executeCommand('jumpy.a');
+        await commands.executeCommand('jumpy2.a');
         await wait(); // necessary?
         //assert
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.z');
         await wait(); // necessary?
         //assert
 

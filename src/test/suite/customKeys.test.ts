@@ -55,9 +55,9 @@ suite('Custom Keys test Suite', function () {
     test('Toggle and jump', async function () {
         let position: Position | undefined;
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.f');
-        await commands.executeCommand('jumpy.f');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.f');
+        await commands.executeCommand('jumpy2.f');
 
         await wait();
 
@@ -69,9 +69,9 @@ suite('Custom Keys test Suite', function () {
 
         await wait();
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.j');
-        await commands.executeCommand('jumpy.j');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.j');
+        await commands.executeCommand('jumpy2.j');
 
         await wait();
 

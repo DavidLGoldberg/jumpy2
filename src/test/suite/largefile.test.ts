@@ -44,9 +44,9 @@ suite('Long file test Suite', function () {
     test('Toggle and jump', async function () {
         let position: Position | undefined;
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.a');
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.z');
 
         await wait();
 
@@ -58,9 +58,9 @@ suite('Long file test Suite', function () {
 
         await wait();
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.A');
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.A');
+        await commands.executeCommand('jumpy2.z');
 
         await wait();
 

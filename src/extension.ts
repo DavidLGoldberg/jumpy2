@@ -113,7 +113,7 @@ function _renderLabels(enteredKey?: string) {
 
 function enterJumpMode() {
     isJumpMode = true; // TODO: I hate this, but 'getContext' is not as straight forward
-    commands.executeCommand('setContext', 'jumpy.jump-mode', true);
+    commands.executeCommand('setContext', 'jumpy2.jump-mode', true);
 
     _renderLabels();
     stateMachine.ports.getLabels.send(allLabels.map((label) => label.keyLabel));
@@ -145,7 +145,7 @@ function _clearLabels() {
 
 function _clear() {
     isJumpMode = false;
-    commands.executeCommand('setContext', 'jumpy.jump-mode', false);
+    commands.executeCommand('setContext', 'jumpy2.jump-mode', false);
     _clearLabels();
 }
 
@@ -158,15 +158,15 @@ export function activate(context: ExtensionContext) {
     const { registerCommand } = commands;
 
     subscriptions.push(
-        registerCommand('jumpy.toggle', toggle),
-        registerCommand('jumpy.reset', reset),
-        registerCommand('jumpy.clear', clear)
+        registerCommand('jumpy2.toggle', toggle),
+        registerCommand('jumpy2.reset', reset),
+        registerCommand('jumpy2.clear', clear)
     );
 
     const allKeys = getAllKeys(getSettings().customKeys);
     subscriptions.concat(
         [...allKeys.lowerCharacters, ...allKeys.upperCharacters].map((chr) =>
-            registerCommand(`jumpy.${chr}`, () => sendKey(chr))
+            registerCommand(`jumpy2.${chr}`, () => sendKey(chr))
         )
     );
 

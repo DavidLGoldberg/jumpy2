@@ -55,9 +55,9 @@ suite('Basic test Suite', function () {
     test('Toggle and jump', async function () {
         let position: Position | undefined;
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.a');
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.z');
 
         await wait();
 
@@ -71,9 +71,9 @@ suite('Basic test Suite', function () {
     test('Toggle and jump to camel', async function () {
         let position: Position | undefined;
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.e');
-        await commands.executeCommand('jumpy.c');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.e');
+        await commands.executeCommand('jumpy2.c');
 
         await wait();
 
@@ -87,11 +87,11 @@ suite('Basic test Suite', function () {
     test('Toggle reset and jump', async function () {
         let position: Position | undefined;
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.a');
-        await commands.executeCommand('jumpy.reset');
-        await commands.executeCommand('jumpy.b');
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.reset');
+        await commands.executeCommand('jumpy2.b');
+        await commands.executeCommand('jumpy2.z');
 
         await wait();
 
@@ -105,11 +105,11 @@ suite('Basic test Suite', function () {
     test('Toggle then not found then jump', async function () {
         let position: Position | undefined;
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.z');
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.z');
+        await commands.executeCommand('jumpy2.z');
         // One extra to ensure it doesn't matter:
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.z');
 
         await wait();
 
@@ -119,8 +119,8 @@ suite('Basic test Suite', function () {
 
         assert.deepStrictEqual(position, new Position(0, 0));
 
-        await commands.executeCommand('jumpy.a');
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.z');
 
         await wait();
 
@@ -134,8 +134,8 @@ suite('Basic test Suite', function () {
     test('Multiple toggles', async function () {
         let position: Position | undefined;
         // Should do no change
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.toggle');
 
         await wait();
 
@@ -146,12 +146,12 @@ suite('Basic test Suite', function () {
         assert.deepStrictEqual(position, new Position(0, 0));
 
         // Should reopen and jump
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.toggle');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.toggle');
         await wait();
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.a');
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.z');
 
         await wait();
 
@@ -165,8 +165,8 @@ suite('Basic test Suite', function () {
     test('Clear command', async function () {
         let position: Position | undefined;
         // Should do no change
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.clear');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.clear');
 
         await wait();
 
@@ -177,9 +177,9 @@ suite('Basic test Suite', function () {
         assert.deepStrictEqual(position, new Position(0, 0));
 
         // Should clear and still remain in place
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.a');
-        await commands.executeCommand('jumpy.clear');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.clear');
 
         await wait();
 
@@ -190,9 +190,9 @@ suite('Basic test Suite', function () {
         assert.deepStrictEqual(position, new Position(0, 0));
 
         // then should jump afterwards
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.a');
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.z');
 
         await wait();
 
@@ -208,9 +208,9 @@ suite('Basic test Suite', function () {
 
         await commands.executeCommand('editor.foldAll');
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.d');
-        await commands.executeCommand('jumpy.g');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.d');
+        await commands.executeCommand('jumpy2.g');
 
         await wait();
 
@@ -226,9 +226,9 @@ suite('Basic test Suite', function () {
 
         await commands.executeCommand('editor.foldAll');
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.d');
-        await commands.executeCommand('jumpy.h');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.d');
+        await commands.executeCommand('jumpy2.h');
 
         await wait();
 

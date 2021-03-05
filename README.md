@@ -37,7 +37,7 @@ open settings as json and add
         "f"
       ],
       "commands": [
-        "jumpy.toggle"
+        "jumpy2.toggle"
       ]
     }
   ],
@@ -63,8 +63,8 @@ in key settings (TODO tell how to get here):
     // Set Jumpy's
     {
         "key": "backspace",
-        "command": "jumpy.reset",
-        "when": "jumpy.jump-mode && editorTextFocus"
+        "command": "jumpy2.reset",
+        "when": "jumpy2.jump-mode && editorTextFocus"
     }
 
     // Set more useful backspace, shift+backspace back and forward functionality (especially for Jumpy!)

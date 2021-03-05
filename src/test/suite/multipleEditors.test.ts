@@ -61,9 +61,9 @@ suite('Multiple editor test Suite', function () {
     test('Toggle and jump across editors', async function () {
         let position: Position | undefined;
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.a');
-        await commands.executeCommand('jumpy.z');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.z');
 
         await wait();
 
@@ -73,9 +73,9 @@ suite('Multiple editor test Suite', function () {
 
         assert.deepStrictEqual(position, new Position(4, 15));
 
-        await commands.executeCommand('jumpy.toggle');
-        await commands.executeCommand('jumpy.f');
-        await commands.executeCommand('jumpy.n');
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.f');
+        await commands.executeCommand('jumpy2.n');
 
         await wait();
 
