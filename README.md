@@ -124,3 +124,13 @@ Default easier for beginners? / probably better for larger screens (more labels 
     "description": "Default characters to use"
 },
 ```
+
+neovim
+
+```
+  {
+      "key": "f",
+      "command": "jumpy.toggle",
+      "when": "neovim.mode =~ /^normal$|^visual$/ && !jumpy.jump-mode && editorTextFocus"
+  },
+```
