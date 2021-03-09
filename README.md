@@ -130,7 +130,12 @@ neovim
 ```
   {
       "key": "f",
-      "command": "jumpy.toggle",
-      "when": "neovim.mode =~ /^normal$|^visual$/ && !jumpy.jump-mode && editorTextFocus"
+      "command": "jumpy2.toggle",
+      "when": "neovim.mode =~ /^normal$|^visual$/ && !jumpy2.jump-mode && editorTextFocus"
   },
+  {
+    "command": "jumpy2.clear",
+    "key": "escape",
+    "when": "neovim.init && jumpy2.jump-mode && editorTextFocus"
+  }
 ```
