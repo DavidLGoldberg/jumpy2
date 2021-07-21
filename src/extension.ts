@@ -1,6 +1,7 @@
 import {
     commands,
     DecorationOptions,
+    extensions,
     ExtensionContext,
     StatusBarAlignment,
     StatusBarItem,
@@ -8,6 +9,7 @@ import {
     window,
     workspace,
 } from 'vscode';
+import TelemetryReporter from 'vscode-extension-telemetry';
 
 // @ts-ignore
 import * as elmApp from '../out/elm/StateMachineVSC';
@@ -16,6 +18,12 @@ import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
 import statusPrinter from './statusPrinter';
 import { getKeySet, getAllKeys } from './keys';
+
+let reporter: TelemetryReporter;
+const extensionId = 'DavidLGoldberg.jumpy2';
+const extensionVersion =
+    extensions.getExtension(extensionId)!.packageJSON.version;
+const appInsightsInstrumentationKey = '618cee5c-79f0-46c5-a2ab-95f734e163ef';
 
 const stateMachine = elmApp.Elm.StateMachineVSC.init();
 let isJumpMode = false; // TODO: change with state machine i guess.
@@ -59,6 +67,7 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
 stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
     const foundLabel = allLabels.find((label) => label.keyLabel === keyLabel);
     if (foundLabel) {
+        reporter.sendTelemetryEvent(`jumpy2.jump-${keyLabel}`);
         foundLabel.jump();
     }
 });
@@ -120,6 +129,7 @@ function enterJumpMode() {
 }
 
 function toggle() {
+    reporter.sendTelemetryEvent('jumpy2.toggle');
     if (!isJumpMode) {
         enterJumpMode();
     } else {
@@ -128,10 +138,12 @@ function toggle() {
 }
 
 function sendKey(key: string) {
+    reporter.sendTelemetryEvent(`jumpy2.sendKey-${key}`);
     stateMachine.ports.key.send(key.charCodeAt(0));
 }
 
 function reset() {
+    reporter.sendTelemetryEvent('jumpy2.reset');
     stateMachine.ports.reset.send(null);
     _clearLabels();
     _renderLabels();
@@ -150,12 +162,22 @@ function _clear() {
 }
 
 function clear() {
+    reporter.sendTelemetryEvent('jumpy2.clear');
     stateMachine.ports.exit.send(null);
 }
 
 export function activate(context: ExtensionContext) {
     const { subscriptions } = context;
     const { registerCommand } = commands;
+
+    reporter = new TelemetryReporter(
+        extensionId,
+        extensionVersion,
+        appInsightsInstrumentationKey
+    );
+    subscriptions.push(reporter);
+
+    reporter.sendTelemetryEvent('jumpy2.activate');
 
     subscriptions.push(
         registerCommand('jumpy2.toggle', toggle),
@@ -200,4 +222,5 @@ export function deactivate() {
     // The decorations should ultimately be removed from clear above (not yet across all editors).
     // TODO: check if I should free the memory of the type here as well.
     wordLabelDecorationType.dispose();
+    reporter.dispose();
 }
