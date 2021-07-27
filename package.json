@@ -369,7 +369,7 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
+        "compile": "tsc -p ./ --skipLibCheck",
         "watch": "tsc -watch -p ./",
         "pretest": "npm run compile",
         "test": "nyc --reporter=html node ./out/test/runTest.js"
