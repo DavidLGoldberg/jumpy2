@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import moize from 'moize';
 
 export function getAllKeys(customKeys: ReadonlyArray<string>) {
     let lowerCharacters: Array<string> = [];
@@ -26,7 +27,7 @@ export function getAllKeys(customKeys: ReadonlyArray<string>) {
     };
 }
 
-export function getKeySet(customKeys: ReadonlyArray<string>) {
+function _getKeySet(customKeys: ReadonlyArray<string>) {
     const { lowerCharacters, upperCharacters } = getAllKeys(customKeys);
 
     const keys: Array<string> = [];
@@ -52,4 +53,13 @@ export function getKeySet(customKeys: ReadonlyArray<string>) {
     }
 
     return <ReadonlyArray<string>>keys;
+}
+
+const memoized = moize(_getKeySet, {
+    isSerialized: true,
+    serializer: (args: ReadonlyArray<string>) => [JSON.stringify(args[0])],
+});
+
+export function getKeySet(customKeys: ReadonlyArray<string>) {
+    return memoized(customKeys);
 }
