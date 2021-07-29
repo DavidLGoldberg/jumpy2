@@ -395,5 +395,11 @@
         "lodash": "4.17.20",
         "moize": "6.0.3",
         "vscode-extension-telemetry": "0.1.7"
+    },
+    "nyc": {
+        "exclude": [
+            ".vscode-test/*",
+            "out/elm"
+        ]
     }
 }
