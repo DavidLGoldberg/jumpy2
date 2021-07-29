@@ -22,7 +22,7 @@ graph:
 
 test:
 	node_modules/elm-test/bin/elm-test
-	npm run test
+	npm test
 
 package:
 	vsce package
