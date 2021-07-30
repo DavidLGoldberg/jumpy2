@@ -12,7 +12,7 @@ import {
 import TelemetryReporter from 'vscode-extension-telemetry';
 
 // @ts-ignore
-import * as elmApp from '../out/elm/StateMachineVSC';
+import elmApp from '../out/elm/StateMachineVSC';
 import { LabelEnvironment, Label, Settings } from './label-interface';
 import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';

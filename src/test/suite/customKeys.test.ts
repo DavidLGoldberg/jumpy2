@@ -1,5 +1,5 @@
-import * as path from 'path';
-import * as assert from 'assert';
+import path from 'path';
+import assert from 'assert';
 import { after, before, beforeEach } from 'mocha';
 
 import { commands, Selection, Position, Uri, window, workspace } from 'vscode';

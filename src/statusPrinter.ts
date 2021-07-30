@@ -1,4 +1,4 @@
-import { sample } from 'lodash';
+import sample from 'lodash.sample';
 import { workspace } from 'vscode';
 
 function getJumper(): string {

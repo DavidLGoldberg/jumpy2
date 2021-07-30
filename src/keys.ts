@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import range from 'lodash.range';
 import moize from 'moize';
 
 export function getAllKeys(customKeys: ReadonlyArray<string>) {
@@ -6,11 +6,11 @@ export function getAllKeys(customKeys: ReadonlyArray<string>) {
     let upperCharacters: Array<string> = [];
 
     if (!customKeys.length) {
-        lowerCharacters = _.range(
+        lowerCharacters = range(
             'a'.charCodeAt(0),
             'z'.charCodeAt(0) + 1 /* for inclusive*/
         ).map((c) => String.fromCharCode(c));
-        upperCharacters = _.range(
+        upperCharacters = range(
             'A'.charCodeAt(0),
             'Z'.charCodeAt(0) + 1 /* for inclusive*/
         ).map((c) => String.fromCharCode(c));

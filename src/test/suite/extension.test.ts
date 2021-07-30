@@ -1,4 +1,4 @@
-import * as assert from 'assert';
+import assert from 'assert';
 import { after, before } from 'mocha';
 
 // You can import and use all API from the 'vscode' module

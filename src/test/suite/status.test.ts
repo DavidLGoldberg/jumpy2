@@ -1,10 +1,10 @@
-import * as path from 'path';
-import * as assert from 'assert';
+import path from 'path';
+import assert from 'assert';
 import { after, before, beforeEach } from 'mocha';
 
 import { commands, Position, Selection, Uri, window } from 'vscode';
 // This maybe for unit test stuff?
-// import * as Jumpy2 from '../../../src/extension';
+// import  Jumpy2 from '../../../src/extension';
 
 const ONE_MIN = 60000;
 const QUARTER_SECOND = 250;
