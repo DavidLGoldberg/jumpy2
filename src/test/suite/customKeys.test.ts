@@ -83,4 +83,42 @@ suite('Custom Keys test Suite', function () {
 
         await wait();
     });
+
+    test('Toggle and jump - empty custom keys', async function () {
+        let position: Position | undefined;
+
+        await workspace
+            .getConfiguration('jumpy2')
+            .update('customKeys', '', true);
+
+        await wait();
+
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.a');
+
+        await wait();
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.deepStrictEqual(position, new Position(0, 0));
+
+        await wait();
+
+        await commands.executeCommand('jumpy2.toggle');
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.b');
+
+        await wait();
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.deepStrictEqual(position, new Position(0, 3));
+
+        await wait();
+    });
 });
