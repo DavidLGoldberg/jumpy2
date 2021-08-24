@@ -1,4 +1,4 @@
-import { TextEditor, DecorationOptions } from 'vscode';
+import { TextEditor, DecorationOptions, Uri } from 'vscode';
 
 export interface Settings {
     wordsPattern: RegExp;
@@ -12,6 +12,7 @@ export interface LabelEnvironment {
 
 export interface Label {
     keyLabel: string;
+    keyLabelUri: Uri;
     textEditor: TextEditor | undefined;
     settings: Settings | undefined;
     getDecoration(): DecorationOptions;

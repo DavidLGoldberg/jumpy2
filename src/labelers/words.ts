@@ -1,9 +1,10 @@
-import { Selection, TextEditor, window } from 'vscode';
+import { DecorationOptions, Selection, TextEditor, Uri, window } from 'vscode';
 import { LabelEnvironment, Label, Labeler, Settings } from '../label-interface';
 import { Range, Position } from 'vscode';
 
 class WordLabel implements Label {
     keyLabel!: string;
+    keyLabelUri!: Uri;
     textEditor: TextEditor | undefined;
     lineNumber!: number;
     column!: number;
@@ -12,21 +13,20 @@ class WordLabel implements Label {
 
     destroy() {}
 
-    getDecoration(): any {
-        const { lineNumber, column, keyLabel } = this;
+    getDecoration(): DecorationOptions {
+        const { lineNumber, column, keyLabelUri } = this;
 
         this.marker = new Range(
             new Position(lineNumber, column),
             new Position(lineNumber, column + 2)
         );
 
-        const label = { after: { contentText: keyLabel } };
-        const decoration = {
+        // const label = { after: { contentText: keyLabel } };
+        const label = { after: { contentIconPath: keyLabelUri } };
+        return {
             range: this.marker,
             renderOptions: { dark: label, light: label },
         };
-
-        return decoration;
     }
 
     animateBeacon() {}

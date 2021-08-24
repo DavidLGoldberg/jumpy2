@@ -5,9 +5,12 @@ import {
     DecorationOptions,
     extensions,
     ExtensionContext,
+    Uri,
     window,
     workspace,
 } from 'vscode';
+import { Range, Position } from 'vscode';
+
 import TelemetryReporter from 'vscode-extension-telemetry';
 
 // @ts-ignore
@@ -83,18 +86,65 @@ function _renderLabels(enteredKey?: string) {
 
     allLabels.length = 0; // Clear the array from previous runs.
 
+    function drawBigSvg(labels: Label[]): DecorationOptions[] {
+        console.log('??????? hereeeeeee?');
+        const bgColor = 'red';
+        const fgColor = 'blue';
+        const totalWidth = 400;
+        const totalHeight = 800;
+        const width = 20;
+        const fontHeight = 10;
+        const fontFamily = '';
+        console.log('???????', labels);
+        let svg =
+            `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalWidth} ${totalHeight}" width="${totalWidth}" height="${totalHeight}" style="fill: ${bgColor};">
+        ${labels.map(
+            (l: Label) =>
+                `<rect width="${width}" height="${fontHeight}" width=${width} rx="2" ry="2" style="fill: ${bgColor};"/>
+                <text
+                    font-family="${fontFamily}"
+                    font-size="${fontHeight}px"
+                    textLength="${width - 2}"
+                    textAdjust="spacing"
+                    fill="${fgColor}"
+                    x="1"
+                    y="${fontHeight - 2}"
+                    alignment-baseline="baseline">
+                    ${l.keyLabel}
+                </text>
+                `
+        )}
+        </svg>`.replaceAll('\n', '');
+        // svg = `<svg></svg>`;
+        console.log('??????? svg?', svg.substr(0, 2000));
+        // </text></svg>`.replaceAll('\n', '');
+
+        // const label = { after: { contentText: keyLabel } };
+        const label = {
+            after: {
+                contentIconPath: Uri.parse(`data:image/svg+xml;utf8,${svg}`),
+            },
+        };
+        return [
+            {
+                range: new Range(new Position(0, 0), new Position(50, 50)),
+                renderOptions: { dark: label, light: label },
+            },
+        ];
+    }
+
     window.visibleTextEditors.forEach((editor) => {
         // Atom architecture (copied here) allows for other label providers:
         const editorLabels = getWordLabels(environment, editor);
         allLabels = [...allLabels, ...editorLabels];
 
-        const decorations: DecorationOptions[] = editorLabels
-            .filter((label) =>
+        const bigSvg: DecorationOptions[] = drawBigSvg(
+            editorLabels.filter((label) =>
                 enteredKey ? label.keyLabel.startsWith(enteredKey) : true
             )
-            .map((label) => label.getDecoration());
+        );
 
-        editor.setDecorations(wordLabelDecorationType, decorations);
+        editor.setDecorations(wordLabelDecorationType, bigSvg);
     });
 }
 
@@ -125,6 +175,13 @@ function reset() {
 function _clearLabels() {
     window.visibleTextEditors.forEach((editor) => {
         editor.setDecorations(wordLabelDecorationType, []);
+        //
+        // const marker = new Range(new Position(0, 0), new Position(0, 0));
+        // const label = { after: { contentText: keyLabel } };
+        // const decoration = {
+        //     range: marker,
+        //     renderOptions: { dark: label, light: label },
+        // };
     });
 }
 
