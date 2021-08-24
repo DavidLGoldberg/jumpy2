@@ -2,7 +2,7 @@ port module StateMachineAtom exposing (Flags, Labels, Model, Msg(..), activeChan
 
 import AtomStatusFunctions exposing (addKeyToStatus, clearStatus, resetStatus, setNoMatchStatus)
 import Char
-import List exposing (any)
+import List
 import String exposing (length, startsWith)
 
 

@@ -1,6 +1,6 @@
 module TestsVSC exposing (suite)
 
-import Expect exposing (Expectation)
+import Expect
 import StateMachineVSC exposing (Msg(..), resetKeys, update)
 import Test exposing (..)
 
