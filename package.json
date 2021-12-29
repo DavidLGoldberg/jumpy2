@@ -92,6 +92,11 @@
             },
             {
                 "command": "jumpy2.clear",
+                "key": "shift+enter",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.clear",
                 "key": "enter",
                 "when": "jumpy2.jump-mode && editorTextFocus"
             },

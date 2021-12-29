@@ -26,7 +26,6 @@ const extensionVersion =
 const appInsightsInstrumentationKey = '618cee5c-79f0-46c5-a2ab-95f734e163ef';
 
 const stateMachine = elmApp.Elm.StateMachineVSC.init();
-let isJumpMode = false; // TODO: change with state machine i guess.
 
 const getSettings = (): Settings => {
     return {
@@ -121,7 +120,6 @@ function _renderLabels(enteredKey?: string) {
 }
 
 function enterJumpMode() {
-    isJumpMode = true; // TODO: I hate this, but 'getContext' is not as straight forward
     commands.executeCommand('setContext', 'jumpy2.jump-mode', true);
 
     _renderLabels();
@@ -130,11 +128,7 @@ function enterJumpMode() {
 
 function toggle() {
     reporter.sendTelemetryEvent('jumpy2.toggle');
-    if (!isJumpMode) {
-        enterJumpMode();
-    } else {
-        clear();
-    }
+    enterJumpMode();
 }
 
 function sendKey(key: string) {
@@ -156,7 +150,6 @@ function _clearLabels() {
 }
 
 function _clear() {
-    isJumpMode = false;
     commands.executeCommand('setContext', 'jumpy2.jump-mode', false);
     _clearLabels();
 }
