@@ -13,7 +13,7 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:jumpy2.toggle"
+        "onStartupFinished"
     ],
     "main": "./out/extension.js",
     "contributes": {
