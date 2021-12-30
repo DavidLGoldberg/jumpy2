@@ -33,7 +33,5 @@ export default function statusPrinter(statusMarkup: string) {
 
     const jumper = getJumper();
 
-    return `${
-        useJumperEmoji && jumper !== '' ? jumper : ''
-    }Jumpy: ${statusMarkup}`;
+    return `${(useJumperEmoji && jumper) || ''}Jumpy: ${statusMarkup}`;
 }
