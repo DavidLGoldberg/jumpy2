@@ -139,3 +139,14 @@ neovim
     "when": "neovim.init && jumpy2.jump-mode && editorTextFocus"
   }
 ```
+
+###
+
+Change the 'jumper' set (emojis)
+in `settings.json` ie. on a mac `~/Library/Application Support/Code/User/settings.json`
+
+add:
+
+```
+  "jumpy2.jumperEmojis.jumperSet": ["🐒"],
+```
