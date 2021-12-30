@@ -16,11 +16,7 @@ import wordLabelDecorationType from './labelers/wordDecorations';
 import { createStatusBar, setStatusBar } from './statusPrinter';
 import { getKeySet, getAllKeys } from './keys';
 
-let reporter: TelemetryReporter;
-const extensionId = 'DavidLGoldberg.jumpy2';
-const extensionVersion =
-    extensions.getExtension(extensionId)!.packageJSON.version;
-const appInsightsInstrumentationKey = '618cee5c-79f0-46c5-a2ab-95f734e163ef';
+let reporter: TelemetryReporter; // Instantiated on activation
 
 const stateMachine = elmApp.Elm.StateMachineVSC.init();
 
@@ -147,10 +143,11 @@ export function activate(context: ExtensionContext) {
     const { subscriptions } = context;
     const { registerCommand } = commands;
 
+    const extensionId = 'DavidLGoldberg.jumpy2';
     reporter = new TelemetryReporter(
         extensionId,
-        extensionVersion,
-        appInsightsInstrumentationKey
+        extensions.getExtension(extensionId)!.packageJSON.version, // extension version
+        '618cee5c-79f0-46c5-a2ab-95f734e163ef' // app insights instrumentation key
     );
     subscriptions.push(reporter);
 
