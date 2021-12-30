@@ -197,7 +197,6 @@ export function deactivate() {
     statusBarItem.dispose();
 
     // The decorations should ultimately be removed from clear above (not yet across all editors).
-    // TODO: check if I should free the memory of the type here as well.
     wordLabelDecorationType.dispose();
     reporter.dispose();
 }
