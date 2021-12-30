@@ -1,5 +1,11 @@
 import sample from 'lodash.sample';
-import { workspace } from 'vscode';
+import {
+    StatusBarAlignment,
+    StatusBarItem,
+    ThemeColor,
+    window,
+    workspace,
+} from 'vscode';
 
 function getJumper(): string {
     // TODO: Move to config:
@@ -26,7 +32,7 @@ function getJumper(): string {
     // TODO: magic mushroom? mario noise? (achievements, etc)
 }
 
-export default function statusPrinter(statusMarkup: string) {
+function statusPrinter(statusMarkup: string) {
     const useJumperEmoji = workspace
         .getConfiguration('jumpy2')
         .get('jumperEmojis.active');
@@ -34,4 +40,25 @@ export default function statusPrinter(statusMarkup: string) {
     const jumper = getJumper();
 
     return `${(useJumperEmoji && jumper) || ''}Jumpy: ${statusMarkup}`;
+}
+
+export function createStatusBar() {
+    return window.createStatusBarItem(StatusBarAlignment.Left, 1000);
+}
+
+export function setStatusBar(
+    statusBarItem: StatusBarItem,
+    statusMarkup: string
+) {
+    if (statusMarkup) {
+        statusBarItem.text = statusPrinter(statusMarkup);
+
+        statusBarItem.color = statusMarkup.includes('No Match')
+            ? new ThemeColor('errorForeground')
+            : new ThemeColor('editorInfo.foreground');
+
+        statusBarItem.show();
+    } else {
+        statusBarItem.hide();
+    }
 }

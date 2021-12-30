@@ -3,9 +3,6 @@ import {
     DecorationOptions,
     extensions,
     ExtensionContext,
-    StatusBarAlignment,
-    StatusBarItem,
-    ThemeColor,
     window,
     workspace,
 } from 'vscode';
@@ -16,7 +13,7 @@ import elmApp from '../out/elm/StateMachineVSC';
 import { LabelEnvironment, Label, Settings } from './label-interface';
 import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
-import statusPrinter from './statusPrinter';
+import { createStatusBar, setStatusBar } from './statusPrinter';
 import { getKeySet, getAllKeys } from './keys';
 
 let reporter: TelemetryReporter;
@@ -44,10 +41,7 @@ const getSettings = (): Settings => {
     };
 };
 
-const statusBarItem: StatusBarItem = window.createStatusBarItem(
-    StatusBarAlignment.Left,
-    1000
-);
+const statusBarItem = createStatusBar();
 
 let allLabels: Array<Label> = new Array<Label>();
 
@@ -78,17 +72,7 @@ stateMachine.ports.activeChanged.subscribe((active: boolean) => {
 });
 
 stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
-    if (statusMarkup) {
-        statusBarItem.text = statusPrinter(statusMarkup);
-
-        statusBarItem.color = statusMarkup.includes('No Match')
-            ? new ThemeColor('errorForeground')
-            : new ThemeColor('editorInfo.foreground');
-
-        statusBarItem.show();
-    } else {
-        statusBarItem.hide();
-    }
+    setStatusBar(statusBarItem, statusMarkup);
 });
 
 function _renderLabels(enteredKey?: string) {
