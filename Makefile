@@ -18,7 +18,7 @@ typescript:
 
 graph:
 	# make graph (svg) of architecture
-	npx madge --image ./.madge/graph.svg ./out
+	npx madge --exclude '(^test*|Atom)' --image ./.madge/graph.svg ./out
 
 test:
 	node_modules/elm-test/bin/elm-test
