@@ -374,7 +374,7 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./ --skipLibCheck",
+        "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "pretest": "npm run compile",
         "test": "nyc --reporter=html node ./out/test/runTest.js"
@@ -385,7 +385,7 @@
         "@types/node": "^10.12.21",
         "@types/vscode": "^1.38.0",
         "glob": "^7.1.4",
-        "madge": "^4.0.0",
+        "madge": "^4.0.2",
         "mocha": "^6.1.4",
         "nyc": "15.1.0",
         "tslint": "^5.12.1",
@@ -401,7 +401,7 @@
         "lodash.range": "3.2.0",
         "lodash.sample": "4.2.1",
         "moize": "6.0.3",
-        "vscode-extension-telemetry": "0.1.7"
+        "vscode-extension-telemetry": "0.4.4"
     },
     "nyc": {
         "exclude": [
