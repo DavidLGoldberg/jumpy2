@@ -1,27 +1,27 @@
-default: elm typescript
+default: npm elm elm-build
 
-elm:
+elm-build:
 	# add target for `npm install uglify-js` or -g?
-	node_modules/elm/bin/elm make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js --optimize
-	node_modules/uglify-js/bin/uglifyjs out/elm/StateMachineVSC.js --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' | node_modules/uglify-js/bin/uglifyjs --mangle --output=out/elm/StateMachineVSC.js
-	node_modules/elm-test/bin/elm-test
+	npx elm@0.19.1-3 make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js --optimize
+	npx uglify-js@3.14.5 --output out/elm/StateMachineVSC.js --mangle --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' -- out/elm/StateMachineVSC.js
 
 elm-debug:
-	node_modules/elm/bin/elm make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js
-	# add target for `npm install -g elm-test` or not -g?
-	node_modules/elm-test/bin/elm-test
+	npx elm@0.19.1-3 make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js
 
-typescript:
-	# *** needs work for vs code ***
+npm:
+	npm install -g npm@8.3.0
 	npm install
-	# for now typescript gets built with atom-typescript.
+	
+elm: npm
+	npm install -g elm@0.19.1-3
 
 graph:
 	# make graph (svg) of architecture
-	npx madge --exclude '(^test*|Atom)' --image ./.madge/graph.svg ./out
+	mkdir -p ./.madge
+	npx madge@5.0.1 --exclude '(^test*|Atom)' --image ./.madge/graph.svg ./out
 
 test:
-	node_modules/elm-test/bin/elm-test
+	npx elm-test@0.19.1-revision2
 	npm test
 
 package:
