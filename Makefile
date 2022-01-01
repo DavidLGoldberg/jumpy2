@@ -1,4 +1,11 @@
-default: npm elm elm-build
+default: clean npm elm elm-build typescript
+
+npm:
+	npm install -g npm@8.3.0
+	npm install
+	
+elm: npm
+	npm install -g elm@0.19.1-3
 
 elm-build:
 	# add target for `npm install uglify-js` or -g?
@@ -8,13 +15,9 @@ elm-build:
 elm-debug:
 	npx elm@0.19.1-3 make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js
 
-npm:
-	npm install -g npm@8.3.0
-	npm install
+typescript:
+	npm run compile
 	
-elm: npm
-	npm install -g elm@0.19.1-3
-
 graph:
 	# make graph (svg) of architecture
 	mkdir -p ./.madge
@@ -31,6 +34,10 @@ newestpackage:=$(shell ls -snew jumpy2*vsix | head -1 | cut -d" " -f14)
 
 install: package
 	code --install-extension $(newestpackage)
+
+clean:
+	rm -rf "node_modules" ".coverage" ".nyc_output" ".vscode-test"
+	# NOTE: intentionally not deleting .vsix files
 
 count:
 	# *** needs work for vs code ***
