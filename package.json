@@ -377,7 +377,7 @@
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "pretest": "npm run compile",
-        "test": "nyc --reporter=html node ./out/test/runTest.js"
+        "test": "nyc node ./out/test/runTest.js"
     },
     "devDependencies": {
         "@types/glob": "7.2.0",
@@ -401,6 +401,15 @@
         "vscode-extension-telemetry": "0.4.4"
     },
     "nyc": {
+        "cache": false,
+        "all": true,
+        "report": [
+            "lcov"
+        ],
+        "include": [
+            "out",
+            "src"
+        ],
         "exclude": [
             ".vscode-test/*",
             "out/elm"
