@@ -25,9 +25,9 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-## Working with Markdown
+## Vim integration (see neovim below if interested)
 
-if `f` vim functionality is desired:
+if <key>f</key> vim functionality is desired:
 open settings as json and add
 
 ```
@@ -43,24 +43,13 @@ open settings as json and add
   ],
 ```
 
-If you want to use backspace for reset. This currently removes backspace from working in vim in normal mode
+I currently use <key>backspace</key> as my back navigation key (built into VS Code).
+This overrides the normal boring backspace functionality from vim in normal mode.
 
-in key settings (TODO tell how to get here):
+**in key settings (TODO tell how to get here):**
 
 ```
-    // Remove vim's
-    {
-        "key": "backspace",
-        "command": "-extension.vim_backspace",
-        "when": "editorTextFocus && vim.active && !inDebugRepl"
-    },
-    {
-        "key": "shift+backspace",
-        "command": "-extension.vim_shift+backspace",
-        "when": "editorTextFocus && vim.active && vim.use<shift+BS> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
-    },
-
-    // Set Jumpy's
+    // Set Jumpy's `reset` command to backspace
     {
         "key": "backspace",
         "command": "jumpy2.reset",
@@ -105,7 +94,7 @@ TODO: !!!! find this code block....it has like a [] around the theme, in the syn
 },
 ```
 
-Custom faster keys:
+Custom set of keys to use (easier to type / faster?):
 
 ```
 "jumpy2.customKeys": {
@@ -115,7 +104,7 @@ Custom faster keys:
 },
 ```
 
-Default easier for beginners? / probably better for larger screens (more labels before we resort to uppercase).
+The default might be easier for beginners. It is probably better for larger screens (more labels before jumpy has to resort to utliizing uppercase letters).
 
 ```
 "jumpy2.customKeys": {
@@ -125,7 +114,9 @@ Default easier for beginners? / probably better for larger screens (more labels 
 },
 ```
 
-neovim
+## Neovim Integration
+
+_NOTE: I haven't fully configured neovim but used it successfully for a while with the following_:
 
 ```
   {
@@ -140,7 +131,22 @@ neovim
   }
 ```
 
-###
+for back and forward functionality with neovim:
+
+```
+  {
+  "key": "backspace",
+  "command": "workbench.action.navigateBack",
+  "when": "editorTextFocus && !inDebugRepl && neovim.mode != 'insert'"
+  },
+{
+  "key": "shift+backspace",
+  "command": "workbench.action.navigateForward",
+  "when": "editorTextFocus && !inDebugRepl && neovim.mode != 'insert'"
+}
+```
+
+## Fun
 
 Change the 'jumper' set (emojis)
 in `settings.json` ie. on a mac `~/Library/Application Support/Code/User/settings.json`
@@ -150,3 +156,5 @@ add:
 ```
   "jumpy2.jumperEmojis.jumperSet": ["🐒"],
 ```
+
+_The above tells jumpy to use the monkey emoji exclusively._
