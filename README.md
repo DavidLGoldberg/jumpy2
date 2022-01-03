@@ -134,8 +134,8 @@ neovim
       "when": "neovim.mode =~ /^normal$|^visual$/ && !jumpy2.jump-mode && editorTextFocus"
   },
   {
-    "command": "jumpy2.clear",
     "key": "escape",
+    "command": "jumpy2.clear",
     "when": "neovim.init && jumpy2.jump-mode && editorTextFocus"
   }
 ```
