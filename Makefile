@@ -3,7 +3,7 @@ default: clean npm elm elm-build typescript
 npm:
 	npm install -g npm@8.3.0
 	npm install
-	
+
 elm: npm
 	npm install -g elm@0.19.1-3
 
@@ -17,7 +17,7 @@ elm-debug:
 
 typescript:
 	npm run compile
-	
+
 graph:
 	# make graph (svg) of architecture
 	mkdir -p ./.madge
@@ -40,5 +40,4 @@ clean:
 	# NOTE: intentionally not deleting .vsix files
 
 count:
-	# *** needs work for vs code ***
 	rg --files | grep -v \.js$ | grep -v out | grep -v \.png$ | grep -v \.gif$ | grep -v package-lock.json | xargs wc -l | sort -n
