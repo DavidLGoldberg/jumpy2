@@ -28,7 +28,7 @@ test:
 	npm test
 
 package:
-	vsce package
+	npx vsce package
 
 newestpackage:=$(shell ls -snew jumpy2*vsix | head -1 | cut -d" " -f14)
 

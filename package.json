@@ -4,7 +4,7 @@
     "description": "Jumpy2 (for VS Code)",
     "version": "0.0.1",
     "engines": {
-        "vscode": "^1.38.0"
+        "vscode": "^1.63.1"
     },
     "publisher": "DavidLGoldberg",
     "homepage": "https://github.com/DavidLGoldberg/jumpy2/blob/master/README.md",
