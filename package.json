@@ -377,7 +377,8 @@
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "pretest": "npm run compile",
-        "test": "nyc node ./out/test/runTest.js"
+        "test": "nyc node ./out/test/runTest.js",
+        "prepare": "npx husky install"
     },
     "devDependencies": {
         "@types/glob": "7.2.0",
