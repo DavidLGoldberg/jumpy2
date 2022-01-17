@@ -56,7 +56,7 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
 stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
     const foundLabel = allLabels.find((label) => label.keyLabel === keyLabel);
     if (foundLabel) {
-        reporter.sendTelemetryEvent(`jumpy2.jump-${keyLabel}`);
+        reporter.sendTelemetryEvent(`jump-${keyLabel}`);
         foundLabel.jump();
     }
 });
@@ -107,17 +107,17 @@ function enterJumpMode() {
 }
 
 function toggle() {
-    reporter.sendTelemetryEvent('jumpy2.toggle');
+    reporter.sendTelemetryEvent('toggle');
     enterJumpMode();
 }
 
 function sendKey(key: string) {
-    reporter.sendTelemetryEvent(`jumpy2.sendKey-${key}`);
+    reporter.sendTelemetryEvent(`sendKey-${key}`);
     stateMachine.ports.key.send(key.charCodeAt(0));
 }
 
 function reset() {
-    reporter.sendTelemetryEvent('jumpy2.reset');
+    reporter.sendTelemetryEvent('reset');
     stateMachine.ports.reset.send(null);
     _clearLabels();
     _renderLabels();
@@ -135,7 +135,7 @@ function _clear() {
 }
 
 function clear() {
-    reporter.sendTelemetryEvent('jumpy2.clear');
+    reporter.sendTelemetryEvent('clear');
     stateMachine.ports.exit.send(null);
 }
 
@@ -151,7 +151,7 @@ export function activate(context: ExtensionContext) {
     );
     subscriptions.push(reporter);
 
-    reporter.sendTelemetryEvent('jumpy2.activate');
+    reporter.sendTelemetryEvent('activate');
 
     subscriptions.push(
         registerCommand('jumpy2.toggle', toggle),
