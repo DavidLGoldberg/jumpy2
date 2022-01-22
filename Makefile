@@ -30,10 +30,8 @@ test:
 package:
 	npx vsce package
 
-newestpackage:=$(shell ls -snew jumpy2*vsix | head -1 | cut -d" " -f14)
-
 install: package
-	code --install-extension $(newestpackage)
+	code --install-extension `ls -snew jumpy2*vsix | head -1 | awk '{ print $$NF }'`
 
 clean:
 	rm -rf "node_modules" ".coverage" ".nyc_output" ".vscode-test"
