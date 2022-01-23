@@ -1,3 +1,5 @@
+import debounce from 'lodash.debounce';
+
 import {
     commands,
     DecorationOptions,
@@ -63,7 +65,7 @@ stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
 
 stateMachine.ports.activeChanged.subscribe((active: boolean) => {
     if (!active) {
-        _exit();
+        _exitDebounced();
     }
 });
 
@@ -130,16 +132,13 @@ function _clearLabels() {
 }
 
 function _exit() {
-    // reporter.sendTelemetryEvent('exit-event');
-    console.log('exit-event');
-
     commands.executeCommand('setContext', 'jumpy2.jump-mode', false);
     _clearLabels();
 }
+const _exitDebounced = debounce(_exit, 350, { leading: true, trailing: false });
 
 function exit() {
     reporter.sendTelemetryEvent('exit-requested');
-    console.log('exit-requested');
     stateMachine.ports.exit.send(null);
 }
 
@@ -189,7 +188,7 @@ export function activate(context: ExtensionContext) {
         workspace.onDidOpenTextDocument,
     ];
 
-    subscriptions.push(...events.map((event) => event(() => _exit())));
+    subscriptions.push(...events.map((event) => event(() => _exitDebounced())));
 }
 
 export function deactivate() {
