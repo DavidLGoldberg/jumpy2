@@ -63,7 +63,7 @@ stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
 
 stateMachine.ports.activeChanged.subscribe((active: boolean) => {
     if (!active) {
-        _clear();
+        _exit();
     }
 });
 
@@ -129,13 +129,17 @@ function _clearLabels() {
     });
 }
 
-function _clear() {
+function _exit() {
+    // reporter.sendTelemetryEvent('exit-event');
+    console.log('exit-event');
+
     commands.executeCommand('setContext', 'jumpy2.jump-mode', false);
     _clearLabels();
 }
 
-function clear() {
-    reporter.sendTelemetryEvent('clear');
+function exit() {
+    reporter.sendTelemetryEvent('exit-requested');
+    console.log('exit-requested');
     stateMachine.ports.exit.send(null);
 }
 
@@ -156,7 +160,7 @@ export function activate(context: ExtensionContext) {
     subscriptions.push(
         registerCommand('jumpy2.toggle', toggle),
         registerCommand('jumpy2.reset', reset),
-        registerCommand('jumpy2.clear', clear)
+        registerCommand('jumpy2.exit', exit)
     );
 
     const allKeys = getAllKeys(getSettings().customKeys);
@@ -185,15 +189,14 @@ export function activate(context: ExtensionContext) {
         workspace.onDidOpenTextDocument,
     ];
 
-    subscriptions.push(...events.map((event) => event(() => clear())));
+    subscriptions.push(...events.map((event) => event(() => _exit())));
 }
 
 export function deactivate() {
-    _clear();
+    _exit();
 
     statusBarItem.dispose();
 
-    // The decorations should ultimately be removed from clear above (not yet across all editors).
     wordLabelDecorationType.dispose();
     reporter.dispose();
 }

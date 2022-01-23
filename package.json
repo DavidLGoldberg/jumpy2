@@ -80,8 +80,8 @@
                 "title": "Jumpy: Reset"
             },
             {
-                "command": "jumpy2.clear",
-                "title": "Jumpy: Clear"
+                "command": "jumpy2.exit",
+                "title": "Jumpy: Exit"
             }
         ],
         "keybindings": [
@@ -91,22 +91,22 @@
                 "when": "editorTextFocus"
             },
             {
-                "command": "jumpy2.clear",
+                "command": "jumpy2.exit",
                 "key": "shift+enter",
                 "when": "jumpy2.jump-mode && editorTextFocus"
             },
             {
-                "command": "jumpy2.clear",
+                "command": "jumpy2.exit",
                 "key": "enter",
                 "when": "jumpy2.jump-mode && editorTextFocus"
             },
             {
-                "command": "jumpy2.clear",
+                "command": "jumpy2.exit",
                 "key": "escape",
                 "when": "jumpy2.jump-mode && editorTextFocus"
             },
             {
-                "command": "jumpy2.clear",
+                "command": "jumpy2.exit",
                 "key": "space",
                 "when": "jumpy2.jump-mode && editorTextFocus"
             },

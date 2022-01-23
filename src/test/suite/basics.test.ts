@@ -162,11 +162,11 @@ suite('Basic test Suite', function () {
         assert.deepStrictEqual(position, new Position(4, 15));
     });
 
-    test('Clear command', async function () {
+    test('Exit command', async function () {
         let position: Position | undefined;
         // Should do no change
         await commands.executeCommand('jumpy2.toggle');
-        await commands.executeCommand('jumpy2.clear');
+        await commands.executeCommand('jumpy2.exit');
 
         await wait();
 
@@ -176,10 +176,10 @@ suite('Basic test Suite', function () {
 
         assert.deepStrictEqual(position, new Position(0, 0));
 
-        // Should clear and still remain in place
+        // Should exit and still remain in place
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
-        await commands.executeCommand('jumpy2.clear');
+        await commands.executeCommand('jumpy2.exit');
 
         await wait();
 

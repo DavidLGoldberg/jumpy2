@@ -126,7 +126,7 @@ _NOTE: I haven't fully configured neovim but used it successfully for a while wi
   },
   {
     "key": "escape",
-    "command": "jumpy2.clear",
+    "command": "jumpy2.exit",
     "when": "neovim.init && jumpy2.jump-mode && editorTextFocus"
   }
 ```
