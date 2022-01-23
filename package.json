@@ -1,7 +1,7 @@
 {
     "name": "jumpy2",
     "displayName": "Jumpy2",
-    "description": "Jumpy2 (for VS Code)",
+    "description": "Jumpy for VS Code",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.63.1"
