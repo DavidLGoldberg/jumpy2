@@ -28,13 +28,14 @@ test:
 	npm test
 
 package:
+	# uses npm's vscode:prepublish target
 	npx vsce package
 
 install: package
 	code --install-extension `ls -snew jumpy2*vsix | head -1 | awk '{ print $$NF }'`
 
 clean:
-	rm -rf "node_modules" ".coverage" ".nyc_output" ".vscode-test"
+	rm -rf "node_modules" ".coverage" ".nyc_output" ".vscode-test" "out"
 	# NOTE: intentionally not deleting .vsix files
 
 count:
