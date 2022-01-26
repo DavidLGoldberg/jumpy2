@@ -35,7 +35,6 @@ function _getKeySet(customKeys: ReadonlyArray<string>) {
     // A little ugly.
     // I used itertools.permutation in python.
     // Couldn't find a good one in npm.  Don't worry this takes < 1ms once.
-    // TODO: try a zip? and or make a func
     for (let c1 of lowerCharacters) {
         for (let c2 of lowerCharacters) {
             keys.push(c1 + c2);

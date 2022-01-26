@@ -8,7 +8,6 @@ import {
 } from 'vscode';
 
 function getJumper(): string {
-    // TODO: Move to config:
     const jumpers: Array<string> | undefined = workspace
         .getConfiguration('jumpy2')
         .get('jumperEmojis.jumperSet');

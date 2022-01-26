@@ -45,10 +45,7 @@ let allLabels: Array<Label> = new Array<Label>();
 
 // Subscribe:
 stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
-    // ! TODO: why is this always firing without a real key press ?
-    // TODO: should I be unregistering this?
-    // console.log('valid key entered', keyLabel);
-
+    // This also broadcasts some empty strings in some cases.  Fine to ignore them.
     if (keyLabel) {
         _clearLabels();
         _renderLabels(keyLabel);
