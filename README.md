@@ -158,3 +158,8 @@ add:
 ```
 
 _The above tells jumpy to use the monkey emoji exclusively._
+
+## Support Jumpy2
+
+-   Sponsor me on Github [David L Goldberg](https://github.com/sponsors/DavidLGoldberg)
+-   Support me on [Patreon](https://www.patreon.com/davidlgoldberg)
