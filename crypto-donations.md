@@ -1,0 +1,7 @@
+## David L. Goldberg's Crypto Addresses (for donations):
+
+-   BTC: 3EBzPoFQQ1uZghcanJzq8px1SJtvvwfLbP
+-   ETH: 0xd6638aa01413CF8d7f59E05312CccC19c1205c8f
+-   LTC: MGZMJgGCaK3SRfVzQXBM5FXpHDDC5Zmi1B
+-   DOGE: DT6X2S2Lt5AUJruGhZzVDWDVNScF8nXCzx
+-   SOL: 38YQ58hcpruJU65FsnWsY4GZ5TcK7CADkc2WSBDx5N2U

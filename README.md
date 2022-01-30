@@ -163,3 +163,4 @@ _The above tells jumpy to use the monkey emoji exclusively._
 
 -   Sponsor me on Github [David L Goldberg](https://github.com/sponsors/DavidLGoldberg)
 -   Support me on [Patreon](https://www.patreon.com/davidlgoldberg)
+-   Support me via [crypto](./crypto-donations.md)
