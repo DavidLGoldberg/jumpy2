@@ -1,36 +1,11 @@
-# jumpy-vscode README
-
-## Features
-
-## Requirements
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
--   `myExtension.enable`: enable/disable this extension
--   `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
+# Jumpy2
 
 ## Vim integration (see neovim below if interested)
 
 if <key>f</key> vim functionality is desired:
 open settings as json and add
 
-```
+```json
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": [
@@ -48,7 +23,7 @@ This overrides the normal boring backspace functionality from vim in normal mode
 
 **in key settings (TODO tell how to get here):**
 
-```
+```json
     // Set Jumpy's `reset` command to backspace
     {
         "key": "backspace",
@@ -69,34 +44,38 @@ This overrides the normal boring backspace functionality from vim in normal mode
     },
 ```
 
-To set theme overrides (label background and font color):
-This will override the defaults for dark, light, and highcontrast respectively.
-In `settings.json` file:
+## Colors
 
-DON'T DO THIS (probably):
+To override Jumpy's default label colors (black on green) try this
+In your VS Code's `settings.json` file:
 
-```
+```json
 "workbench.colorCustomizations": {
-  "jumpy2.labelFontColor": "#97081b",
-  "jumpy2.labelBackgroundColor": "#00AA00"
+  "jumpy2.labelFontColor": "#000000", // black
+  "jumpy2.labelBackgroundColor": "#ff0000" // on red
 },
 ```
 
-However, it is probably wise to leave the defaults, and rather scope this to a theme like so:
-DO THIS (probably):
+_However_, it is probably wise to leave the defaults, and instead scope this to a theme or wildcarded (modified from [VS Code's examples](https://code.visualstudio.com/docs/getstarted/themes#_editor-syntax-highlighting) like so:
 
-TODO: !!!! find this code block....it has like a [] around the theme, in the syntax
-
-```
+```json
 "workbench.colorCustomizations": {
-  "jumpy2.labelFontColor": "#97081b",
-  "jumpy2.labelBackgroundColor": "#00AA00"
+  // NOTE: not all dark and light themes are conveniently labeled "dark" or "light" like this.
+  // In that case, you can specify per theme, or again, just leave Jumpy's default or override the default with the example above.
+  "[*Dark*]": {
+    "jumpy2.labelFontColor": "#000000",
+    "jumpy2.labelBackgroundColor": "#FFFFFF"
+  },
+  "[*Light*]": {
+    "jumpy2.labelFontColor": "#FFFFFF",
+    "jumpy2.labelBackgroundColor": "#000000"
+  }
 },
 ```
 
-Custom set of keys to use (easier to type / faster?):
+## Custom set of keys to use (easier to type / faster?):
 
-```
+```json
 "jumpy2.customKeys": {
     "type": "array",
     "default": "fjdkslaghrueiwoncmv",
@@ -104,9 +83,9 @@ Custom set of keys to use (easier to type / faster?):
 },
 ```
 
-The default might be easier for beginners. It is probably better for larger screens (more labels before jumpy has to resort to utliizing uppercase letters).
+The default might be easier for beginners. It is also probably better for larger screens (more labels before jumpy has to resort to utliizing uppercase letters).
 
-```
+```json
 "jumpy2.customKeys": {
     "type": "array",
     "default": "abcdefghijklmnopqrstuvwxyz",
@@ -118,7 +97,7 @@ The default might be easier for beginners. It is probably better for larger scre
 
 _NOTE: I haven't fully configured neovim but used it successfully for a while with the following_:
 
-```
+```json
   {
       "key": "f",
       "command": "jumpy2.toggle",
@@ -133,7 +112,7 @@ _NOTE: I haven't fully configured neovim but used it successfully for a while wi
 
 for back and forward functionality with neovim:
 
-```
+```json
   {
   "key": "backspace",
   "command": "workbench.action.navigateBack",
@@ -149,15 +128,19 @@ for back and forward functionality with neovim:
 ## Fun
 
 Change the 'jumper' set (emojis)
-in `settings.json` ie. on a mac `~/Library/Application Support/Code/User/settings.json`
+in your VS Code's `settings.json`
 
 add:
 
-```
+```json
   "jumpy2.jumperEmojis.jumperSet": ["🐒"],
 ```
 
 _The above tells jumpy to use the monkey emoji exclusively._
+
+## Known Issues
+
+-   Can not jump to treeview or tabs.
 
 ## Support Jumpy2
 

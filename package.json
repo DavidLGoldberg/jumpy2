@@ -22,18 +22,18 @@
                 "id": "jumpy2.labelBackgroundColor",
                 "description": "Background color for Jumpy2 labels.  Overrides dark, light, and highContrast, so theme specific overrides should apply.",
                 "defaults": {
-                    "dark": "editorGutter.addedBackground",
-                    "light": "editorGutter.addedBackground",
-                    "highContrast": "editorGutter.addedBackground"
+                    "dark": "#00d85d",
+                    "light": "#00d85d",
+                    "highContrast": "#00d85d"
                 }
             },
             {
                 "id": "jumpy2.labelFontColor",
                 "description": "Font color for Jumpy2 labels.  Overrides dark, light, and highContrast, so theme specific overrides should apply.",
                 "defaults": {
-                    "dark": "foreground",
-                    "light": "foreground",
-                    "highContrast": "foreground"
+                    "dark": "#2d3236",
+                    "light": "#2d3236",
+                    "highContrast": "#2d3236"
                 }
             }
         ],
