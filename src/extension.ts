@@ -19,6 +19,8 @@ import { createStatusBar, setStatusBar } from './statusPrinter';
 import { getKeySet, getAllKeys } from './keys';
 
 let reporter: TelemetryReporter; // Instantiated on activation
+let globalState: any;
+const careerJumpsMadeKey = 'careerJumpsMade';
 
 const stateMachine = elmApp.Elm.StateMachineVSC.init();
 
@@ -55,8 +57,11 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
 stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
     const foundLabel = allLabels.find((label) => label.keyLabel === keyLabel);
     if (foundLabel) {
-        reporter.sendTelemetryEvent(`jump-${keyLabel}`);
         foundLabel.jump();
+        reporter.sendTelemetryEvent(`jump-${keyLabel}`);
+        const currentCount = (globalState.get(careerJumpsMadeKey) || 0) + 1;
+        globalState.update(careerJumpsMadeKey, currentCount);
+        reporter.sendTelemetryEvent(`career-${currentCount}`);
     }
 });
 
@@ -140,6 +145,8 @@ function exit() {
 }
 
 export function activate(context: ExtensionContext) {
+    globalState = context.globalState;
+    globalState.setKeysForSync([careerJumpsMadeKey]);
     const { subscriptions } = context;
     const { registerCommand } = commands;
 
