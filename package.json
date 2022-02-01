@@ -7,11 +7,40 @@
         "vscode": "^1.63.1"
     },
     "publisher": "DavidLGoldberg",
+    "author": {
+        "name": "David L. Goldberg"
+    },
     "license": "MIT",
     "homepage": "https://github.com/DavidLGoldberg/jumpy2/blob/master/README.md",
-    "repository": "https://github.com/DavidLGoldberg/jumpy2",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DavidLGoldberg/jumpy2.git"
+    },
+    "icon": "img/logos/Jumpy2-logo-green-black.png",
     "categories": [
         "Other"
+    ],
+    "keywords": [
+        "jumpy",
+        "mouseless",
+        "hotkeys",
+        "keyboard",
+        "accessibility",
+        "navigation",
+        "productivity",
+        "hotkey",
+        "jump",
+        "cursor",
+        "key bindings",
+        "shortcuts",
+        "panes",
+        "power user",
+        "mouse",
+        "plugin",
+        "extension",
+        "package",
+        "vscode",
+        "vim"
     ],
     "activationEvents": [
         "onStartupFinished"
