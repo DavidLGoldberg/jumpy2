@@ -16,6 +16,9 @@
         "type": "git",
         "url": "https://github.com/DavidLGoldberg/jumpy2.git"
     },
+    "bugs": {
+        "url": "https://github.com/DavidLGoldberg/jumpy2/issues"
+    },
     "icon": "img/logos/Jumpy2-logo-green-black.png",
     "galleryBanner": {
         "color": "#2d3236",
