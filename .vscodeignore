@@ -3,8 +3,12 @@
 out/test/**
 src/**
 .gitignore
-vsc-extension-quickstart.md
 **/tsconfig.json
 **/tslint.json
 **/*.map
 **/*.ts
+.nyc_output/**
+.husky/**
+elm-stuff/**
+tests/**
+img/logos/other/**
