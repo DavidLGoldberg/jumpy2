@@ -1,5 +1,7 @@
 # Jumpy2
 
+A VS Code extension that creates dynamic hotkeys to jump around files across visible panes. It's a new 'Jumpy' but from the original author (Atom package) for VS Code. It works with the major VSC vim extensions and I plan to maintain it.
+
 ## Vim integration (see neovim below if interested)
 
 if <key>f</key> vim functionality is desired:

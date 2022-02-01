@@ -1,7 +1,7 @@
 {
     "name": "jumpy2",
     "displayName": "Jumpy2",
-    "description": "Jumpy for VS Code",
+    "description": "A VS Code extension that creates dynamic hotkeys to jump around files across visible panes. It's a new 'Jumpy' but from the original author (Atom package) for VS Code. It works with the major VSC vim extensions and I plan to maintain it.",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.63.1"
