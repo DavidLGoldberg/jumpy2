@@ -2,23 +2,7 @@
 
 A VS Code extension that creates dynamic hotkeys to jump around files across visible panes. It's a new 'Jumpy' but from the original author (Atom package) for VS Code. It works with the major VSC vim extensions and I plan to maintain it.
 
-## Vim integration (see neovim below if interested)
-
-if <key>f</key> vim functionality is desired:
-open settings as json and add
-
-```json
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": [
-        "f"
-      ],
-      "commands": [
-        "jumpy2.toggle"
-      ]
-    }
-  ],
-```
+## Jump back and forward
 
 Did you know VS Code has built in backwards and forward navigation functionality? You should _probably_ map that to a hotkey for Jumpy!
 I currently use the <key>backspace</key> key which overrides the default boring backspace functionality from vim (while in normal mode only of course).
@@ -36,6 +20,26 @@ For example with [vim](https://marketplace.visualstudio.com/items?itemName=vscod
         "command": "workbench.action.navigateForward",
         "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal'"
     },
+```
+
+## Custom set of keys to use (easier to type / faster?):
+
+```json
+"jumpy2.customKeys": {
+    "type": "array",
+    "default": "fjdkslaghrueiwoncmv",
+    "description": "Default characters to use"
+},
+```
+
+The default might be easier for beginners. It is also probably better for larger screens (more labels before jumpy has to resort to utliizing uppercase letters).
+
+```json
+"jumpy2.customKeys": {
+    "type": "array",
+    "default": "abcdefghijklmnopqrstuvwxyz",
+    "description": "Default characters to use"
+},
 ```
 
 ## Colors
@@ -67,24 +71,36 @@ _However_, it is probably wise to leave the defaults, and instead scope this to 
 },
 ```
 
-## Custom set of keys to use (easier to type / faster?):
+## Vim integration
+
+(_see neovim below if interested_)
+
+### Override vim's extension level backspace
+
+If you want the <key>backspace</key> key to work as the jumpy "reset" command you **must** define a "_user_" level keybindings override in `keybindings.json` to override vim's "_extension_" level keybinding:
 
 ```json
-"jumpy2.customKeys": {
-    "type": "array",
-    "default": "fjdkslaghrueiwoncmv",
-    "description": "Default characters to use"
-},
+{
+    "key": "backspace",
+    "command": "jumpy2.reset",
+    "when": "jumpy2.jump-mode && editorTextFocus"
+}
 ```
 
-The default might be easier for beginners. It is also probably better for larger screens (more labels before jumpy has to resort to utliizing uppercase letters).
+(_feel free to bind it to another key as well_)
+
+### Bind 'f' key
+
+if <key>f</key> vim functionality is desired:
+open settings as json and add
 
 ```json
-"jumpy2.customKeys": {
-    "type": "array",
-    "default": "abcdefghijklmnopqrstuvwxyz",
-    "description": "Default characters to use"
-},
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["f"],
+      "commands": ["jumpy2.toggle"]
+    }
+  ],
 ```
 
 ## Neovim Integration
