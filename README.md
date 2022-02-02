@@ -130,7 +130,7 @@ If you want the <key>backspace</key> key to work as the jumpy "reset" command yo
 ### Bind 'f' key
 
 if <key>f</key> vim functionality is desired:
-open settings as json and add
+open settings as json and add:
 
 ```json
   "vim.normalModeKeyBindingsNonRecursive": [
@@ -190,6 +190,17 @@ _The above tells jumpy to use the monkey emoji exclusively._
 
 -   Can not jump to treeview or tabs.
 -   No beacon after jumps.
+
+## Related work
+
+-   Other Jumpies:
+    -   Original [Jumpy](https://atom.io/packages/jumpy) for Atom
+    -   First [Jumpy](https://marketplace.visualstudio.com/items?itemName=wmaurer.vscode-jumpy) to make it to VS Code
+    -   VS Code 'jumpy' search [results](https://marketplace.visualstudio.com/search?term=jumpy&target=VSCode&category=All%20categories&sortBy=Relevance)
+    -   [Jumpy for Sublime](https://packagecontrol.io/packages/Jumpy)
+-   Ace Jump maintains a nice [comparison list](https://github.com/acejump/AceJump#comparison) of hotkey/jump related programs
+
+(should we _collab_ more? Reach out!)
 
 ## Keywords
 
