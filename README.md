@@ -191,6 +191,12 @@ _The above tells jumpy to use the monkey emoji exclusively._
 -   Can not jump to treeview or tabs.
 -   No beacon after jumps.
 
+## Acknowledgements
+
+-   Various [contributors](https://github.com/DavidLGoldberg/jumpy/graphs/contributors) from the original atom project.
+-   Logo icon created by [Dr. Gregory W. Goldberg](https://scholar.google.com/citations?hl=en&user=zNw4iZkAAAAJ&view_op=list_works) (in his spare time!) and David L. Goldberg."
+-   Implementation inspiration from [Wayne Maurer](https://github.com/wmaurer) (the author of the first VS Code implementation of Jumpy)
+
 ## Related work
 
 -   Other Jumpies:
