@@ -181,15 +181,17 @@ export function activate(context: ExtensionContext) {
         window.onDidChangeActiveTerminal,
         window.onDidChangeActiveTextEditor,
         window.onDidChangeTextEditorOptions,
-        window.onDidChangeTextEditorSelection,
         window.onDidChangeTextEditorViewColumn,
-        window.onDidChangeTextEditorVisibleRanges,
         window.onDidChangeVisibleTextEditors,
         window.onDidChangeWindowState,
         window.onDidCloseTerminal,
         window.onDidOpenTerminal,
-        workspace.onDidChangeTextDocument,
         workspace.onDidOpenTextDocument,
+        // The following are too aggressive, they make the keymapping troubleshooting feature useless as jumpy clears.
+        // They also probably are responsible for some of the occasional "loading" clearing/exiting I was experiencing.  I think they would conflict with for example a job being streamed on terminal
+        // window.onDidChangeTextEditorSelection,
+        // window.onDidChangeTextEditorVisibleRanges,
+        // workspace.onDidChangeTextDocument,
     ];
 
     subscriptions.push(...events.map((event) => event(() => _exitDebounced())));
