@@ -2,6 +2,44 @@
 
 A VS Code extension that creates dynamic hotkeys to jump around files across visible panes. It's a new 'Jumpy' but from the original author (Atom package) for VS Code. It works with the major VSC vim extensions and I plan to maintain it.
 
+## How to jump
+
+1.  Hit <kbd>shift</kbd> + <kbd>enter</kbd>
+2.  Choose from your presented labels:
+3.  Enter two characters.
+4.  Keep coding!
+
+## Install
+
+On command line:
+
+```
+code --install-extension davidlgoldberg.jumpy2
+```
+
+## Notes
+
+-   Works great with or without [vim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim "vim extension's homepage") or [neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim "neo vim extension's homepage")! See vim/nvim integration below
+-   Vim modes supported:
+    -   command mode
+    -   insert mode
+-   Recommended key mappings to replace 'f' in vim integration below.
+-   Recommended key mappings for back and forward below.
+
+## Key Bindings
+
+### Defaults
+
+-   Enter jump mode
+    -   <kbd>shift</kbd> + <kbd>enter</kbd>
+-   Reset first character entered
+    -   <kbd>backspace</kbd>
+-   Cancel/exit jump mode (any of the following)
+    -   <kbd>shift</kbd> + <kbd>enter</kbd>
+    -   <kbd>enter</kbd>
+    -   <kbd>esc</kbd>
+    -   <kbd>space</kbd>
+
 ## Jump back and forward
 
 Did you know VS Code has built in backwards and forward navigation functionality? You should _probably_ map that to a hotkey for Jumpy!
@@ -108,26 +146,26 @@ open settings as json and add
 _NOTE: I haven't fully configured neovim but used it successfully for a while with the following_:
 
 ```json
-  {
-      "key": "f",
-      "command": "jumpy2.toggle",
-      "when": "neovim.mode =~ /^normal$|^visual$/ && !jumpy2.jump-mode && editorTextFocus"
-  },
-  {
-    "key": "escape",
-    "command": "jumpy2.exit",
-    "when": "neovim.init && jumpy2.jump-mode && editorTextFocus"
-  }
+{
+  "key": "f",
+  "command": "jumpy2.toggle",
+  "when": "neovim.mode =~ /^normal$|^visual$/ && !jumpy2.jump-mode && editorTextFocus"
+},
+{
+  "key": "escape",
+  "command": "jumpy2.exit",
+  "when": "neovim.init && jumpy2.jump-mode && editorTextFocus"
+}
 ```
 
 for back and forward functionality with neovim:
 
 ```json
-  {
+{
   "key": "backspace",
   "command": "workbench.action.navigateBack",
   "when": "editorTextFocus && !inDebugRepl && neovim.mode != 'insert'"
-  },
+},
 {
   "key": "shift+backspace",
   "command": "workbench.action.navigateForward",
@@ -151,6 +189,24 @@ _The above tells jumpy to use the monkey emoji exclusively._
 ## Known Issues
 
 -   Can not jump to treeview or tabs.
+-   No beacon after jumps.
+
+## Keywords
+
+(A little SEO juice)
+
+-   Shortcuts
+-   Navigation
+-   Productivity
+-   Mouseless
+-   Plugin
+-   Extension
+
+## My previous Atom packages :)
+
+-   [Jumpy](https://atom.io/packages/jumpy)
+-   [Jumpy-beacon](https://atom.io/packages/jumpy-beacon) (I still have to implement this or at least a beacon for Jumpy2)
+-   [Qolor](https://atom.io/packages/qolor)
 
 ## Support Jumpy2
 
