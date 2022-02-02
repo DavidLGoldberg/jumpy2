@@ -23,7 +23,7 @@ open settings as json and add
 Did you know VS Code has built in backwards and forward navigation functionality? You should _probably_ map that to a hotkey for Jumpy!
 I currently use the <key>backspace</key> key which overrides the default boring backspace functionality from vim (while in normal mode only of course).
 
-Edit this in your `settings.json` file:
+For example with [vim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) Edit this in your `keybindings.json` file:
 
 ```json
     {
