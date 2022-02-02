@@ -94,7 +94,7 @@ In your VS Code's `settings.json` file:
 
 _However_, it is probably wise to leave the defaults, and instead scope this to a theme or wildcarded (modified from [VS Code's examples](https://code.visualstudio.com/docs/getstarted/themes#_editor-syntax-highlighting) like so:
 
-```json
+```js
 "workbench.colorCustomizations": {
   // NOTE: not all dark and light themes are conveniently labeled "dark" or "light" like this.
   // In that case, you can specify per theme, or again, just leave Jumpy's default or override the default with the example above.
