@@ -128,6 +128,11 @@
                 "when": "editorTextFocus"
             },
             {
+                "command": "jumpy2.reset",
+                "key": "backspace",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
                 "command": "jumpy2.exit",
                 "key": "shift+enter",
                 "when": "jumpy2.jump-mode && editorTextFocus"

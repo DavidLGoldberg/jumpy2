@@ -20,20 +20,12 @@ open settings as json and add
   ],
 ```
 
-I currently use <key>backspace</key> as my back navigation key (built into VS Code).
-This overrides the normal boring backspace functionality from vim in normal mode.
+Did you know VS Code has built in backwards and forward navigation functionality? You should _probably_ map that to a hotkey for Jumpy!
+I currently use the <key>backspace</key> key which overrides the default boring backspace functionality from vim (while in normal mode only of course).
 
-**in key settings (TODO tell how to get here):**
+Edit this in your `settings.json` file:
 
 ```json
-    // Set Jumpy's `reset` command to backspace
-    {
-        "key": "backspace",
-        "command": "jumpy2.reset",
-        "when": "jumpy2.jump-mode && editorTextFocus"
-    }
-
-    // Set more useful backspace, shift+backspace back and forward functionality (especially for Jumpy!)
     {
         "key": "backspace",
         "command": "workbench.action.navigateBack",
