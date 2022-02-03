@@ -9,6 +9,10 @@ A VS Code extension that creates dynamic hotkeys to jump around files across vis
 3.  Enter two characters.
 4.  Keep coding!
 
+Watch the demo:
+
+[![Jumpy2 demo on youtube.com](https://img.youtube.com/vi/ClqiG3xskKM/0.jpg)](https://www.youtube.com/watch?v=ClqiG3xskKM)
+
 ## Install
 
 On command line:
@@ -227,6 +231,7 @@ _The above tells jumpy to use the monkey emoji exclusively._
 
 ## Support Jumpy2
 
+-   Subscribe to my youtube channel: https://www.youtube.com/channel/UCi6p1uTlAozufNiQgpgpW-Q
 -   Sponsor me on Github [David L Goldberg](https://github.com/sponsors/DavidLGoldberg)
 -   Support me on [Patreon](https://www.patreon.com/davidlgoldberg)
 -   Support me via [crypto](./crypto-donations.md)
