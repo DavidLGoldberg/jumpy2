@@ -189,8 +189,8 @@ export function activate(context: ExtensionContext) {
         workspace.onDidOpenTextDocument,
         // The following are too aggressive, they make the keymapping troubleshooting feature useless as jumpy clears.
         // They also probably are responsible for some of the occasional "loading" clearing/exiting I was experiencing.  I think they would conflict with for example a job being streamed on terminal
-        // window.onDidChangeTextEditorSelection,
-        // window.onDidChangeTextEditorVisibleRanges,
+        window.onDidChangeTextEditorSelection, // need these for now unfortunately.  Comment them out if keymap troubleshooting is required
+        window.onDidChangeTextEditorVisibleRanges,
         // workspace.onDidChangeTextDocument,
     ];
 
