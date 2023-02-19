@@ -47,7 +47,7 @@ code --install-extension davidlgoldberg.jumpy2
 ## Jump back and forward
 
 Did you know VS Code has built in backwards and forward navigation functionality? You should _probably_ map that to a hotkey for Jumpy!
-I currently use the <key>backspace</key> key which overrides the default boring backspace functionality from vim (while in normal mode only of course).
+I currently use the <kbd>backspace</kbd> key which overrides the default boring backspace functionality from vim (while in normal mode only of course).
 
 For example with [vim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) Edit this in your `keybindings.json` file:
 
@@ -119,7 +119,7 @@ _However_, it is probably wise to leave the defaults, and instead scope this to 
 
 ### Override vim's extension level backspace
 
-If you want the <key>backspace</key> key to work as the jumpy "reset" command you **must** define a "_user_" level keybindings override in `keybindings.json` to override vim's "_extension_" level keybinding:
+If you want the <kbd>backspace</kbd> key to work as the jumpy "reset" command you **must** define a "_user_" level keybindings override in `keybindings.json` to override vim's "_extension_" level keybinding:
 
 ```json
 {
@@ -133,7 +133,7 @@ If you want the <key>backspace</key> key to work as the jumpy "reset" command yo
 
 ### Bind 'f' key
 
-if <key>f</key> vim functionality is desired:
+if <kbd>f</kbd> vim functionality is desired:
 open settings as json and add:
 
 ```json
@@ -181,7 +181,7 @@ for back and forward functionality with neovim:
 
 ### Show your total career jumps!
 
-command palette (usually <key>command</key>+<key>shift</key>+<key>p</key>) -> `Jumpy: Show Career Jumps`
+command palette (usually <kbd>command</kbd>+<kbd>shift</kbd>+<kbd>p</kbd>) -> `Jumpy: Show Career Jumps`
 
 ### Emojis
 
