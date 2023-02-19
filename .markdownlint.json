@@ -1,0 +1,7 @@
+{
+    "MD033": false, // Inline HTML
+    "MD013": false, // Line length
+    "MD034": false, // No bare URLs
+    "MD030": false, // spaces after list markers
+    "MD007": false // Unordered list indentation
+}
