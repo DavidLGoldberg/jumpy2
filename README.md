@@ -4,10 +4,10 @@ A VS Code extension that creates dynamic hotkeys to jump around files across vis
 
 ## How to jump
 
-1.  Hit <kbd>shift</kbd> + <kbd>enter</kbd>
-2.  Choose from your presented labels:
-3.  Enter two characters.
-4.  Keep coding!
+1. Hit <kbd>shift</kbd> + <kbd>enter</kbd>
+2. Choose from your presented labels:
+3. Enter two characters.
+4. Keep coding!
 
 Watch the demo:
 
@@ -17,7 +17,7 @@ Watch the demo:
 
 On command line:
 
-```
+```bash
 code --install-extension davidlgoldberg.jumpy2
 ```
 
@@ -64,7 +64,7 @@ For example with [vim](https://marketplace.visualstudio.com/items?itemName=vscod
     },
 ```
 
-## Custom set of keys to use (easier to type / faster?):
+## Custom set of keys to use (easier to type / faster?)
 
 ```json
 "jumpy2.customKeys": {
@@ -179,7 +179,7 @@ for back and forward functionality with neovim:
 
 ## Fun
 
-### Show your total career jumps!
+### Show your total career jumps
 
 command palette (usually <kbd>command</kbd>+<kbd>shift</kbd>+<kbd>p</kbd>) -> `Jumpy: Show Career Jumps`
 
