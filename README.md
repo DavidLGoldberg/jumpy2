@@ -179,6 +179,12 @@ for back and forward functionality with neovim:
 
 ## Fun
 
+### Show your total career jumps!
+
+command palette (usually <key>command</key>+<key>shift</key>+<key>p</key>) -> `Jumpy: Show Career Jumps`
+
+### Emojis
+
 Change the 'jumper' set (emojis)
 in your VS Code's `settings.json`
 

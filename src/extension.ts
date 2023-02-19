@@ -144,6 +144,14 @@ function exit() {
     stateMachine.ports.exit.send(null);
 }
 
+function career() {
+    const careerJumpsMade = (
+        globalState.get(careerJumpsMadeKey) || 0
+    ).toString();
+    reporter.sendTelemetryEvent(`career-show-${careerJumpsMade}`);
+    window.showInformationMessage(`Total career jumps: ${careerJumpsMade} 👏`);
+}
+
 export function activate(context: ExtensionContext) {
     globalState = context.globalState;
     globalState.setKeysForSync([careerJumpsMadeKey]);
@@ -163,7 +171,8 @@ export function activate(context: ExtensionContext) {
     subscriptions.push(
         registerCommand('jumpy2.toggle', toggle),
         registerCommand('jumpy2.reset', reset),
-        registerCommand('jumpy2.exit', exit)
+        registerCommand('jumpy2.exit', exit),
+        registerCommand('jumpy2.career', career)
     );
 
     const allKeys = getAllKeys(getSettings().customKeys);
