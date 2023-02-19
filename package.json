@@ -119,6 +119,10 @@
             {
                 "command": "jumpy2.exit",
                 "title": "Jumpy: Exit"
+            },
+            {
+                "command": "jumpy2.career",
+                "title": "Jumpy: Show Career Jumps"
             }
         ],
         "keybindings": [
