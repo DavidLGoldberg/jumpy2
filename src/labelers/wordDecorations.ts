@@ -1,10 +1,9 @@
 import { DecorationRangeBehavior, ThemeColor, window, workspace } from 'vscode';
 
 function getWidth() {
-    const editorConfig = workspace.getConfiguration('editor', null);
-    const retrievedFontSize: number | undefined =
-        editorConfig.get<number>('fontSize');
-    return retrievedFontSize ? retrievedFontSize : 10;
+    return (
+        workspace.getConfiguration('editor', null).get<number>('fontSize') || 10
+    );
 }
 
 const width = getWidth();
