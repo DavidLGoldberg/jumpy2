@@ -18,7 +18,6 @@ const wordLabelDecorationType = window.createTextEditorDecorationType({
         width,
         height,
         fontWeight: 'bold',
-        fontStyle: 'normal',
         border: `${borderWidth} solid`, // <-- I need to adjust for this above in the margin.
     },
     opacity: '0',

@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.2.0
+
+-   ✨ Add a themable border around the labels.
+-   🐛 Fix label alignment with various font sizes.
+
 ## 1.1.0
 
 -   Add a command to view your total career jumps!

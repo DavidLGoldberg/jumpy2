@@ -84,7 +84,7 @@ The default might be easier for beginners. It is also probably better for larger
 },
 ```
 
-## Colors
+## Colors & Border
 
 To override Jumpy's default label colors (black on green) try this
 In your VS Code's `settings.json` file:
@@ -92,7 +92,8 @@ In your VS Code's `settings.json` file:
 ```json
 "workbench.colorCustomizations": {
   "jumpy2.labelFontColor": "#000000", // black
-  "jumpy2.labelBackgroundColor": "#ff0000" // on red
+  "jumpy2.labelBackgroundColor": "#ff0000", // on red
+  "jumpy2.labelBorderColor": "#ffffff", // white border
 },
 ```
 
@@ -104,11 +105,13 @@ _However_, it is probably wise to leave the defaults, and instead scope this to 
   // In that case, you can specify per theme, or again, just leave Jumpy's default or override the default with the example above.
   "[*Dark*]": {
     "jumpy2.labelFontColor": "#000000",
-    "jumpy2.labelBackgroundColor": "#FFFFFF"
+    "jumpy2.labelBackgroundColor": "#FFFFFF",
+    "jumpy2.labelBorderColor": "#FF0000",
   },
   "[*Light*]": {
     "jumpy2.labelFontColor": "#FFFFFF",
-    "jumpy2.labelBackgroundColor": "#000000"
+    "jumpy2.labelBackgroundColor": "#000000",
+    "jumpy2.labelBorderColor": "#FF0000",
   }
 },
 ```
