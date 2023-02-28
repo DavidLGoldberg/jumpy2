@@ -1,0 +1,46 @@
+schedules:
+  - cron: '0 18 * * *'
+    displayName: Daily 6PM build
+    branches:
+      include:
+        - main
+
+trigger:
+  branches:
+    include:
+      - main
+  tags:
+    include:
+      - v*
+
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-latest'
+      buildScript: |
+        sudo apt-get update && sudo apt-get install -y build-essential
+        make test
+    mac:
+      imageName: 'macos-latest'
+      buildScript: |
+        brew install make
+        make test
+    windows:
+      imageName: 'windows-latest'
+      buildScript: |
+        choco install make
+        make test
+
+pool:
+  vmImage: $(imageName)
+
+steps:
+  - bash: |
+      /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 & echo '>>> Started xvfb'
+    displayName: Start xvfb
+    condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
+
+  - script: ${{ matrix.buildScript }}
+    displayName: 'Build and test with Make'
+    env:
+      DISPLAY: ':99.0'
