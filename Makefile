@@ -22,7 +22,7 @@ graph:
 	mkdir -p ./.madge
 	npx madge@5.0.1 --exclude '(^test*|Atom)' --image ./.madge/graph.svg ./out
 
-test:
+test: default
 	npm_config_yes=true npx elm-test@0.19.1-revision9
 	npm test
 
