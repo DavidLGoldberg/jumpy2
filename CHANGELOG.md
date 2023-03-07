@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.1
+
+-   👷 Add Azure pipelines build.  Add deploy/publish, so bumping to test.
+
 ## 1.2.0
 
 -   ✨ Add a themable border around the labels.
