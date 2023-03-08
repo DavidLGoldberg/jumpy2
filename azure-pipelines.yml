@@ -11,7 +11,7 @@ trigger:
       - main
   tags:
     include:
-      - refs/tags/v*
+      - refs/tags/*
 
 pool:
   vmImage: ubuntu-latest
