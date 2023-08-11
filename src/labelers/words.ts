@@ -1,6 +1,7 @@
 import { Selection, TextEditor, window } from 'vscode';
 import { LabelEnvironment, Label, Labeler, Settings } from '../label-interface';
 import { Range, Position } from 'vscode';
+import getWordBeaconDecoration from './wordBeacons';
 
 class WordLabel implements Label {
     keyLabel!: string;
@@ -29,7 +30,14 @@ class WordLabel implements Label {
         return decoration;
     }
 
-    animateBeacon() {}
+    animateBeacon(input: any) {
+        if (this.textEditor === undefined) return;
+        const { lineNumber, column } = this;
+        const beaconMarker = new Range(lineNumber, column, lineNumber, column);
+        const decoration = getWordBeaconDecoration();
+        setTimeout(() => { decoration.dispose(); }, 150);
+        this.textEditor.setDecorations(decoration, [beaconMarker]);
+    }
 
     async jump() {
         if (this.textEditor) {
