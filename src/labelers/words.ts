@@ -31,7 +31,7 @@ class WordLabel implements Label {
 
     animateBeacon() {}
 
-    async jump() {
+    async jump(isSelectionMode: boolean) {
         if (this.textEditor) {
             if (this.textEditor !== window.activeTextEditor) {
                 await window.showTextDocument(this.textEditor.document.uri, {
@@ -39,11 +39,10 @@ class WordLabel implements Label {
                     viewColumn: this.textEditor.viewColumn,
                 });
             }
+            const newActive = new Position(this.lineNumber, this.column);
             this.textEditor.selection = new Selection(
-                this.lineNumber,
-                this.column,
-                this.lineNumber,
-                this.column
+                isSelectionMode ? this.textEditor.selection.anchor : newActive,
+                newActive
             );
         }
     }

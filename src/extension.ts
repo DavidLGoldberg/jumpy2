@@ -44,6 +44,7 @@ const getSettings = (): Settings => {
 const statusBarItem = createStatusBar();
 
 let allLabels: Array<Label> = new Array<Label>();
+let isSelectionMode: boolean = false;
 
 // Subscribe:
 stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
@@ -57,7 +58,7 @@ stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
 stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
     const foundLabel = allLabels.find((label) => label.keyLabel === keyLabel);
     if (foundLabel) {
-        foundLabel.jump();
+        foundLabel.jump(isSelectionMode);
         reporter.sendTelemetryEvent(`jump-${keyLabel}`);
         const currentCount = (globalState.get(careerJumpsMadeKey) || 0) + 1;
         globalState.update(careerJumpsMadeKey, currentCount);
@@ -112,6 +113,13 @@ function enterJumpMode() {
 
 function toggle() {
     reporter.sendTelemetryEvent('toggle');
+    isSelectionMode = false;
+    enterJumpMode();
+}
+
+function toggleSelection() {
+    reporter.sendRawTelemetryEvent('toggleSelection');
+    isSelectionMode = true;
     enterJumpMode();
 }
 
@@ -170,6 +178,7 @@ export function activate(context: ExtensionContext) {
 
     subscriptions.push(
         registerCommand('jumpy2.toggle', toggle),
+        registerCommand('jumpy2.toggleSelection', toggleSelection),
         registerCommand('jumpy2.reset', reset),
         registerCommand('jumpy2.exit', exit),
         registerCommand('jumpy2.career', career)

@@ -36,6 +36,8 @@ code --install-extension davidlgoldberg.jumpy2
 
 -   Enter jump mode
     -   <kbd>shift</kbd> + <kbd>enter</kbd>
+-   Enter selection mode
+    -   <kbd>shift</kbd>  +  <kbd>alt</kbd> + <kbd>enter</kbd>
 -   Reset first character entered
     -   <kbd>backspace</kbd>
 -   Cancel/exit jump mode (any of the following)
