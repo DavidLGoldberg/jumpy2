@@ -1,8 +1,12 @@
 # Change Log
 
+## 1.3.0
+
+-   ✨ Add a little beacon after a jump. Best we can do now (easily) with the API.
+
 ## 1.2.1
 
--   👷 Add Azure pipelines build.  Add deploy/publish, so bumping to test.
+-   👷 Add Azure pipelines build. Add deploy/publish, so bumping to test.
 
 ## 1.2.0
 
