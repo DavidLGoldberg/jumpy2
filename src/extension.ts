@@ -58,6 +58,7 @@ stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
     const foundLabel = allLabels.find((label) => label.keyLabel === keyLabel);
     if (foundLabel) {
         foundLabel.jump();
+        foundLabel.animateBeacon();
         reporter.sendTelemetryEvent(`jump-${keyLabel}`);
         const currentCount = (globalState.get(careerJumpsMadeKey) || 0) + 1;
         globalState.update(careerJumpsMadeKey, currentCount);
