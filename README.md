@@ -37,7 +37,7 @@ code --install-extension davidlgoldberg.jumpy2
 -   Enter jump mode
     -   <kbd>shift</kbd> + <kbd>enter</kbd>
 -   Enter selection mode
-    -   <kbd>shift</kbd>  +  <kbd>alt</kbd> + <kbd>enter</kbd>
+    -   <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd>
 -   Reset first character entered
     -   <kbd>backspace</kbd>
 -   Cancel/exit jump mode (any of the following)
@@ -139,7 +139,7 @@ If you want the <kbd>backspace</kbd> key to work as the jumpy "reset" command yo
 
 (_feel free to bind it to another key as well_)
 
-### Bind 'f' key
+### Bind 'f' and/or 'F' key
 
 if <kbd>f</kbd> vim functionality is desired:
 open settings as json and add:
@@ -149,6 +149,10 @@ open settings as json and add:
     {
       "before": ["f"],
       "commands": ["jumpy2.toggle"]
+    },
+    {
+      "before": ["F"],
+      "commands": ["jumpy2.toggleSelection"]
     }
   ],
 ```
