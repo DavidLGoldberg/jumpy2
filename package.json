@@ -81,6 +81,15 @@
                     "light": "#00F56A",
                     "highContrast": "#00F56A"
                 }
+            },
+            {
+                "id": "jumpy2.beaconColor",
+                "description": "Color for Jumpy2 Beacons.  Overrides dark, light, and highContrast, so theme specific overrides should apply.",
+                "defaults": {
+                    "dark": "#ff1111cf",
+                    "light": "#ff1111cf",
+                    "highContrast": "#ff1111cf"
+                }
             }
         ],
         "configuration": {

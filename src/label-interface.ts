@@ -15,7 +15,7 @@ export interface Label {
     textEditor: TextEditor | undefined;
     settings: Settings | undefined;
     getDecoration(): DecorationOptions;
-    animateBeacon(input: any): void;
+    animateBeacon(): void;
     jump(isSelectionMode: boolean): void;
     destroy(): void;
 }

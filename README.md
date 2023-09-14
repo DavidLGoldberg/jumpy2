@@ -96,6 +96,7 @@ In your VS Code's `settings.json` file:
   "jumpy2.labelFontColor": "#000000", // black
   "jumpy2.labelBackgroundColor": "#ff0000", // on red
   "jumpy2.labelBorderColor": "#ffffff", // white border
+  "jumpy2.beaconColor": "#ff0000af", // transparent red
 },
 ```
 
@@ -109,11 +110,13 @@ _However_, it is probably wise to leave the defaults, and instead scope this to 
     "jumpy2.labelFontColor": "#000000",
     "jumpy2.labelBackgroundColor": "#FFFFFF",
     "jumpy2.labelBorderColor": "#FF0000",
+    "jumpy2.beaconColor": "#FF0000AF",
   },
   "[*Light*]": {
     "jumpy2.labelFontColor": "#FFFFFF",
     "jumpy2.labelBackgroundColor": "#000000",
     "jumpy2.labelBorderColor": "#FF0000",
+    "jumpy2.beaconColor": "#FF0000AF",
   }
 },
 ```
@@ -204,7 +207,6 @@ _The above tells jumpy to use the monkey emoji exclusively._
 ## Known Issues
 
 -   Can not jump to treeview or tabs.
--   No beacon after jumps.
 
 ## Acknowledgements
 
