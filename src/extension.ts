@@ -119,7 +119,7 @@ function toggle() {
 }
 
 function toggleSelection() {
-    reporter.sendRawTelemetryEvent('toggleSelection');
+    reporter.sendTelemetryEvent('toggleSelection');
     isSelectionMode = true;
     enterJumpMode();
 }
