@@ -2,7 +2,7 @@
 
 ## 1.3.0
 
--   ✨ Add a little beacon after a jump. Best we can do now (easily) with the API.
+-   ✨ Add a little beacon after a jump. Best we can do now (easily) with the API. Thanks @FredBill1 for the PR!!!
 
 ## 1.2.1
 
