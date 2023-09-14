@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.0
+
+-   ✨ Add a selection mode "jumpy2.toggleSelection", defaults to: <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd>. Thanks @FredBill1 for the PR!!!
+
 ## 1.3.0
 
 -   ✨ Add a little beacon after a jump. Best we can do now (easily) with the API. Thanks @FredBill1 for the PR!!!
