@@ -30,12 +30,22 @@ class WordLabel implements Label {
         return decoration;
     }
 
-    animateBeacon(input: any) {
-        if (this.textEditor === undefined) return;
+    animateBeacon() {
+        if (!this.textEditor) return;
+
         const { lineNumber, column } = this;
-        const beaconMarker = new Range(lineNumber, column, lineNumber, column);
+
+        // just get a range of 1 character for the beacon
+        const beaconMarker = new Range(
+            lineNumber,
+            column,
+            lineNumber,
+            column + 1
+        );
         const decoration = getWordBeaconDecoration();
-        setTimeout(() => { decoration.dispose(); }, 150);
+        setTimeout(() => {
+            decoration.dispose();
+        }, 400);
         this.textEditor.setDecorations(decoration, [beaconMarker]);
     }
 
