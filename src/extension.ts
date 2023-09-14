@@ -60,7 +60,9 @@ stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
     if (foundLabel) {
         foundLabel.jump(isSelectionMode);
         foundLabel.animateBeacon();
-        reporter.sendTelemetryEvent(`jump-${keyLabel}`);
+        reporter.sendTelemetryEvent(
+            `${isSelectionMode ? 'selection-' : ''}jump-${keyLabel}`
+        );
         const currentCount = (globalState.get(careerJumpsMadeKey) || 0) + 1;
         globalState.update(careerJumpsMadeKey, currentCount);
         reporter.sendTelemetryEvent(`career-${currentCount}`);
@@ -119,7 +121,7 @@ function toggle() {
 }
 
 function toggleSelection() {
-    reporter.sendTelemetryEvent('toggleSelection');
+    reporter.sendTelemetryEvent('selectionToggle');
     isSelectionMode = true;
     enterJumpMode();
 }
