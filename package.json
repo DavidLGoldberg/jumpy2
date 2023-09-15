@@ -131,6 +131,10 @@
                 "title": "Jumpy: Toggle"
             },
             {
+                "command": "jumpy2.toggleSelection",
+                "title": "Jumpy: Toggle Selection"
+            },
+            {
                 "command": "jumpy2.reset",
                 "title": "Jumpy: Reset"
             },
@@ -147,6 +151,11 @@
             {
                 "command": "jumpy2.toggle",
                 "key": "shift+enter",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "jumpy2.toggleSelection",
+                "key": "shift+alt+enter",
                 "when": "editorTextFocus"
             },
             {
