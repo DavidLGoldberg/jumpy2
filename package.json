@@ -122,6 +122,11 @@
                         "🦘"
                     ],
                     "description": "Whether or not Jumpy2 will display an emoji 'jumper' on activate!"
+                },
+                "jumpy2.achievements.active": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable or disable automatic achievements pop-up. Don't worry, they're very rare!"
                 }
             }
         },
@@ -143,8 +148,8 @@
                 "title": "Jumpy: Exit"
             },
             {
-                "command": "jumpy2.career",
-                "title": "Jumpy: Show Career Jumps"
+                "command": "jumpy2.showAchievements",
+                "title": "Show Jumpy2 Achievements (career jumps)"
             }
         ],
         "keybindings": [

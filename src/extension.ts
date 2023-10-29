@@ -7,6 +7,7 @@ import {
     ExtensionContext,
     window,
     workspace,
+    ViewColumn,
 } from 'vscode';
 import TelemetryReporter from 'vscode-extension-telemetry';
 
@@ -17,6 +18,7 @@ import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
 import { createStatusBar, setStatusBar } from './statusPrinter';
 import { getKeySet, getAllKeys } from './keys';
+import { achievements, achievementsWebview } from './achievements';
 
 let reporter: TelemetryReporter; // Instantiated on activation
 let globalState: any;
@@ -65,6 +67,20 @@ stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
         );
         const currentCount = (globalState.get(careerJumpsMadeKey) || 0) + 1;
         globalState.update(careerJumpsMadeKey, currentCount);
+
+        // call the `showAchievements` command here when the user has jumped n times found in the `achievements` object
+        // but respect the user's desire to disable this first:
+
+        const achievementsEnabled = workspace
+            .getConfiguration('jumpy2')
+            .get('achievements.active') as boolean;
+        if (achievementsEnabled && currentCount in achievements) {
+            commands.executeCommand('jumpy2.showAchievements');
+            reporter.sendTelemetryEvent(
+                `career-show-achievements-triggered-${currentCount}`
+            ); // Left 'career' in the name for consistency with the existing telemetry events
+        }
+
         reporter.sendTelemetryEvent(`career-${currentCount}`);
     }
 });
@@ -155,12 +171,23 @@ function exit() {
     stateMachine.ports.exit.send(null);
 }
 
-function career() {
+function showAchievements() {
     const careerJumpsMade = (
         globalState.get(careerJumpsMadeKey) || 0
     ).toString();
-    reporter.sendTelemetryEvent(`career-show-${careerJumpsMade}`);
-    window.showInformationMessage(`Total career jumps: ${careerJumpsMade} 👏`);
+    reporter.sendTelemetryEvent(`career-show-achievements-${careerJumpsMade}`); // Left 'career' in the name for consistency with the existing telemetry events
+
+    const panel = window.createWebviewPanel(
+        'jumpy2Achievements',
+        'Jumpy2 Achievements',
+        ViewColumn.One,
+        {
+            enableScripts: false,
+            retainContextWhenHidden: false, // technically probably not needed with enableScripts set to false, but leaving here in case + future proofing.
+        }
+    );
+
+    panel.webview.html = achievementsWebview(careerJumpsMade);
 }
 
 export function activate(context: ExtensionContext) {
@@ -184,7 +211,7 @@ export function activate(context: ExtensionContext) {
         registerCommand('jumpy2.toggleSelection', toggleSelection),
         registerCommand('jumpy2.reset', reset),
         registerCommand('jumpy2.exit', exit),
-        registerCommand('jumpy2.career', career)
+        registerCommand('jumpy2.showAchievements', showAchievements)
     );
 
     const allKeys = getAllKeys(getSettings().customKeys);

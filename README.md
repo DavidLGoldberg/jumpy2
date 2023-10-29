@@ -191,11 +191,18 @@ for back and forward functionality with neovim:
 
 ## Fun
 
-### Show your total career jumps
+### See your achievements(!)
 
-command palette (usually <kbd>command</kbd>+<kbd>shift</kbd>+<kbd>p</kbd>) -> `Jumpy: Show Career Jumps`
+command palette (usually <kbd>command</kbd>+<kbd>shift</kbd>+<kbd>p</kbd>) -> `Show Jumpy2 Achievements (career jumps)`
+_(a real ninja would bind it to a key though)_
 
-### Emojis
+You can also _disable_ this option if you're an uber important 1337 10x h4x0r that can't afford to hot key a tab closed once a year...
+
+```json
+  "jumpy2.achievements.active": false,
+```
+
+### Emojis (Subtly useful)
 
 Change the 'jumper' set (emojis)
 in your VS Code's `settings.json`
@@ -207,6 +214,12 @@ add:
 ```
 
 _The above tells jumpy to use the monkey emoji exclusively._
+
+Of course you can turn these off too. If you have no soul.
+
+```json
+  "jumpy2.jumperEmojis.active": false,
+```
 
 ## Known Issues
 
@@ -243,7 +256,7 @@ _The above tells jumpy to use the monkey emoji exclusively._
 ## My previous Atom packages :)
 
 -   [Jumpy](https://atom.io/packages/jumpy)
--   [Jumpy-beacon](https://atom.io/packages/jumpy-beacon) (I still have to implement this or at least a beacon for Jumpy2)
+-   [Jumpy-beacon](https://atom.io/packages/jumpy-beacon) (I still have to implement this or at least a better beacon for Jumpy2)
 -   [Qolor](https://atom.io/packages/qolor)
 
 ## Support Jumpy2

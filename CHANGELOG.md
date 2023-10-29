@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.5.0
+
+-   ✨ Add an achievements page (replaces career jumps command).
+-   Feel free to disable it in the options.
+
+## 1.4.1
+
+-   Dependabot patches.
+
 ## 1.4.0
 
 -   ✨ Add a selection mode "jumpy2.toggleSelection", defaults to: <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd>. Thanks @FredBill1 for the PR!!!

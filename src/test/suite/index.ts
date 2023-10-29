@@ -1,3 +1,4 @@
+// test/suite/index.ts
 import path from 'path';
 import Mocha from 'mocha';
 import glob from 'glob';
