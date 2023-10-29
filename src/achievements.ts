@@ -29,13 +29,18 @@ export const achievements: Record<number, Achievement> = {
 };
 
 export const achievementsWebview = (careerJumpsMade: number) => {
-    const curLevel = parseInt(
-        Object.keys(achievements)
-            .reverse()
-            .find(
-                (numJumps: string) => parseInt(numJumps) <= careerJumpsMade
-            ) || Object.keys(achievements)[0]
-    );
+    const achieved = Object.entries(achievements)
+        .filter(([numJumps]) => parseInt(numJumps) <= careerJumpsMade)
+        .map(
+            ([numJumps, achievement]) => `
+            <div class="achievement">
+                <h2>${achievement.emoji} ${achievement.level} <small><small><small><i>(${numJumps} jumps)</small></small></small></i></h2>
+                <p>${achievement.message}</p>
+            </div>
+        `
+        )
+        .join('');
+
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -46,11 +51,8 @@ export const achievementsWebview = (careerJumpsMade: number) => {
             </head>
             <body>
                 <h1>Jumpy2 Achievements</h1>
-                <div id="achievement-level">
-                <h2>${achievements[curLevel].emoji} ${
-        achievements[curLevel].level
-    } </h2>
-                <p>${achievements[curLevel].message}</p>
+                <div id="achievements-section">
+                    ${achieved}
                 </div>
                 <div id="career-jumps">
                     Total career jumps: ${careerJumpsMade}${

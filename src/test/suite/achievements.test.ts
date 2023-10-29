@@ -33,18 +33,20 @@ suite('Achievements Suite', function () {
         assert(htmlContent.includes('🦥'));
         assert(htmlContent.includes('Total career jumps: 99'));
         assert(!htmlContent.includes('👏'));
+        assert(!htmlContent.includes('🦗'));
         // ...other assertions
     });
     test('100 should return achievement grasshopper level (1)', () => {
         const htmlContent = achievements.achievementsWebview(100);
         // Assert that the HTML content contains the expected elements/values
-        assert(htmlContent.includes('🦗'));
+        assert(htmlContent.includes('🦥'));
         assert(htmlContent.includes('Total career jumps: 100 👏'));
         // ...other assertions
     });
     test('101 should return achievement grasshopper level (1)', () => {
         const htmlContent = achievements.achievementsWebview(101);
         // Assert that the HTML content contains the expected elements/values
+        assert(htmlContent.includes('🦥'));
         assert(htmlContent.includes('🦗'));
         assert(htmlContent.includes('Total career jumps: 101 👏'));
         // ...other assertions
@@ -52,6 +54,8 @@ suite('Achievements Suite', function () {
     test('1,000 should return achievement frog level (2)', () => {
         const htmlContent = achievements.achievementsWebview(1_000);
         // Assert that the HTML content contains the expected elements/values
+        assert(htmlContent.includes('🦥'));
+        assert(htmlContent.includes('🦗'));
         assert(htmlContent.includes('🐸'));
         assert(htmlContent.includes('Total career jumps: 1000 👏'));
         // ...other assertions
@@ -59,6 +63,12 @@ suite('Achievements Suite', function () {
     test('10,000 should return achievement ninja level (6)', () => {
         const htmlContent = achievements.achievementsWebview(10_000);
         // Assert that the HTML content contains the expected elements/values
+        assert(htmlContent.includes('🦥'));
+        assert(htmlContent.includes('🦗'));
+        assert(htmlContent.includes('🐸'));
+        assert(htmlContent.includes('🐇'));
+        assert(htmlContent.includes('🦘'));
+        assert(htmlContent.includes('🫘'));
         assert(htmlContent.includes('🥷'));
         assert(htmlContent.includes("You're a true Jumpy Ninja!"));
         assert(htmlContent.includes('Total career jumps: 10000 👏'));
@@ -67,6 +77,12 @@ suite('Achievements Suite', function () {
     test('10,001 should return achievement ninja level (6)', () => {
         const htmlContent = achievements.achievementsWebview(10_001);
         // Assert that the HTML content contains the expected elements/values
+        assert(htmlContent.includes('🦥'));
+        assert(htmlContent.includes('🦗'));
+        assert(htmlContent.includes('🐸'));
+        assert(htmlContent.includes('🐇'));
+        assert(htmlContent.includes('🦘'));
+        assert(htmlContent.includes('🫘'));
         assert(htmlContent.includes('🥷'));
         assert(htmlContent.includes("You're a true Jumpy Ninja!"));
         assert(htmlContent.includes('Total career jumps: 10001 👏'));
