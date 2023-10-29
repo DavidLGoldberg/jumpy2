@@ -51,14 +51,17 @@ export const achievementsWebview = (careerJumpsMade: number) => {
             </head>
             <body>
                 <h1>Jumpy2 Achievements</h1>
+                <div id="career-jumps">
+                    <h2>Total career jumps: ${careerJumpsMade}${
+        careerJumpsMade >= 100 ? ' 👏' : ''
+    }
+                    </h2>
+                </div>
+                <hr />
                 <div id="achievements-section">
                     ${achieved}
                 </div>
-                <div id="career-jumps">
-                    Total career jumps: ${careerJumpsMade}${
-        careerJumpsMade >= 100 ? ' 👏' : ''
-    }
-                </div>
+                <hr />
                 <div id="sponsor">
                 ...sponsor here...
                 </div>
