@@ -34,7 +34,7 @@ export const achievementsWebview = (careerJumpsMade: number) => {
         .map(
             ([numJumps, achievement]) => `
             <div class="achievement">
-                <h2>${achievement.emoji} ${achievement.level} <small><small><small><i>(${numJumps} jumps)</small></small></small></i></h2>
+                <h3>${achievement.emoji} ${achievement.level} <small><small><small><i>(${numJumps} jumps)</small></small></small></i></h3>
                 <p>${achievement.message}</p>
             </div>
         `
@@ -50,7 +50,7 @@ export const achievementsWebview = (careerJumpsMade: number) => {
                 <title>Jumpy2 Achievements</title>
             </head>
             <body>
-                <h1>Jumpy2 Achievements</h1>
+                <h1>You earned Jumpy2 Achievements!</h1>
                 <div id="career-jumps">
                     <h2>Total career jumps: ${careerJumpsMade}${
         careerJumpsMade >= 100 ? ' 👏' : ''
@@ -58,12 +58,24 @@ export const achievementsWebview = (careerJumpsMade: number) => {
                     </h2>
                 </div>
                 <hr />
-                <div id="achievements-section">
-                    ${achieved}
+                <div id="sponsor">
+                    <h2>Maybe it's time to Support Jumpy2?</h2>
+                    <p>
+                    <strong>Buy <a href="https://www.bonfire.com/store/jumpy">Jumpy swag</a>!</strong>
+                    </p>
+                    <p>
+                    <ul style="padding:0;margin:0;list-style:none;">
+                        <li>Subscribe to my youtube channel: <a href="https://www.youtube.com/channel/UCi6p1uTlAozufNiQgpgpW-Q">https://www.youtube.com/channel/UCi6p1uTlAozufNiQgpgpW-Q</a></li>
+                        <li>Sponsor me on Github <a href="https://github.com/sponsors/DavidLGoldberg">David L Goldberg</a></li>
+                        <li>Support me on <a href="https://www.patreon.com/davidlgoldberg">Patreon</a></li>
+                        <li>Support me via <a href="https://github.com/DavidLGoldberg/jumpy2/blob/main/crypto-donations.md">crypto</a></li>
+                    </ul>
+                    </p>
                 </div>
                 <hr />
-                <div id="sponsor">
-                ...sponsor here...
+                <div id="achievements-section">
+                    <h2>Achievements</h2>
+                    ${achieved}
                 </div>
             </body>
         </html>`;

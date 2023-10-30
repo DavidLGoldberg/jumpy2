@@ -261,7 +261,8 @@ Of course you can turn these off too. If you have no soul.
 
 ## Support Jumpy2
 
--   Subscribe to my youtube channel: https://www.youtube.com/channel/UCi6p1uTlAozufNiQgpgpW-Q
+-   Buy [Jumpy Swag](https://www.bonfire.com/store/jumpy)!
 -   Sponsor me on Github [David L Goldberg](https://github.com/sponsors/DavidLGoldberg)
 -   Support me on [Patreon](https://www.patreon.com/davidlgoldberg)
 -   Support me via [crypto](./crypto-donations.md)
+-   Subscribe to my youtube channel: https://www.youtube.com/channel/UCi6p1uTlAozufNiQgpgpW-Q
