@@ -2,8 +2,8 @@
 
 ## 1.5.0
 
--   ✨ Add an achievements page (replaces career jumps command).
--   Feel free to disable it in the options.
+-   ✨ Add an achievements page/behavior and command (replaces career jumps command). Feel free to disable it in the options.
+-   ✨ Add an updates page/behavior and command, that pulls in the CHANGELOG.md.
 
 ## 1.4.1
 

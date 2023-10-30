@@ -149,7 +149,11 @@
             },
             {
                 "command": "jumpy2.showAchievements",
-                "title": "Show Jumpy2 Achievements (career jumps)"
+                "title": "Jumpy: Show Jumpy2 Achievements (career jumps)"
+            },
+            {
+                "command": "jumpy2.showUpdates",
+                "title": "Jumpy: Show Updates"
             }
         ],
         "keybindings": [

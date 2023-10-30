@@ -19,10 +19,12 @@ import wordLabelDecorationType from './labelers/wordDecorations';
 import { createStatusBar, setStatusBar } from './statusPrinter';
 import { getKeySet, getAllKeys } from './keys';
 import { achievements, achievementsWebview } from './achievements';
+import { updatesWebview } from './updated';
 
 let reporter: TelemetryReporter; // Instantiated on activation
 let globalState: any;
 const careerJumpsMadeKey = 'careerJumpsMade';
+const previousVersionKey = 'previousVersion';
 
 const stateMachine = elmApp.Elm.StateMachineVSC.init();
 
@@ -195,23 +197,36 @@ export function activate(context: ExtensionContext) {
     globalState.setKeysForSync([careerJumpsMadeKey]);
     const { subscriptions } = context;
     const { registerCommand } = commands;
-
     const extensionId = 'DavidLGoldberg.jumpy2';
+    const currentExtensionVersion =
+        extensions.getExtension(extensionId)!.packageJSON.version;
     reporter = new TelemetryReporter(
         extensionId,
-        extensions.getExtension(extensionId)!.packageJSON.version, // extension version
+        currentExtensionVersion,
         '618cee5c-79f0-46c5-a2ab-95f734e163ef' // app insights instrumentation key
     );
     subscriptions.push(reporter);
 
     reporter.sendTelemetryEvent('activate');
 
+    const previousVersion =
+        context.globalState.get<string>(previousVersionKey) || '';
+    if (isNotableUpdate(previousVersion, currentExtensionVersion)) {
+        commands.executeCommand('jumpy2.showUpdates');
+        // store latest version
+        context.globalState.update(previousVersionKey, currentExtensionVersion);
+        reporter.sendTelemetryEvent(
+            `show-updates-triggered-${currentExtensionVersion}`
+        );
+    }
+
     subscriptions.push(
         registerCommand('jumpy2.toggle', toggle),
         registerCommand('jumpy2.toggleSelection', toggleSelection),
         registerCommand('jumpy2.reset', reset),
         registerCommand('jumpy2.exit', exit),
-        registerCommand('jumpy2.showAchievements', showAchievements)
+        registerCommand('jumpy2.showAchievements', showAchievements),
+        registerCommand('jumpy2.showUpdates', showUpdates)
     );
 
     const allKeys = getAllKeys(getSettings().customKeys);
@@ -252,4 +267,39 @@ export function deactivate() {
 
     wordLabelDecorationType.dispose();
     reporter.dispose();
+}
+
+// Version check code and above with global accessor inspired by the following.
+// https://stackoverflow.com/a/66307695/89682
+// The extension's code: https://github.com/GorvGoyl/Shortcut-Menu-Bar-VSCode-Extension/blob/master/src/extension.ts.
+// https://marketplace.visualstudio.com/items?itemName=jerrygoyal.shortcut-menu-bar (cool extension!)
+function isNotableUpdate(previousVersion: string, currentVersion: string) {
+    if (previousVersion.indexOf('.') === -1) {
+        return true;
+    }
+
+    const [previousMajor, previousMinor, previousPatch] = previousVersion
+        .split('.')
+        .map(Number);
+    const [currentMajor, currentMinor, currentPatch] = currentVersion
+        .split('.')
+        .map(Number);
+
+    return currentMajor > previousMajor || currentMinor > previousMinor;
+}
+
+function showUpdates() {
+    reporter.sendTelemetryEvent(`show-updates`);
+
+    const panel = window.createWebviewPanel(
+        'jumpy2Updates',
+        'Jumpy2 Updates',
+        ViewColumn.One,
+        {
+            enableScripts: false,
+            retainContextWhenHidden: false, // technically probably not needed with enableScripts set to false, but leaving here in case + future proofing.
+        }
+    );
+
+    panel.webview.html = updatesWebview();
 }
