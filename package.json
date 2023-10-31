@@ -455,7 +455,8 @@
         "pretest": "npm run compile",
         "test": "nyc node ./out/test/runTest.js",
         "prepare": "npx husky install",
-        "deploy": "vsce publish"
+        "deploy": "vsce publish",
+        "postversion": "git push origin main"
     },
     "devDependencies": {
         "@types/glob": "7.2.0",
