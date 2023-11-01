@@ -456,7 +456,8 @@
         "test": "nyc node ./out/test/runTest.js",
         "prepare": "npx husky install",
         "deploy": "vsce publish",
-        "postversion": "git branch --show-current; git branch -m main;git push origin main"
+        "preversion": "git status && git branch --show-current && git fetch --all && git checkout main",
+        "postversion": "git status && git branch --show-current && git push origin main"
     },
     "devDependencies": {
         "@types/glob": "7.2.0",
