@@ -64,26 +64,27 @@ stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
     if (foundLabel) {
         foundLabel.jump(isSelectionMode);
         foundLabel.animateBeacon();
-        reporter.sendTelemetryEvent(
-            `${isSelectionMode ? 'selection-' : ''}jump-${keyLabel}`
-        );
         const currentCount = (globalState.get(careerJumpsMadeKey) || 0) + 1;
         globalState.update(careerJumpsMadeKey, currentCount);
+        reporter.sendTelemetryEvent(
+            `jump${isSelectionMode ? '-selection' : '-normal'}`,
+            {
+                'jumpy.keysjumpedwith': keyLabel,
+                'jumpy.careerjumps': currentCount.toString(),
+            }
+        );
 
         // call the `showAchievements` command here when the user has jumped n times found in the `achievements` object
         // but respect the user's desire to disable this first:
-
         const achievementsEnabled = workspace
             .getConfiguration('jumpy2')
             .get('achievements.active') as boolean;
         if (achievementsEnabled && currentCount in achievements) {
             commands.executeCommand('jumpy2.showAchievements');
-            reporter.sendTelemetryEvent(
-                `career-show-achievements-triggered-${currentCount}`
-            ); // Left 'career' in the name for consistency with the existing telemetry events
+            reporter.sendTelemetryEvent('show-achievements-triggered', {
+                'jumpy.careerjumps': currentCount.toString(),
+            });
         }
-
-        reporter.sendTelemetryEvent(`career-${currentCount}`);
     }
 });
 
@@ -133,19 +134,19 @@ function enterJumpMode() {
 }
 
 function toggle() {
-    reporter.sendTelemetryEvent('toggle');
+    reporter.sendTelemetryEvent('toggle-normal');
     isSelectionMode = false;
     enterJumpMode();
 }
 
 function toggleSelection() {
-    reporter.sendTelemetryEvent('selectionToggle');
+    reporter.sendTelemetryEvent('toggle-selection');
     isSelectionMode = true;
     enterJumpMode();
 }
 
 function sendKey(key: string) {
-    reporter.sendTelemetryEvent(`sendKey-${key}`);
+    reporter.sendTelemetryEvent('key-pressed', { 'jumpy.keypressed': key });
     stateMachine.ports.key.send(key.charCodeAt(0));
 }
 
@@ -169,7 +170,7 @@ function _exit() {
 const _exitDebounced = debounce(_exit, 350, { leading: true, trailing: false });
 
 function exit() {
-    reporter.sendTelemetryEvent('exit-requested');
+    reporter.sendTelemetryEvent('exit-manual');
     stateMachine.ports.exit.send(null);
 }
 
@@ -177,7 +178,9 @@ function showAchievements() {
     const careerJumpsMade = (
         globalState.get(careerJumpsMadeKey) || 0
     ).toString();
-    reporter.sendTelemetryEvent(`career-show-achievements-${careerJumpsMade}`); // Left 'career' in the name for consistency with the existing telemetry events
+    reporter.sendTelemetryEvent('show-achievements', {
+        'jumpy.careerjumps': careerJumpsMade.toString(),
+    });
 
     const panel = window.createWebviewPanel(
         'jumpy2Achievements',
@@ -215,9 +218,7 @@ export function activate(context: ExtensionContext) {
         commands.executeCommand('jumpy2.showUpdates');
         // store latest version
         context.globalState.update(previousVersionKey, currentExtensionVersion);
-        reporter.sendTelemetryEvent(
-            `show-updates-triggered-${currentExtensionVersion}`
-        );
+        reporter.sendTelemetryEvent('show-updates-triggered'); // implicitly has version from 'common'
     }
 
     subscriptions.push(
@@ -289,7 +290,7 @@ function isNotableUpdate(previousVersion: string, currentVersion: string) {
 }
 
 function showUpdates() {
-    reporter.sendTelemetryEvent(`show-updates`);
+    reporter.sendTelemetryEvent('show-updates');
 
     const panel = window.createWebviewPanel(
         'jumpy2Updates',
