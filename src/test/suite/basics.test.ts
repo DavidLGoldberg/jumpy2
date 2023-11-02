@@ -203,7 +203,7 @@ suite('Basic test Suite', function () {
         assert.deepStrictEqual(position, new Position(4, 15));
     });
 
-    test.skip('Jump to folded text (start)', async function () {
+    test('Jump to folded text (start)', async function () {
         let position: Position | undefined;
 
         await commands.executeCommand('editor.foldAll');
@@ -221,7 +221,7 @@ suite('Basic test Suite', function () {
         assert.deepStrictEqual(position, new Position(21, 2));
     });
 
-    test.skip('Jump to folded text (next)', async function () {
+    test('Jump to folded text (next)', async function () {
         let position: Position | undefined;
 
         await commands.executeCommand('editor.foldAll');

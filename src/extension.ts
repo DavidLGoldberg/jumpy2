@@ -7,6 +7,7 @@ import {
     ExtensionContext,
     window,
     workspace,
+    ViewColumn,
 } from 'vscode';
 import TelemetryReporter from 'vscode-extension-telemetry';
 
@@ -17,10 +18,13 @@ import getWordLabels from './labelers/words';
 import wordLabelDecorationType from './labelers/wordDecorations';
 import { createStatusBar, setStatusBar } from './statusPrinter';
 import { getKeySet, getAllKeys } from './keys';
+import { achievements, achievementsWebview } from './achievements';
+import { updatesWebview } from './updated';
 
 let reporter: TelemetryReporter; // Instantiated on activation
 let globalState: any;
 const careerJumpsMadeKey = 'careerJumpsMade';
+const previousVersionKey = 'previousVersion';
 
 const stateMachine = elmApp.Elm.StateMachineVSC.init();
 
@@ -60,12 +64,27 @@ stateMachine.ports.labelJumped.subscribe((keyLabel: string) => {
     if (foundLabel) {
         foundLabel.jump(isSelectionMode);
         foundLabel.animateBeacon();
-        reporter.sendTelemetryEvent(
-            `${isSelectionMode ? 'selection-' : ''}jump-${keyLabel}`
-        );
         const currentCount = (globalState.get(careerJumpsMadeKey) || 0) + 1;
         globalState.update(careerJumpsMadeKey, currentCount);
-        reporter.sendTelemetryEvent(`career-${currentCount}`);
+        reporter.sendTelemetryEvent(
+            `jump${isSelectionMode ? '-selection' : '-normal'}`,
+            {
+                'jumpy.keysjumpedwith': keyLabel,
+                'jumpy.careerjumps': currentCount.toString(),
+            }
+        );
+
+        // call the `showAchievements` command here when the user has jumped n times found in the `achievements` object
+        // but respect the user's desire to disable this first:
+        const achievementsEnabled = workspace
+            .getConfiguration('jumpy2')
+            .get('achievements.active') as boolean;
+        if (achievementsEnabled && currentCount in achievements) {
+            commands.executeCommand('jumpy2.showAchievements');
+            reporter.sendTelemetryEvent('show-achievements-triggered', {
+                'jumpy.careerjumps': currentCount.toString(),
+            });
+        }
     }
 });
 
@@ -115,19 +134,19 @@ function enterJumpMode() {
 }
 
 function toggle() {
-    reporter.sendTelemetryEvent('toggle');
+    reporter.sendTelemetryEvent('toggle-normal');
     isSelectionMode = false;
     enterJumpMode();
 }
 
 function toggleSelection() {
-    reporter.sendTelemetryEvent('selectionToggle');
+    reporter.sendTelemetryEvent('toggle-selection');
     isSelectionMode = true;
     enterJumpMode();
 }
 
 function sendKey(key: string) {
-    reporter.sendTelemetryEvent(`sendKey-${key}`);
+    reporter.sendTelemetryEvent('key-pressed', { 'jumpy.keypressed': key });
     stateMachine.ports.key.send(key.charCodeAt(0));
 }
 
@@ -151,16 +170,29 @@ function _exit() {
 const _exitDebounced = debounce(_exit, 350, { leading: true, trailing: false });
 
 function exit() {
-    reporter.sendTelemetryEvent('exit-requested');
+    reporter.sendTelemetryEvent('exit-manual');
     stateMachine.ports.exit.send(null);
 }
 
-function career() {
+function showAchievements() {
     const careerJumpsMade = (
         globalState.get(careerJumpsMadeKey) || 0
     ).toString();
-    reporter.sendTelemetryEvent(`career-show-${careerJumpsMade}`);
-    window.showInformationMessage(`Total career jumps: ${careerJumpsMade} 👏`);
+    reporter.sendTelemetryEvent('show-achievements', {
+        'jumpy.careerjumps': careerJumpsMade.toString(),
+    });
+
+    const panel = window.createWebviewPanel(
+        'jumpy2Achievements',
+        'Jumpy2 Achievements',
+        ViewColumn.One,
+        {
+            enableScripts: false,
+            retainContextWhenHidden: false, // technically probably not needed with enableScripts set to false, but leaving here in case + future proofing.
+        }
+    );
+
+    panel.webview.html = achievementsWebview(careerJumpsMade);
 }
 
 export function activate(context: ExtensionContext) {
@@ -168,23 +200,36 @@ export function activate(context: ExtensionContext) {
     globalState.setKeysForSync([careerJumpsMadeKey]);
     const { subscriptions } = context;
     const { registerCommand } = commands;
-
     const extensionId = 'DavidLGoldberg.jumpy2';
+    const currentExtensionVersion =
+        extensions.getExtension(extensionId)!.packageJSON.version;
     reporter = new TelemetryReporter(
         extensionId,
-        extensions.getExtension(extensionId)!.packageJSON.version, // extension version
+        currentExtensionVersion,
         '618cee5c-79f0-46c5-a2ab-95f734e163ef' // app insights instrumentation key
     );
     subscriptions.push(reporter);
 
-    reporter.sendTelemetryEvent('activate');
+    reporter.sendTelemetryEvent('activate', {
+        'jumpy.settings': JSON.stringify(workspace.getConfiguration('jumpy2')),
+    });
+
+    const previousVersion =
+        context.globalState.get<string>(previousVersionKey) || '';
+    if (isNotableUpdate(previousVersion, currentExtensionVersion)) {
+        commands.executeCommand('jumpy2.showUpdates');
+        // store latest version
+        context.globalState.update(previousVersionKey, currentExtensionVersion);
+        reporter.sendTelemetryEvent('show-updates-triggered'); // implicitly has version from 'common'
+    }
 
     subscriptions.push(
         registerCommand('jumpy2.toggle', toggle),
         registerCommand('jumpy2.toggleSelection', toggleSelection),
         registerCommand('jumpy2.reset', reset),
         registerCommand('jumpy2.exit', exit),
-        registerCommand('jumpy2.career', career)
+        registerCommand('jumpy2.showAchievements', showAchievements),
+        registerCommand('jumpy2.showUpdates', showUpdates)
     );
 
     const allKeys = getAllKeys(getSettings().customKeys);
@@ -225,4 +270,39 @@ export function deactivate() {
 
     wordLabelDecorationType.dispose();
     reporter.dispose();
+}
+
+// Version check code and above with global accessor inspired by the following.
+// https://stackoverflow.com/a/66307695/89682
+// The extension's code: https://github.com/GorvGoyl/Shortcut-Menu-Bar-VSCode-Extension/blob/master/src/extension.ts.
+// https://marketplace.visualstudio.com/items?itemName=jerrygoyal.shortcut-menu-bar (cool extension!)
+function isNotableUpdate(previousVersion: string, currentVersion: string) {
+    if (previousVersion.indexOf('.') === -1) {
+        return true;
+    }
+
+    const [previousMajor, previousMinor, previousPatch] = previousVersion
+        .split('.')
+        .map(Number);
+    const [currentMajor, currentMinor, currentPatch] = currentVersion
+        .split('.')
+        .map(Number);
+
+    return currentMajor > previousMajor || currentMinor > previousMinor;
+}
+
+function showUpdates() {
+    reporter.sendTelemetryEvent('show-updates');
+
+    const panel = window.createWebviewPanel(
+        'jumpy2Updates',
+        'Jumpy2 Updates',
+        ViewColumn.One,
+        {
+            enableScripts: false,
+            retainContextWhenHidden: false, // technically probably not needed with enableScripts set to false, but leaving here in case + future proofing.
+        }
+    );
+
+    panel.webview.html = updatesWebview();
 }
