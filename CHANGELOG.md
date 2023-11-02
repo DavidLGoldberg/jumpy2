@@ -2,8 +2,8 @@
 
 ## 1.5.0
 
--   ✨ Add an achievements page/behavior and command (replaces career jumps command). Feel free to disable it in the options.
--   ✨ Add an updates page/behavior and command, that pulls in the CHANGELOG.md.
+-   ✨ Add an achievements page/behavior and command (replaces career jumps command). Feel free to disable it in the options. To run (usually command/ctrl+shift+p) -> `Jumpy: Show Jumpy Achievements (career jumps)`
+-   ✨ Add an updates page/behavior and command, that pulls in the CHANGELOG.md. To run (usually command/ctrl+shift+p) -> `Jumpy: Show Updates`
 
 ## 1.4.1
 

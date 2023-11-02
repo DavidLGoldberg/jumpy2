@@ -193,7 +193,7 @@ for back and forward functionality with neovim:
 
 ### See your achievements(!)
 
-command palette (usually <kbd>command</kbd>+<kbd>shift</kbd>+<kbd>p</kbd>) -> `Jumpy: Show Jumpy2 Achievements (career jumps)`
+command palette (usually <kbd>command/ctrl</kbd>+<kbd>shift</kbd>+<kbd>p</kbd>) -> `Jumpy: Show Jumpy Achievements (career jumps)`
 _(a real ninja would bind it to a key though)_
 
 You can also _disable_ this pop up if you're an uber important 1337 10x h4x0r that can't afford to hot key a tab closed once a year...

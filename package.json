@@ -149,7 +149,7 @@
             },
             {
                 "command": "jumpy2.showAchievements",
-                "title": "Jumpy: Show Jumpy2 Achievements (career jumps)"
+                "title": "Jumpy: Show Jumpy Achievements (career jumps)"
             },
             {
                 "command": "jumpy2.showUpdates",
