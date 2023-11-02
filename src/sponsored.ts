@@ -3,7 +3,7 @@ export const sponsoredBlock = `
 <div id="sponsor">
     <h2>Maybe it's time to Support Jumpy2?</h2>
     <p>
-        <strong>Buy <a href="https://www.bonfire.com/store/jumpy">Jumpy swag</a>!</strong>
+        <strong>Buy a <a href="https://www.bonfire.com/store/jumpy">Jumpy T-SHIRT</a>!</strong>
     </p>
     <p>
         <ul style="padding:0;margin:0;list-style:none;">
