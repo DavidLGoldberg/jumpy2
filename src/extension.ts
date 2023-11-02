@@ -210,7 +210,9 @@ export function activate(context: ExtensionContext) {
     );
     subscriptions.push(reporter);
 
-    reporter.sendTelemetryEvent('activate');
+    reporter.sendTelemetryEvent('activate', {
+        'jumpy.settings': JSON.stringify(workspace.getConfiguration('jumpy2')),
+    });
 
     const previousVersion =
         context.globalState.get<string>(previousVersionKey) || '';
