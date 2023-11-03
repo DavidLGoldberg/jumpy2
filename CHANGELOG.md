@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.5.1
+
+-   Sync the updates notification for users of synced settings (See 1.5.0 below).
+
 ## 1.5.0
 
 -   ✨ Add an achievements page/behavior and command (replaces career jumps command). Feel free to disable it in the options. To run (usually command/ctrl+shift+p) -> `Jumpy: Show Jumpy Achievements (career jumps)`
