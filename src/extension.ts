@@ -196,13 +196,12 @@ function showAchievements() {
 }
 
 export function activate(context: ExtensionContext) {
-    globalState = context.globalState;
-    globalState.setKeysForSync([careerJumpsMadeKey]);
+    globalState = context.globalState; // stored at a more global scope for methods without context :\
+    globalState.setKeysForSync([careerJumpsMadeKey, previousVersionKey]);
     const { subscriptions } = context;
     const { registerCommand } = commands;
     const extensionId = 'DavidLGoldberg.jumpy2';
-    const currentExtensionVersion =
-        extensions.getExtension(extensionId)!.packageJSON.version;
+    const currentExtensionVersion = context.extension.packageJSON.version;
     reporter = new TelemetryReporter(
         extensionId,
         currentExtensionVersion,
