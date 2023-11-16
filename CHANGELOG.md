@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.5.2
+
+-   Slight fix for memory management and some cleanup.
+
 ## 1.5.1
 
 -   Sync the updates notification for users of synced settings (See 1.5.0 below).

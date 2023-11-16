@@ -198,6 +198,7 @@ export function activate(context: ExtensionContext) {
     globalState = context.globalState; // stored at a more global scope for methods without context :\
     globalState.setKeysForSync([careerJumpsMadeKey, previousVersionKey]);
     const { subscriptions } = context;
+    subscriptions.push(statusBarItem, wordLabelDecorationType);
     const { registerCommand } = commands;
     const extensionId = 'DavidLGoldberg.jumpy2';
     const currentExtensionVersion = context.extension.packageJSON.version;
@@ -263,11 +264,7 @@ export function activate(context: ExtensionContext) {
 
 export function deactivate() {
     _exit();
-
-    statusBarItem.dispose();
-
-    wordLabelDecorationType.dispose();
-    reporter.dispose();
+    // NOTE: subscriptions will automatically be disposed of
 }
 
 // Version check code and above with global accessor inspired by the following.
