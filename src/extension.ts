@@ -3,7 +3,6 @@ import debounce from 'lodash.debounce';
 import {
     commands,
     DecorationOptions,
-    extensions,
     ExtensionContext,
     window,
     workspace,
