@@ -231,8 +231,8 @@ export function activate(context: ExtensionContext) {
     );
 
     const allKeys = getAllKeys(getSettings().customKeys);
-    subscriptions.concat(
-        [...allKeys.lowerCharacters, ...allKeys.upperCharacters].map((chr) =>
+    subscriptions.push(
+        ...[...allKeys.lowerCharacters, ...allKeys.upperCharacters].map((chr) =>
             registerCommand(`jumpy2.${chr}`, () => sendKey(chr))
         )
     );
