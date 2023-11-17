@@ -42,7 +42,9 @@ function statusPrinter(statusMarkup: string) {
 }
 
 export function createStatusBar() {
-    return window.createStatusBarItem(StatusBarAlignment.Left, 1000);
+    const statusBar = window.createStatusBarItem(StatusBarAlignment.Left, 1000);
+    statusBar.command = 'jumpy2.showAchievements';
+    return statusBar;
 }
 
 export function setStatusBar(

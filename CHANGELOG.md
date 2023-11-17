@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.6.0
+
+-   ✨ Add ability to click Jumpy's status bar item to view your achievements.
+
 ## 1.5.2
 
 -   Slight fix for memory management and some cleanup.
