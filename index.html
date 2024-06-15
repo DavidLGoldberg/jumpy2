@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Jumpy2 - Dynamic Hotkeys for VS Code</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        />
+        <style>
+            html,
+            body {
+                height: 100%; /* Make sure the body takes the full height */
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden; /* Prevent horizontal scroll */
+            }
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                color: #333;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+            }
+            .header {
+                background-color: #00d85d;
+                padding: 15px;
+                color: black;
+            }
+            .header img {
+                height: 100px;
+            }
+            .container {
+                padding: 15px;
+                flex: 1; /* Ensure the container takes available space */
+            }
+            .demo {
+                margin: 20px 0;
+            }
+            .cta {
+                margin: 30px 0;
+            }
+            .cta a {
+                background-color: #00d85d;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+            .cta a:hover {
+                background-color: #45a049;
+            }
+            .footer {
+                background-color: #333;
+                color: white;
+                padding: 5px;
+                width: 100%;
+            }
+            .footer p {
+                margin: 8px;
+            }
+            .social-icons a {
+                color: white;
+                margin: 0 10px;
+                text-decoration: none;
+            }
+            .social-icons a:hover {
+                color: #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <img
+                src="img/logos/Jumpy2-logo-green-black.png"
+                alt="Jumpy2 Logo"
+            />
+
+            <h1>Jumpy2</h1>
+            <p>Dynamic Hotkeys for VS Code by the Original Author of Jumpy</p>
+        </div>
+
+        <div class="container">
+            <h2>Jump Around Your Code with Ease</h2>
+            <p>
+                A VS Code extension that creates dynamic hotkeys to jump around
+                files across visible panes.
+            </p>
+            <div class="demo">
+                <a
+                    href="https://www.youtube.com/watch?v=ClqiG3xskKM"
+                    target="_blank"
+                >
+                    <img
+                        src="https://img.youtube.com/vi/ClqiG3xskKM/0.jpg"
+                        alt="Jumpy2 demo on youtube.com"
+                        width="450"
+                    />
+                </a>
+            </div>
+            <div class="cta">
+                <a
+                    href="https://marketplace.visualstudio.com/items?itemName=DavidLGoldberg.jumpy2"
+                    target="_blank"
+                    >Install Jumpy2</a
+                >
+            </div>
+            <div class="cta">
+                <a
+                    href="https://github.com/DavidLGoldberg/jumpy2#readme"
+                    target="_blank"
+                    >Read the Documentation</a
+                >
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 David L. Goldberg. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://github.com/DavidLGoldberg" target="_blank"
+                    ><i class="fab fa-github"></i
+                ></a>
+                <a
+                    href="https://www.youtube.com/channel/UCi6p1uTlAozufNiQgpgpW-Q"
+                    target="_blank"
+                    ><i class="fab fa-youtube"></i
+                ></a>
+            </div>
+        </div>
+    </body>
+</html>
