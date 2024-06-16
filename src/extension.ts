@@ -8,7 +8,7 @@ import {
     workspace,
     ViewColumn,
 } from 'vscode';
-import TelemetryReporter from 'vscode-extension-telemetry';
+import TelemetryReporter from '@vscode/extension-telemetry';
 
 // @ts-ignore
 import elmApp from '../out/elm/StateMachineVSC';
@@ -200,11 +200,8 @@ export function activate(context: ExtensionContext) {
     const { subscriptions } = context;
     subscriptions.push(statusBarItem, wordLabelDecorationType);
     const { registerCommand } = commands;
-    const extensionId = 'DavidLGoldberg.jumpy2';
     const currentExtensionVersion = context.extension.packageJSON.version;
     reporter = new TelemetryReporter(
-        extensionId,
-        currentExtensionVersion,
         '618cee5c-79f0-46c5-a2ab-95f734e163ef' // app insights instrumentation key
     );
     subscriptions.push(reporter);
