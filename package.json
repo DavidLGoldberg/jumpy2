@@ -77,9 +77,9 @@
                 "id": "jumpy2.labelBorderColor",
                 "description": "Border color for Jumpy2 labels.  Overrides dark, light, and highContrast, so theme specific overrides should apply.",
                 "defaults": {
-                    "dark": "#00F56A",
-                    "light": "#00F56A",
-                    "highContrast": "#00F56A"
+                    "dark": "#2d3236",
+                    "light": "#FFFFFF",
+                    "highContrast": "#2d3236"
                 }
             },
             {
