@@ -22,6 +22,11 @@ suite('Long file test Suite', function () {
     before(async function () {
         window.showInformationMessage('Start long file tests.');
 
+        await commands.executeCommand('workbench.action.zoomReset');
+        await commands.executeCommand('workbench.action.zoomOut');
+        await commands.executeCommand('workbench.action.zoomOut');
+        await commands.executeCommand('workbench.action.zoomOut');
+
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
         await wait();
