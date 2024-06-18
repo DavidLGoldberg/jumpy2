@@ -76,8 +76,8 @@ const labeler: Labeler = function (
     if (editor) {
         const visibleRanges = editor.visibleRanges;
         const document = editor.document;
-        visibleRanges.forEach((range) => {
-            const text = document.getText(range);
+        visibleRanges.forEach((visibleRange) => {
+            const text = document.getText(visibleRange);
             const lines = text.split(/\r?\n/);
             lines.forEach((line, index) => {
                 let word: any;
@@ -92,7 +92,7 @@ const labeler: Labeler = function (
                     label.settings = env.settings;
                     label.textEditor = editor;
                     label.keyLabel = keyLabel || '';
-                    label.lineNumber = range.start.line + index;
+                    label.lineNumber = visibleRange.start.line + index;
                     label.column = column;
                     labels.push(label);
                 }
