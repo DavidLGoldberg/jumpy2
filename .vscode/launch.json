@@ -9,7 +9,6 @@
             "name": "Run Jumpy2 +extensions",
             "type": "extensionHost",
             "request": "launch",
-            "runtimeExecutable": "${execPath}",
             "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
             "outFiles": ["${workspaceFolder}/out/**/*.js"],
             "preLaunchTask": "npm: watch"
@@ -18,7 +17,6 @@
             "name": "Run Jumpy2 -extensions",
             "type": "extensionHost",
             "request": "launch",
-            "runtimeExecutable": "${execPath}",
             "args": [
                 "--disable-extensions",
                 "--extensionDevelopmentPath=${workspaceFolder}"
@@ -30,7 +28,6 @@
             "name": "Test without extensions",
             "type": "extensionHost",
             "request": "launch",
-            "runtimeExecutable": "${execPath}",
             "args": [
                 "--disable-extensions",
                 "--extensionDevelopmentPath=${workspaceFolder}",
@@ -43,7 +40,6 @@
             "name": "Test with extensions",
             "type": "extensionHost",
             "request": "launch",
-            "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceFolder}",
                 "--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
