@@ -10,7 +10,10 @@
             "type": "extensionHost",
             "request": "launch",
             "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-            "outFiles": ["${workspaceFolder}/out/**/*.js"],
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js",
+                "${workspaceFolder}/out/**/*.map"
+            ],
             "preLaunchTask": "npm: watch"
         },
         {
@@ -21,7 +24,10 @@
                 "--disable-extensions",
                 "--extensionDevelopmentPath=${workspaceFolder}"
             ],
-            "outFiles": ["${workspaceFolder}/out/**/*.js"],
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js",
+                "${workspaceFolder}/out/**/*.map"
+            ],
             "preLaunchTask": "npm: watch"
         },
         {
@@ -33,7 +39,10 @@
                 "--extensionDevelopmentPath=${workspaceFolder}",
                 "--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
             ],
-            "outFiles": ["${workspaceFolder}/out/**/*.js"],
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js",
+                "${workspaceFolder}/out/**/*.map"
+            ],
             "preLaunchTask": "npm: watch"
         },
         {
@@ -44,7 +53,10 @@
                 "--extensionDevelopmentPath=${workspaceFolder}",
                 "--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
             ],
-            "outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+            "outFiles": [
+                "${workspaceFolder}/out/test/**/*.js",
+                "${workspaceFolder}/out/**/*.map"
+            ],
             "preLaunchTask": "npm: watch"
         }
     ]
