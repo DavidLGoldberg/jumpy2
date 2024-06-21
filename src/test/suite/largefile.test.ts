@@ -26,6 +26,7 @@ suite('Long file test Suite', function () {
         await commands.executeCommand('workbench.action.zoomOut');
         await commands.executeCommand('workbench.action.zoomOut');
         await commands.executeCommand('workbench.action.zoomOut');
+        await commands.executeCommand('workbench.action.zoomOut');
 
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
@@ -47,19 +48,16 @@ suite('Long file test Suite', function () {
     });
 
     test('Toggle and jump', async function () {
-        let position: Position | undefined;
-
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.z');
 
         await wait();
 
-        if (window.activeTextEditor) {
-            position = window.activeTextEditor.selection.active;
-        }
-
-        assert.deepStrictEqual(position, new Position(0, 101));
+        assert.deepStrictEqual(
+            window.activeTextEditor?.selection.active,
+            new Position(0, 101)
+        );
 
         await wait();
 
@@ -67,13 +65,12 @@ suite('Long file test Suite', function () {
         await commands.executeCommand('jumpy2.A');
         await commands.executeCommand('jumpy2.z');
 
-        await wait();
+        await wait(1000); // this is annoying but it really needs more time...
 
-        if (window.activeTextEditor) {
-            position = window.activeTextEditor.selection.active;
-        }
-
-        assert.deepStrictEqual(position, new Position(26, 101));
+        assert.deepStrictEqual(
+            window.activeTextEditor?.selection.active,
+            new Position(26, 101)
+        );
 
         await wait();
     });
