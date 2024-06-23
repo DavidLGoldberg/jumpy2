@@ -31,7 +31,9 @@ class WordLabel implements Label {
     }
 
     animateBeacon() {
-        if (!this.textEditor) return;
+        if (!this.textEditor) {
+            return;
+        }
 
         const { lineNumber, column } = this;
 

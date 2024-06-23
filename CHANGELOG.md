@@ -4,6 +4,7 @@
 
 -   ✨ Add ability to click Jumpy's status bar item to view your achievements.
 -   Improve default `jumpy2.labelBorderColor` to improve clarity when labels are adjacent.
+-   ⬆️ Upgrade a lot of dependencies.
 
 ## 1.5.2
 
