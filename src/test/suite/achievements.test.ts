@@ -17,7 +17,7 @@ suite('Achievements Suite', function () {
     before(async function () {
         window.showInformationMessage('Start all achievements tests.');
         achievements = await import(
-            path.resolve(__dirname, '../../achievements')
+            path.resolve(__dirname, '../../achievements.js')
         );
     });
 
