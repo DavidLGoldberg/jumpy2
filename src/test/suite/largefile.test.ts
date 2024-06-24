@@ -59,13 +59,13 @@ suite('Long file test Suite', function () {
             new Position(0, 101)
         );
 
-        await wait();
+        await wait(500);
 
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.A');
         await commands.executeCommand('jumpy2.z');
 
-        await wait(1400); // this is annoying but it really needs more time...
+        await wait(2500); // this is annoying but it really needs more time...
 
         assert.deepStrictEqual(
             window.activeTextEditor?.selection.active,
