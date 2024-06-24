@@ -497,7 +497,8 @@
         "lodash.debounce": "4.0.8",
         "lodash.range": "3.2.0",
         "lodash.sample": "4.2.1",
-        "moize": "6.1.6"
+        "moize": "6.1.6",
+        "npm": "^10.8.1"
     },
     "nyc": {
         "cache": false,

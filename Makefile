@@ -1,13 +1,13 @@
 default: clean npm elm-build typescript
 
 npm:
-	npm install -g npm@8.3.0
+	npm install npm@10.8.1
 	npm install
 
 elm: npm
 	npm install elm@latest-0.19.1 --save-exact --save-dev
 
-elm-build: elm
+elm-build:
 	npm_config_yes=true npx elm@latest-0.19.1 make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js --optimize
 	npm_config_yes=true npx uglify-js@3.14.5 --output out/elm/StateMachineVSC.js --mangle --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' -- out/elm/StateMachineVSC.js
 
@@ -34,7 +34,7 @@ install: package
 	code --install-extension `ls -snew jumpy2*vsix | head -1 | awk '{ print $$NF }'`
 
 clean:
-	rm -rf "node_modules" ".coverage" ".nyc_output" ".vscode-test" "out"
+	rm -rf "node_modules" ".coverage" ".nyc_output" ".vscode-test" "out" "dist"
 	# NOTE: intentionally not deleting .vsix files
 
 count:
