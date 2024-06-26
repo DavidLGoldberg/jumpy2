@@ -13,15 +13,15 @@ npm:
 	npm install npm@$(NPM_VERSION)
 	npm install
 
-elm: npm
+elm-local-install: npm
 	npm install elm@$(ELM_VERSION) --save-exact --save-dev
+
+elm-debug: elm-local-install
+	npx elm@0.19.1-3 make $(STATE_MACHINE_SRC) --output=$(STATE_MACHINE_OUT)
 
 elm-build:
 	npm_config_yes=true npx elm@$(ELM_VERSION) make $(STATE_MACHINE_SRC) --output=$(STATE_MACHINE_OUT) --optimize
 	npm_config_yes=true npx uglify-js@$(UGLIFY_VERSION) --output $(STATE_MACHINE_OUT) --mangle --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' -- $(STATE_MACHINE_OUT)
-
-elm-debug:
-	npx elm@0.19.1-3 make $(STATE_MACHINE_SRC) --output=$(STATE_MACHINE_OUT)
 
 typescript:
 	npm run compile
