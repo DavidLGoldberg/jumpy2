@@ -3,7 +3,7 @@
 ```mermaid
 graph TD
   default --> clean
-  default --> npm
+  default --> npm-local-install
   default --> elm-build
   default --> typescript
 
@@ -18,5 +18,5 @@ graph TD
   install --> package
 
   elm-debug --> elm-local-install
-  elm-local-install --> npm
+  elm-local-install --> npm-local-install
 ```
