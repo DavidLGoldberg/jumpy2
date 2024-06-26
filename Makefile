@@ -8,14 +8,13 @@ MADGE_VERSION = 5.0.1
 STATE_MACHINE_SRC = src/elm/StateMachineVSC.elm
 STATE_MACHINE_OUT = out/elm/StateMachineVSC.js
 
-default: clean npm elm-build typescript
+default: clean npm-local-install elm-build typescript
 
-npm:
-	npm install npm@$(NPM_VERSION)
-	npm install
+npm-local-install:
+	npx npm@$(NPM_VERSION) install
 
-elm-local-install: npm
-	npm install elm@$(ELM_VERSION) --save-exact --save-dev
+elm-local-install: npm-local-install
+	npx npm@$(NPM_VERSION) install elm@$(ELM_VERSION) --save-exact --save-dev
 
 elm-debug: elm-local-install
 	npx elm@0.19.1-3 make $(STATE_MACHINE_SRC) --output=$(STATE_MACHINE_OUT)
@@ -28,10 +27,10 @@ elm-test:
 	npm_config_yes=true npx elm-test@$(ELM_TEST_VERSION)
 
 typescript:
-	npm run compile
+	npx npm@$(NPM_VERSION) run compile
 
 mocha-test: default
-	npm test
+	npx npm@$(NPM_VERSION) test
 
 graph:
 	# make graph (svg) of architecture
