@@ -1,3 +1,4 @@
+NODE_VERSION = 20.14.0 # set in the azure-pipelines.yml
 NPM_VERSION = 10.8.1
 ELM_VERSION = latest-0.19.1
 ELM_TEST_VERSION = 0.19.1-revision9
