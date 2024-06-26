@@ -24,17 +24,21 @@ elm-build:
 	npm_config_yes=true npx elm@$(ELM_VERSION) make $(STATE_MACHINE_SRC) --output=$(STATE_MACHINE_OUT) --optimize
 	npm_config_yes=true npx uglify-js@$(UGLIFY_VERSION) --output $(STATE_MACHINE_OUT) --mangle --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' -- $(STATE_MACHINE_OUT)
 
+elm-test:
+	npm_config_yes=true npx elm-test@$(ELM_TEST_VERSION)
+
 typescript:
 	npm run compile
+
+mocha-test: default
+	npm test
 
 graph:
 	# make graph (svg) of architecture
 	mkdir -p ./.madge
 	npx madge@$(MADGE_VERSION) --exclude '(^test*|Atom)' --image ./.madge/graph.svg ./out
 
-test: default
-	npm_config_yes=true npx elm-test@$(ELM_TEST_VERSION)
-	npm test
+test: default elm-test mocha-test
 
 package:
 	# uses npm's vscode:prepublish target
