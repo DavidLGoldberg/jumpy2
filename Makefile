@@ -4,6 +4,9 @@ ELM_TEST_VERSION = 0.19.1-revision9
 UGLIFY_VERSION = 3.14.5
 MADGE_VERSION = 5.0.1
 
+STATE_MACHINE_SRC = src/elm/StateMachineVSC.elm
+STATE_MACHINE_OUT = out/elm/StateMachineVSC.js
+
 default: clean npm elm-build typescript
 
 npm:
@@ -14,11 +17,11 @@ elm: npm
 	npm install elm@$(ELM_VERSION) --save-exact --save-dev
 
 elm-build:
-	npm_config_yes=true npx elm@$(ELM_VERSION) make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js --optimize
-	npm_config_yes=true npx uglify-js@$(UGLIFY_VERSION) --output out/elm/StateMachineVSC.js --mangle --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' -- out/elm/StateMachineVSC.js
+	npm_config_yes=true npx elm@$(ELM_VERSION) make $(STATE_MACHINE_SRC) --output=$(STATE_MACHINE_OUT) --optimize
+	npm_config_yes=true npx uglify-js@$(UGLIFY_VERSION) --output $(STATE_MACHINE_OUT) --mangle --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' -- $(STATE_MACHINE_OUT)
 
 elm-debug:
-	npx elm@0.19.1-3 make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js
+	npx elm@0.19.1-3 make $(STATE_MACHINE_SRC) --output=$(STATE_MACHINE_OUT)
 
 typescript:
 	npm run compile
