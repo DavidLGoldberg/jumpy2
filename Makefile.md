@@ -7,7 +7,9 @@ graph TD
   default --> elm-build
   default --> typescript
 
-  test --> default
+  test --> mocha-test
+  mocha-test --> default
+  test --> elm-test
 
   count
 
