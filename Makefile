@@ -1,15 +1,21 @@
+NPM_VERSION = 10.8.1
+ELM_VERSION = latest-0.19.1
+ELM_TEST_VERSION = 0.19.1-revision9
+UGLIFY_VERSION = 3.14.5
+MADGE_VERSION = 5.0.1
+
 default: clean npm elm-build typescript
 
 npm:
-	npm install npm@10.8.1
+	npm install npm@$(NPM_VERSION)
 	npm install
 
 elm: npm
-	npm install elm@latest-0.19.1 --save-exact --save-dev
+	npm install elm@$(ELM_VERSION) --save-exact --save-dev
 
 elm-build:
-	npm_config_yes=true npx elm@latest-0.19.1 make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js --optimize
-	npm_config_yes=true npx uglify-js@3.14.5 --output out/elm/StateMachineVSC.js --mangle --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' -- out/elm/StateMachineVSC.js
+	npm_config_yes=true npx elm@$(ELM_VERSION) make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js --optimize
+	npm_config_yes=true npx uglify-js@$(UGLIFY_VERSION) --output out/elm/StateMachineVSC.js --mangle --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' -- out/elm/StateMachineVSC.js
 
 elm-debug:
 	npx elm@0.19.1-3 make src/elm/StateMachineVSC.elm --output=out/elm/StateMachineVSC.js
@@ -20,10 +26,10 @@ typescript:
 graph:
 	# make graph (svg) of architecture
 	mkdir -p ./.madge
-	npx madge@5.0.1 --exclude '(^test*|Atom)' --image ./.madge/graph.svg ./out
+	npx madge@$(MADGE_VERSION) --exclude '(^test*|Atom)' --image ./.madge/graph.svg ./out
 
 test: default
-	npm_config_yes=true npx elm-test@0.19.1-revision9
+	npm_config_yes=true npx elm-test@$(ELM_TEST_VERSION)
 	npm test
 
 package:
