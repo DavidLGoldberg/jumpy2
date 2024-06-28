@@ -469,6 +469,7 @@
         "check-types": "tsc --noEmit",
         "lint": "eslint src --ext ts",
         "test": "vscode-test",
+        "test-no-compile": "vscode-test",
         "prepare": "npx husky install",
         "deploy": "vsce publish"
     },
