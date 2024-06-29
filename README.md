@@ -240,10 +240,12 @@ Of course you can turn these off too. If you have no soul.
 ## Related work
 
 -   Other Jumpies:
-    -   Original [Jumpy](https://atom.io/packages/jumpy) for Atom
+
+    -   Original [Jumpy](https://github.com/davidlgoldberg/jumpy) | [Jumpy (archived)](https://web.archive.org/web/20221215010328/https://atom.io/packages/jumpy) for Atom
     -   First [Jumpy](https://marketplace.visualstudio.com/items?itemName=wmaurer.vscode-jumpy) to make it to VS Code
     -   VS Code 'jumpy' search [results](https://marketplace.visualstudio.com/search?term=jumpy&target=VSCode&category=All%20categories&sortBy=Relevance)
     -   [Jumpy for Sublime](https://packagecontrol.io/packages/Jumpy)
+
 -   Ace Jump maintains a nice [comparison list](https://github.com/acejump/AceJump#comparison) of hotkey/jump related programs
 
 (should we _collab_ more? Reach out!)
@@ -261,9 +263,14 @@ Of course you can turn these off too. If you have no soul.
 
 ## My previous Atom packages :)
 
--   [Jumpy](https://atom.io/packages/jumpy)
--   [Jumpy-beacon](https://atom.io/packages/jumpy-beacon) (I still have to implement this or at least a better beacon for Jumpy2)
--   [Qolor](https://atom.io/packages/qolor)
+-   [Jumpy](https://github.com/davidlgoldberg/jumpy) | [Jumpy (archived)](https://web.archive.org/web/20221215010328/https://atom.io/packages/jumpy)
+-   [Jumpy-beacon](https://github.com/davidlgoldberg/jumpy-beacon) | [Jumpy-beacon (archived)](https://web.archive.org/web/20221215010501/https://atom.io/packages/jumpy-beacon)
+-   [Qolor](https://github.com/davidlgoldberg/qolor) | [Qolor (archived)](https://web.archive.org/web/20221215010858/https://atom.io/packages/qolor)
+
+## Keyboard Enthusiast?
+
+I made [Bracklets](https://bracklets.com) — a minimal typing training tool for computer programmers or any keyboard enthusiasts who want to learn a new keyboard layout!
+It offers focused and customizable drills, inspired by drumming rudiments, for developing muscle memory. Use it to learn any key, but especially those pesky brackets and curlies!
 
 ## Support Jumpy2
 
