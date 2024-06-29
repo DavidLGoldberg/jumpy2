@@ -5,6 +5,7 @@
 -   🐛 Fix rendering of custom line heights!
 -   ✨ Add ability to click Jumpy's status bar item to view your achievements.
 -   Improve default `jumpy2.labelBorderColor` to improve clarity when labels are adjacent. Useful for more aggressive regexes.
+-   ⌨️ Add link to https://bracklets.com (a typing training program I recently released).
 -   ⬆️ Upgrade a lot of dependencies.
 
 ## 1.5.2
