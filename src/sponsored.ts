@@ -13,5 +13,8 @@ export const sponsoredBlock = `
             <li>Support me via <a href="https://github.com/DavidLGoldberg/jumpy2/blob/main/crypto-donations.md">crypto</a></li>
         </ul>
     </p>
+    <p>
+    Checkout <a href="https://bracklets.com">Bracklets.com</a> to practice your typing!
+    </p>
 </div>
 `;
