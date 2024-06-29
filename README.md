@@ -1,5 +1,11 @@
 # Jumpy2
 
+[![GitHub Release](https://img.shields.io/github/v/release/davidlgoldberg/jumpy2)](https://github.com/davidlgoldberg/jumpy2/releases)
+[![VS Code Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/davidlgoldberg.jumpy2)](https://marketplace.visualstudio.com/items?itemName=davidlgoldberg.jumpy2)
+[![VS Code Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/davidlgoldberg.jumpy2)](https://marketplace.visualstudio.com/items?itemName=davidlgoldberg.jumpy2)
+[![VS Code Marketplace Average Rating](https://img.shields.io/visual-studio-marketplace/r/davidlgoldberg.jumpy2)](https://marketplace.visualstudio.com/items?itemName=davidlgoldberg.jumpy2)
+[![License](https://img.shields.io/github/license/davidlgoldberg/jumpy2)](https://github.com/davidlgoldberg/jumpy2/blob/main/LICENSE.md)
+
 A VS Code extension that creates dynamic hotkeys to jump around files across visible panes. It's a new 'Jumpy' but from the original author (Atom package) for VS Code. It works with the major VSC vim extensions and I plan to maintain it.
 
 ## How to jump
