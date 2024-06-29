@@ -2,8 +2,9 @@
 
 ## 1.6.0
 
+-   🐛 Fix rendering of custom line heights!
 -   ✨ Add ability to click Jumpy's status bar item to view your achievements.
--   Improve default `jumpy2.labelBorderColor` to improve clarity when labels are adjacent.
+-   Improve default `jumpy2.labelBorderColor` to improve clarity when labels are adjacent. Useful for more aggressive regexes.
 -   ⬆️ Upgrade a lot of dependencies.
 
 ## 1.5.2
