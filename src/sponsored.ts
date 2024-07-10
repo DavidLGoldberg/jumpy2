@@ -16,5 +16,8 @@ export const sponsoredBlock = `
     <p>
     Checkout <a href="https://bracklets.com">Bracklets.com</a> to practice your typing!
     </p>
+    <p>
+    🧑‍💻 Hire me! <a href="https://www.linkedin.com/in/david-l-goldberg-24607a314">https://www.linkedin.com/in/david-l-goldberg-24607a314</a>
+    </p>
 </div>
 `;

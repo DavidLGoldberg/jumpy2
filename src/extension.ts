@@ -14,7 +14,10 @@ import TelemetryReporter from '@vscode/extension-telemetry';
 import elmApp from '../out/elm/StateMachineVSC';
 import { LabelEnvironment, Label, Settings } from './label-interface';
 import getWordLabels from './labelers/words';
-import wordLabelDecorationType from './labelers/wordDecorations';
+import {
+    wordLabelBaseDecorationType,
+    wordLabelCheckeredDecorationType,
+} from './labelers/wordDecorations';
 import { createStatusBar, setStatusBar } from './statusPrinter';
 import { getKeySet, getAllKeys } from './keys';
 import { achievements, achievementsWebview } from './achievements';
@@ -115,13 +118,29 @@ function _renderLabels(enteredKey?: string) {
         const editorLabels = getWordLabels(environment, editor);
         allLabels = [...allLabels, ...editorLabels];
 
-        const decorations: DecorationOptions[] = editorLabels
+        const baseDecorations: DecorationOptions[] = [];
+        const checkeredDecorations: DecorationOptions[] = [];
+
+        editorLabels
             .filter((label) =>
                 enteredKey ? label.keyLabel.startsWith(enteredKey) : true
             )
-            .map((label) => label.getDecoration());
+            .forEach((label, index) => {
+                const decoration = label.getDecoration();
+                if (index % 2 === 0) {
+                    baseDecorations.push(decoration);
+                } else {
+                    workspace.getConfiguration('jumpy2').get('checkered.active')
+                        ? checkeredDecorations.push(decoration)
+                        : baseDecorations.push(decoration);
+                }
+            });
 
-        editor.setDecorations(wordLabelDecorationType, decorations);
+        editor.setDecorations(wordLabelBaseDecorationType, baseDecorations);
+        editor.setDecorations(
+            wordLabelCheckeredDecorationType,
+            checkeredDecorations
+        );
     });
 }
 
@@ -158,7 +177,8 @@ function reset() {
 
 function _clearLabels() {
     window.visibleTextEditors.forEach((editor) => {
-        editor.setDecorations(wordLabelDecorationType, []);
+        editor.setDecorations(wordLabelBaseDecorationType, []);
+        editor.setDecorations(wordLabelCheckeredDecorationType, []);
     });
 }
 
@@ -198,7 +218,11 @@ export function activate(context: ExtensionContext) {
     globalState = context.globalState; // stored at a more global scope for methods without context :\
     globalState.setKeysForSync([careerJumpsMadeKey, previousVersionKey]);
     const { subscriptions } = context;
-    subscriptions.push(statusBarItem, wordLabelDecorationType);
+    subscriptions.push(
+        statusBarItem,
+        wordLabelBaseDecorationType,
+        wordLabelCheckeredDecorationType
+    );
     const { registerCommand } = commands;
     const currentExtensionVersion = context.extension.packageJSON.version;
     reporter = new TelemetryReporter(

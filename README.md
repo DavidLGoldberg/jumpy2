@@ -99,10 +99,19 @@ In your VS Code's `settings.json` file:
 
 ```json
 "workbench.colorCustomizations": {
-  "jumpy2.labelFontColor": "#000000", // black
-  "jumpy2.labelBackgroundColor": "#ff0000", // on red
-  "jumpy2.labelBorderColor": "#ffffff", // white border
   "jumpy2.beaconColor": "#ff0000af", // transparent red
+
+  "jumpy2.labelFontColor": "#000000", // black font
+  "jumpy2.labelBackgroundColor": "#ff0000", // red bg
+  // In this example you would probably want to change the border to black if NOT using checkered-mode (below)
+  // (useful when you have aggressive regexes with adjacent labels!)
+  "jumpy2.labelBorderColor": "#ff0000", // red border
+
+  // Checkered-mode (or Chess-mode) is the new default setting which alternates colors (like zebra stripes).
+  // These styles are optional while using checkered-mode:
+  "jumpy2.checkered_labelFontColor": "#ff0000", // red font
+  "jumpy2.checkered_labelBackgroundColor": "#000000", // black bg
+  "jumpy2.checkered_labelBorderColor": "#000000", // black border
 },
 ```
 
@@ -278,4 +287,5 @@ It offers focused and customizable drills, inspired by drumming rudiments, for d
 -   Sponsor me on Github [David L Goldberg](https://github.com/sponsors/DavidLGoldberg)
 -   Support me on [Patreon](https://www.patreon.com/davidlgoldberg)
 -   Support me via [crypto](./crypto-donations.md)
--   Subscribe to my youtube channel: https://www.youtube.com/channel/UCi6p1uTlAozufNiQgpgpW-Q
+-   Subscribe to my [YouTube channel](https://www.youtube.com/channel/UCi6p1uTlAozufNiQgpgpW-Q)
+-   🧑‍💻 Hire me! [LinkedIn](https://www.linkedin.com/in/david-l-goldberg-24607a314)

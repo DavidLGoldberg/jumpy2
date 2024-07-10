@@ -1,11 +1,20 @@
 import { DecorationRangeBehavior, ThemeColor, window, workspace } from 'vscode';
 
 // Theme color options from package.json's `contributes.colors`:
-const colorSettings = {
+const baseColorSettings = {
     after: {
         backgroundColor: new ThemeColor('jumpy2.labelBackgroundColor'),
         color: new ThemeColor('jumpy2.labelFontColor'),
         borderColor: new ThemeColor('jumpy2.labelBorderColor'),
+    },
+};
+const checkeredColorSettings = {
+    after: {
+        backgroundColor: new ThemeColor(
+            'jumpy2.checkered_labelBackgroundColor'
+        ),
+        color: new ThemeColor('jumpy2.checkered_labelFontColor'),
+        borderColor: new ThemeColor('jumpy2.checkered_labelBorderColor'),
     },
 };
 
@@ -17,7 +26,8 @@ const lineHeight = workspace
     .get<number>('lineHeight');
 
 const height = lineHeight ? `${lineHeight}px` : width; // Set height based on lineHeight else default to a square
-const wordLabelDecorationType = window.createTextEditorDecorationType({
+
+const commonDecorationOptions = {
     after: {
         margin: `-${borderWidth} 0 0 -${width}`, // I need to adjust the margin to match the widths
         width,
@@ -27,9 +37,18 @@ const wordLabelDecorationType = window.createTextEditorDecorationType({
         border: `${borderWidth} solid`, // <-- I need to adjust for this above in the margin.
     },
     opacity: '0',
-    light: colorSettings,
-    dark: colorSettings,
     rangeBehavior: DecorationRangeBehavior.ClosedClosed,
+};
+const wordLabelBaseDecorationType = window.createTextEditorDecorationType({
+    ...commonDecorationOptions,
+    light: baseColorSettings,
+    dark: baseColorSettings,
 });
 
-export default wordLabelDecorationType;
+const wordLabelCheckeredDecorationType = window.createTextEditorDecorationType({
+    ...commonDecorationOptions,
+    light: checkeredColorSettings,
+    dark: checkeredColorSettings,
+});
+
+export { wordLabelBaseDecorationType, wordLabelCheckeredDecorationType };

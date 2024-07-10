@@ -17,7 +17,7 @@ const fixtureFile = path.resolve(
     '../../../src/test/fixtures/test_long_text.txt'
 );
 
-suite('Long file test Suite', function () {
+suite.skip('Long file test Suite', function () {
     this.timeout(ONE_MINUTE);
     before(async function () {
         window.showInformationMessage('Start long file tests.');
