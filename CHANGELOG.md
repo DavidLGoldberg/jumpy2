@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.7.0
+
+-   ✨ Add "checkered-mode" (alternate label colors like a checkers/chess board). See `README.md` for override details. Decided to make this mode the default (so it's debatably a "breaking" change for users with extensive custom color overrides.
+-   Add LinkedIn link (https://www.linkedin.com/in/david-l-goldberg-24607a314) since I'm looking for a job!
+
 ## 1.6.0
 
 -   🐛 Fix rendering of custom line heights!

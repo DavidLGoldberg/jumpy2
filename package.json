@@ -77,9 +77,36 @@
                 "id": "jumpy2.labelBorderColor",
                 "description": "Border color for Jumpy2 labels.  Overrides dark, light, and highContrast, so theme specific overrides should apply.",
                 "defaults": {
+                    "dark": "#00d85d",
+                    "light": "#00d85d",
+                    "highContrast": "#00d85d"
+                }
+            },
+            {
+                "id": "jumpy2.checkered_labelBackgroundColor",
+                "description": "Background color for alternate checkered Jumpy2 labels.  Overrides dark, light, and highContrast, so theme specific overrides should apply.",
+                "defaults": {
                     "dark": "#2d3236",
-                    "light": "#FFFFFF",
+                    "light": "#2d3236",
                     "highContrast": "#2d3236"
+                }
+            },
+            {
+                "id": "jumpy2.checkered_labelFontColor",
+                "description": "Font color for alternate checkered Jumpy2 labels.  Overrides dark, light, and highContrast, so theme specific overrides should apply.",
+                "defaults": {
+                    "dark": "#00d85d",
+                    "light": "#00d85d",
+                    "highContrast": "#00d85d"
+                }
+            },
+            {
+                "id": "jumpy2.checkered_labelBorderColor",
+                "description": "Border color for alternate checkered Jumpy2 labels.  Overrides dark, light, and highContrast, so theme specific overrides should apply.",
+                "defaults": {
+                    "dark": "#00d85d",
+                    "light": "#00d85d",
+                    "highContrast": "#00d85d"
                 }
             },
             {
@@ -127,6 +154,11 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Enable or disable automatic achievements pop-up. Don't worry, they're very rare!"
+                },
+                "jumpy2.checkered.active": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable checkered mode to alternate label colors.  Helps to distinguish labels, particularly with agressive regex patterns."
                 }
             }
         },
