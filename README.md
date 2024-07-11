@@ -97,7 +97,7 @@ The default might be easier for beginners. It is also probably better for larger
 To override Jumpy's default label colors (black on green) try this
 In your VS Code's `settings.json` file:
 
-```json
+```js
 "workbench.colorCustomizations": {
   "jumpy2.beaconColor": "#ff0000af", // transparent red
 
