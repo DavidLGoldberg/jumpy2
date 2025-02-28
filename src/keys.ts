@@ -2,54 +2,75 @@ import range from 'lodash.range';
 import moize from 'moize';
 
 export function getAllKeys(customKeys: ReadonlyArray<string>) {
+    const isAlpha = (str: string) => /^[a-z]$/i.test(str);
+
     let lowerCharacters: Array<string> = [];
     let upperCharacters: Array<string> = [];
+    let otherCharacters: Array<string> = [];
 
     if (!customKeys.length) {
         lowerCharacters = range(
             'a'.charCodeAt(0),
             'z'.charCodeAt(0) + 1 /* for inclusive*/
         ).map((c) => String.fromCharCode(c));
+
         upperCharacters = range(
             'A'.charCodeAt(0),
             'Z'.charCodeAt(0) + 1 /* for inclusive*/
         ).map((c) => String.fromCharCode(c));
+
+        otherCharacters = range(
+            '0'.charCodeAt(0),
+            '9'.charCodeAt(0) + 1 /* for inclusive*/
+        ).map((c) => String.fromCharCode(c));
     } else {
-        for (let key of customKeys) {
-            lowerCharacters.push(key.toLowerCase());
-            upperCharacters.push(key.toUpperCase());
+        for (const key of customKeys) {
+            // check if key is an alpha character (as opposed to number or symbol)
+
+            if (isAlpha(key)) {
+                lowerCharacters.push(key.toLowerCase());
+                upperCharacters.push(key.toUpperCase());
+            } else {
+                otherCharacters.push(key);
+            }
         }
     }
 
     return {
         lowerCharacters: <ReadonlyArray<string>>lowerCharacters,
         upperCharacters: <ReadonlyArray<string>>upperCharacters,
+        otherCharacters: <ReadonlyArray<string>>otherCharacters,
     };
 }
 
 function _getKeySet(customKeys: ReadonlyArray<string>) {
-    const { lowerCharacters, upperCharacters } = getAllKeys(customKeys);
+    const { lowerCharacters, upperCharacters, otherCharacters } =
+        getAllKeys(customKeys);
 
     const keys: Array<string> = [];
 
-    // A little ugly.
-    // I used itertools.permutation in python.
-    // Couldn't find a good one in npm.  Don't worry this takes < 1ms once.
-    for (let c1 of lowerCharacters) {
-        for (let c2 of lowerCharacters) {
-            keys.push(c1 + c2);
+    // Helper function to generate combinations between two sets
+    const generateCombinations = (
+        set1: ReadonlyArray<string>,
+        set2: ReadonlyArray<string>
+    ) => {
+        for (const c1 of set1) {
+            for (const c2 of set2) {
+                keys.push(c1 + c2);
+            }
         }
-    }
-    for (let c1 of upperCharacters) {
-        for (let c2 of lowerCharacters) {
-            keys.push(c1 + c2);
-        }
-    }
-    for (let c1 of lowerCharacters) {
-        for (let c2 of upperCharacters) {
-            keys.push(c1 + c2);
-        }
-    }
+    };
+
+    // Maintain the exact same order as the original implementation
+    generateCombinations(lowerCharacters, lowerCharacters); // lower + lower
+    generateCombinations(lowerCharacters, upperCharacters); // lower + upper
+    generateCombinations(upperCharacters, lowerCharacters); // upper + lower
+    generateCombinations(upperCharacters, upperCharacters); // upper + upper
+    generateCombinations(lowerCharacters, otherCharacters); // lower + other
+    generateCombinations(upperCharacters, otherCharacters); // upper + other
+    generateCombinations(otherCharacters, lowerCharacters); // other + lower
+    generateCombinations(otherCharacters, upperCharacters); // other + upper
+    generateCombinations(otherCharacters, otherCharacters); // other + other
 
     return <ReadonlyArray<string>>keys;
 }

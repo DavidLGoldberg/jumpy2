@@ -257,9 +257,11 @@ export function activate(context: ExtensionContext) {
 
     const allKeys = getAllKeys(getSettings().customKeys);
     subscriptions.push(
-        ...[...allKeys.lowerCharacters, ...allKeys.upperCharacters].map((chr) =>
-            registerCommand(`jumpy2.${chr}`, () => sendKey(chr))
-        )
+        ...[
+            ...allKeys.lowerCharacters,
+            ...allKeys.upperCharacters,
+            ...allKeys.otherCharacters,
+        ].map((chr) => registerCommand(`jumpy2.${chr}`, () => sendKey(chr)))
     );
 
     /* NOTE: Effectively I want "all" events.  I don't think such an event exists,
