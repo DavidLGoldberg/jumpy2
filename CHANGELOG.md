@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.1
+
+-   🐛 Avoid labeling co-pilot's embedded editors!
+
 ## 1.7.0
 
 -   ✨ Add "checkered-mode" (alternate label colors like a checkers/chess board). See `README.md` for override details. Decided to make this mode the default so it's debatably a "breaking" change for users with extensive custom color overrides.
