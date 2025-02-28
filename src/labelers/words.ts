@@ -75,7 +75,7 @@ const labeler: Labeler = function (
     const usedKeys = env.keys; // Intentionally mutate from calling env
     const labels: Array<WordLabel> = [];
 
-    if (editor) {
+    if (editor && !isExtensionPanel(editor)) {
         const visibleRanges = editor.visibleRanges;
         const document = editor.document;
         visibleRanges.forEach((visibleRange) => {
@@ -103,5 +103,16 @@ const labeler: Labeler = function (
     }
     return labels;
 };
+
+// Important to skip a Copilot views which contain embedded editors
+function isExtensionPanel(editor: TextEditor): boolean {
+    const scheme = editor.document.uri.scheme;
+
+    return (
+        // General extension panel/webview checks
+        scheme === 'webview' ||
+        scheme.startsWith('vscode-' /* handles co-pilot etc. */)
+    );
+}
 
 export default labeler;
