@@ -129,7 +129,7 @@
             "properties": {
                 "jumpy2.customKeys": {
                     "type": "string",
-                    "default": "abcdefghijklmnopqrstuvwxyz",
+                    "default": "abcdefghijklmnopqrstuvwxyz0123456789",
                     "description": "Default characters to use"
                 },
                 "jumpy2.wordPattern": {
@@ -504,6 +504,56 @@
             {
                 "command": "jumpy2.Z",
                 "key": "shift+z",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.0",
+                "key": "0",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.1",
+                "key": "1",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.2",
+                "key": "2",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.3",
+                "key": "3",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.4",
+                "key": "4",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.5",
+                "key": "5",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.6",
+                "key": "6",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.7",
+                "key": "7",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.8",
+                "key": "8",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.9",
+                "key": "9",
                 "when": "jumpy2.jump-mode && editorTextFocus"
             }
         ]
