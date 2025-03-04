@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.2
+
+-   ⬆️ Switch to `npm-run-all2` for now.
+
 ## 1.7.1
 
 -   🐛 Avoid labeling co-pilot's embedded editors!
