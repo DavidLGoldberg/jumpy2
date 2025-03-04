@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.3
+
+-   🔒️ Some security updates from dependabot.
+
 ## 1.7.2
 
 -   ⬆️ Switch to `npm-run-all2` for now.

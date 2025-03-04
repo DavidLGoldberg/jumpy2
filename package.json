@@ -557,5 +557,8 @@
     "pricing": "Free",
     "sponsor": {
         "url": "https://github.com/sponsors/davidlgoldberg"
+    },
+    "overrides": {
+        "tough-cookie": "^4.1.3"
     }
 }
