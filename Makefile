@@ -54,7 +54,6 @@ count:
 	rg --files | grep -v \.js$ | grep -v out | grep -v \.png$ | grep -v \.gif$ | grep -v package-lock.json | xargs wc -l | sort -n
 
 # For Husky:
-# npm set-script prepare "npx husky install"
+# npm set-script prepare "npx husky init"
+# add the `make test` to the precommit
 # npm run prepare
-# npx husky add .husky/pre-commit "npm test"
-# git add .husky/pre-commit
