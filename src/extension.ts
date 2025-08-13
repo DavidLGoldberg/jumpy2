@@ -44,6 +44,9 @@ const getSettings = (): Settings => {
         customKeys: Array.from(
             <string>workspace.getConfiguration('jumpy2').get('customKeys')
         ),
+        revealAfterJump: <Settings["revealAfterJump"]>(
+            workspace.getConfiguration('jumpy2').get('revealAfterJump')
+        )
     };
 };
 

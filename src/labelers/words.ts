@@ -1,4 +1,4 @@
-import { Selection, TextEditor, window } from 'vscode';
+import { Selection, TextEditor, TextEditorRevealType, window } from 'vscode';
 import { LabelEnvironment, Label, Labeler, Settings } from '../label-interface';
 import { Range, Position } from 'vscode';
 import getWordBeaconDecoration from './wordBeacons';
@@ -64,6 +64,15 @@ class WordLabel implements Label {
                 isSelectionMode ? this.textEditor.selection.anchor : newActive,
                 newActive
             );
+            if (this.settings?.revealAfterJump) {
+                // Position the viewport around the jumped line.
+                const revealType = {
+                    minscroll: TextEditorRevealType.Default,
+                    center: TextEditorRevealType.InCenter,
+                    attop: TextEditorRevealType.AtTop,
+                }[this.settings.revealAfterJump];
+                this.textEditor.revealRange(new Range(newActive, newActive), revealType);
+            }
         }
     }
 }
