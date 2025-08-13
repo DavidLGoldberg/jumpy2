@@ -162,6 +162,23 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Enable checkered mode to alternate label colors.  Helps to distinguish labels, particularly with agressive regex patterns."
+                },
+                "jumpy2.revealAfterJump": {
+                    "type": "string",
+                    "default": null,
+                    "enum": [
+                        null,
+                        "minscroll",
+                        "center",
+                        "attop"
+                    ],
+                    "enumDescriptions": [
+                        "Do not scroll the viewport after a jump",
+                        "Reveal with as little scrolling as possible",
+                        "Reveal the selected line in the center",
+                        "Reveal the selected line at the top"
+                    ],
+                    "description": "Position the viewport around the jumped line."
                 }
             }
         },

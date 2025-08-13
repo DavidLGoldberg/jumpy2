@@ -3,6 +3,7 @@ import { TextEditor, DecorationOptions } from 'vscode';
 export interface Settings {
     wordsPattern: RegExp;
     customKeys: ReadonlyArray<string>;
+    revealAfterJump: 'minscroll' | 'center' | 'attop' | null;
 }
 
 export interface LabelEnvironment {
