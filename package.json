@@ -27,6 +27,9 @@
     "categories": [
         "Other"
     ],
+    "extensionKind": [
+        "ui"
+    ],
     "keywords": [
         "jumpy",
         "mouseless",
