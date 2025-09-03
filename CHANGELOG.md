@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.8.0
+
+-   Scroll the viewport around the jumped line. Thanks @myonov !
+
 ## 1.7.4
 
 -   Add `ui` to `extensionKind`. Thanks @kyleburke-meq !
