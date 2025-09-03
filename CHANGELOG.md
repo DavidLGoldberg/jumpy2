@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.4
+
+-   Add `ui` to `extensionKind`. Thanks @kyleburke-meq !
+
 ## 1.7.3
 
 -   🔒️ Some security updates from dependabot.
