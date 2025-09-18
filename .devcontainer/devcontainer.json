@@ -1,0 +1,14 @@
+{
+    "name": "jumpy2-dev",
+    "build": { "dockerfile": "Dockerfile" },
+    "features": {},
+    "postCreateCommand": "npm i -g yarn && yarn --ignore-optional || true",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            },
+            "extensions": []
+        }
+    }
+}

@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { sponsoredBlock } from './sponsored';
 
-const changelogPath = path.join(__dirname, '../CHANGELOG.md');
+const changelogPath = path.join(__dirname, '../changelog.md');
 const changelogContent = fs.readFileSync(changelogPath, 'utf8');
 
 export const updatesWebview = () => {

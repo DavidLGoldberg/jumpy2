@@ -41,7 +41,7 @@ test: default elm-test mocha-test
 
 package:
 	# uses npm's vscode:prepublish target
-	npm_config_yes=true npx vsce package
+	npm_config_yes=true npx @vscode/vsce@3.6.0 package
 
 install: package
 	code --install-extension `ls -snew jumpy2*vsix | head -1 | awk '{ print $$NF }'`
