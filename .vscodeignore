@@ -12,3 +12,10 @@ src/**
 elm-stuff/**
 tests/**
 img/logos/other/**
+node_modules/**
+.*
+
+Makefile*
+azure-pipelines.yml
+elm.json
+esbuild.js

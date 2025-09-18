@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.8.1
+
+-   🐛 Fix running in containers.
+
 ## 1.8.0
 
 -   Scroll the viewport around the jumped line. Thanks @myonov !
