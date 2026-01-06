@@ -153,6 +153,11 @@ const labeler: Labeler = function (
 function isExtensionPanel(editor: TextEditor): boolean {
     const scheme = editor.document.uri.scheme;
 
+    // Allow vscode-test-web (browser testing) and vscode-vfs (github.dev/vscode.dev)
+    if (scheme === 'vscode-test-web' || scheme === 'vscode-vfs') {
+        return false;
+    }
+
     return (
         // General extension panel/webview checks
         scheme === 'webview' ||

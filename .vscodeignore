@@ -19,3 +19,7 @@ Makefile*
 azure-pipelines.yml
 elm.json
 esbuild.js
+esbuild-web.js
+
+# Include dist/web for web extension
+!dist/web/**/*.js

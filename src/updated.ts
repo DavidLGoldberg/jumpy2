@@ -1,11 +1,26 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import { sponsoredBlock } from './sponsored';
 
-const changelogPath = path.join(__dirname, '../changelog.md');
-const changelogContent = fs.readFileSync(changelogPath, 'utf8');
+// Platform-agnostic approach: try to load changelog if available (Node), fallback to link (Browser)
+let changelogContent = '';
+try {
+    // This will only work in Node.js environment
+    if (typeof require !== 'undefined') {
+        const fs = require('fs');
+        const path = require('path');
+        const changelogPath = path.join(__dirname, '../changelog.md');
+        changelogContent = fs.readFileSync(changelogPath, 'utf8');
+    }
+} catch (error) {
+    // Running in browser, use link instead
+    changelogContent = '';
+}
 
 export const updatesWebview = () => {
+    const changelogDisplay = changelogContent
+        ? `<pre>${changelogContent}</pre>`
+        : `<p>Check out the latest updates on GitHub:</p>
+           <p><a href="https://github.com/DavidLGoldberg/jumpy2/blob/main/changelog.md" target="_blank">View Changelog on GitHub</a></p>`;
+
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -20,7 +35,7 @@ export const updatesWebview = () => {
               ${sponsoredBlock}
               <hr />
               <div id="changelog">
-                <pre>${changelogContent}</pre>
+                ${changelogDisplay}
               </div>
           </body>
       </html>`;

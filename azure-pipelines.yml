@@ -56,6 +56,11 @@ steps:
       DISPLAY: ':99.0'
 
   - bash: |
+      npm run compile-web
+      ls -la dist/web/extension.js
+    displayName: 'Verify web bundle builds'
+
+  - bash: |
       echo ">>> Publish"
       npm run deploy -- $(Build.SourceBranchName)
     displayName: Publish

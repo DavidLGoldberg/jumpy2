@@ -28,6 +28,7 @@ elm-test:
 
 typescript:
 	npx npm@$(NPM_VERSION) run compile
+	npx npm@$(NPM_VERSION) run compile-web
 
 mocha-test: default
 	npx npm@$(NPM_VERSION) test
@@ -47,7 +48,7 @@ install: package
 	code --install-extension `ls -snew jumpy2*vsix | head -1 | awk '{ print $$NF }'`
 
 clean:
-	rm -rf "node_modules" ".coverage" ".nyc_output" ".vscode-test" "out"
+	rm -rf "node_modules" ".coverage" ".nyc_output" ".vscode-test" ".vscode-test-web" "out" "dist"
 	# NOTE: intentionally not deleting .vsix files
 
 count:

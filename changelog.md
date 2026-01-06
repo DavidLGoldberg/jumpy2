@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.11.0
+
+- ✨ Jumpy2 should now work on Github & the web! Try on https://vscode.dev/ or the '.' feature on Github's repo pages!
+
 ## 1.10.1
 
 - 📝 Updated `README.md` and `CHANGELOG.md` (see below) with an important urgent note about `customKeys` to enable digits (new feature in the recent 1.10.0 release).

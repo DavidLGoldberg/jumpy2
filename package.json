@@ -32,6 +32,8 @@
         "workspace",
         "ui"
     ],
+    "main": "./out/extension.js",
+    "browser": "./dist/web/extension.js",
     "keywords": [
         "jumpy",
         "mouseless",
@@ -57,7 +59,6 @@
     "activationEvents": [
         "onStartupFinished"
     ],
-    "main": "./out/extension.js",
     "contributes": {
         "colors": [
             {
@@ -559,21 +560,28 @@
         ]
     },
     "scripts": {
-        "vscode:prepublish": "npm run esbuild-base -- --minify",
+        "vscode:prepublish": "npm run package && npm run package-web",
         "esbuild-base": "npx rimraf elm-stuff && npx esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
         "esbuild": "npm run esbuild-base -- --sourcemap",
         "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
         "compile": "npm run check-types && npm run lint && node esbuild.js",
+        "compile-web": "npm run check-types && npm run lint && node esbuild-web.js",
         "compile-tests": "tsc -p . --outDir out",
         "watch": "npm-run-all -p watch:*",
         "watch:esbuild": "node esbuild.js --watch",
         "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+        "watch-web": "npm-run-all -p watch-web:*",
+        "watch-web:esbuild": "node esbuild-web.js --watch",
+        "watch-web:tsc": "tsc --noEmit --watch --project tsconfig.json",
         "watch-tests": "tsc -p . -w --outDir out",
+        "package": "npm run check-types && node esbuild.js --production",
+        "package-web": "npm run check-types && node esbuild-web.js --production",
         "pretest": "npm run compile-tests && npm run compile && npm run lint",
         "check-types": "tsc --noEmit",
         "lint": "eslint src --ext ts",
         "test": "vscode-test",
         "test-no-compile": "vscode-test",
+        "run-in-browser": "vscode-test-web --browserType=chromium --quality=stable --extensionDevelopmentPath=. .",
         "prepare": "npx husky",
         "deploy": "vsce publish"
     },
@@ -582,16 +590,19 @@
         "@types/mocha": "10.0.6",
         "@types/node": "20.19.28",
         "@types/vscode": "1.90.0",
+        "@types/webpack-env": "1.18.5",
         "@typescript-eslint/eslint-plugin": "7.11.0",
         "@typescript-eslint/parser": "7.11.0",
         "@vscode/test-cli": "0.0.9",
         "@vscode/test-electron": "2.4.0",
+        "@vscode/test-web": "^0.0.79",
         "@vscode/vsce": "3.6.0",
         "elm": "0.19.1-5",
         "esbuild": "0.25.0",
         "eslint": "8.57.0",
         "npm-run-all2": "7.0.2",
         "nyc": "15.1.0",
+        "process": "0.11.10",
         "typescript": "5.4.5",
         "uglify-js": "3.14.5"
     },
