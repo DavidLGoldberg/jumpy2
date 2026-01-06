@@ -53,6 +53,18 @@
             "label": "tasks: watch-tests",
             "dependsOn": ["npm: watch", "npm: watch-tests"],
             "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "watch-web",
+            "group": "build",
+            "problemMatcher": "$esbuild-watch",
+            "isBackground": true,
+            "label": "npm: watch-web",
+            "presentation": {
+                "group": "watch",
+                "reveal": "never"
+            }
         }
     ]
 }

@@ -38,6 +38,16 @@ code --install-extension davidlgoldberg.jumpy2
 - Recommended key mappings to replace 'f' in vim integration below.
 - Recommended key mappings for back and forward below.
 
+## 🌐 Web Support
+
+Jumpy2 works in VS Code for the Web! Use it on:
+
+- **github.dev** - Press `.` on any GitHub repository
+- **vscode.dev** - Open VS Code in your browser
+- **GitHub Codespaces** and other web-based VS Code environments
+
+All features work identically to desktop VS Code. For development details, see [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md).
+
 ## Key Bindings
 
 ### Defaults
@@ -254,9 +264,9 @@ Of course you can turn these off too. If you have no soul.
 
 ## Acknowledgements
 
-- Various [contributors](https://github.com/DavidLGoldberg/jumpy/graphs/contributors) from the original atom project.
+- Various [contributors](https://github.com/DavidLGoldberg/jumpy/graphs/contributors) from my original [Jumpy](https://github.com/davidlgoldberg/jumpy) (Atom project).
 - Logo icon created by [Dr. Gregory W. Goldberg](https://scholar.google.com/citations?hl=en&user=zNw4iZkAAAAJ&view_op=list_works) (in his spare time!) and David L. Goldberg."
-- Implementation inspiration from [Wayne Maurer](https://github.com/wmaurer) (the author of the first VS Code implementation of Jumpy)
+- Implementation inspiration from [Wayne Maurer](https://github.com/wmaurer) (the author of the first _VS Code_ implementation of Jumpy)
 
 ## Related work
 

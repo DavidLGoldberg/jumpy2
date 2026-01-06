@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Jumpy2 is a VS Code extension that creates dynamic hotkeys to jump around files across visible panes. Users press `shift+enter`, see labels appear at word positions, type 2 characters, and jump directly to that location. Works seamlessly with vim/neovim extensions.
 
+**Supports both desktop and web environments** (github.dev, vscode.dev, Codespaces). See `BROWSER_SUPPORT.md` for web-specific details.
+
 ## Essential Commands
 
 **IMPORTANT: Node Version Management**
@@ -23,8 +25,11 @@ npm install
 # Development watch mode (both TypeScript + esbuild)
 npm run watch
 
-# Build for production
+# Build for production (desktop)
 npm run compile
+
+# Build for web/browser
+npm run compile-web
 
 # Type checking only
 npm run check-types
@@ -52,10 +57,23 @@ npm run compile-tests
 npm run watch-tests
 ```
 
+### Web Development
+
+```bash
+# Build web bundle
+npm run compile-web
+
+# Watch mode for web development
+npm run watch-web
+
+# Test in local browser (Chromium)
+npm run run-in-browser
+```
+
 ### Publishing
 
 ```bash
-# Publish to VS Code marketplace
+# Publish to VS Code marketplace (builds both desktop and web bundles)
 npm run deploy
 ```
 
@@ -170,6 +188,7 @@ Elm source is in `src/elm/`, tests in `tests/`.
 Use VS Code's debug panel (F5):
 - "Run Jumpy2 +extensions": Test with other extensions enabled
 - "Run Jumpy2 -extensions": Isolated testing
+- "Run Web Extension in VS Code": Test web bundle in browser environment
 - "Test without extensions": Run test suite isolated
 - "Test with extensions": Run tests with vim/neovim extensions
 
@@ -216,13 +235,29 @@ Theme colors: `jumpy2.labelBackgroundColor`, `jumpy2.labelFontColor`, `jumpy2.la
 
 ## Build System Details
 
-- **esbuild** for fast bundling (`esbuild.js`)
+The extension builds two bundles from the same source:
+
+**Desktop Bundle** (`esbuild.js`)
 - Entry: `src/extension.ts` → Output: `out/extension.js`
-- Format: CommonJS, Platform: Node
+- Platform: Node
+- Used by: Desktop VS Code
+
+**Web Bundle** (`esbuild-web.js`)
+- Entry: `src/extension.ts` → Output: `dist/web/extension.js`
+- Platform: Browser
+- Used by: github.dev, vscode.dev, Codespaces
+
+**Common Settings:**
+- Format: CommonJS
 - External: `vscode` module (provided by VS Code)
 - Production: minified, no sourcemaps
 - Development: sourcemaps enabled
 - TypeScript: strict mode, ES2022 target, Node16 module resolution
+
+**Browser Compatibility:**
+- `src/updated.ts` uses runtime detection for `fs`/`path` modules
+- Falls back to GitHub changelog link when filesystem unavailable
+- All core functionality is platform-agnostic
 
 ## State Management
 
