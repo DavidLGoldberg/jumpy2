@@ -133,7 +133,7 @@
                 },
                 "jumpy2.wordPattern": {
                     "type": "string",
-                    "default": "([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}",
+                    "default": "([A-Z]+([0-9a-z])*)|[a-z0-9]{2,}|\\p{L}+",
                     "description": "Regex pattern for Jumpy2 to use in text editors"
                 },
                 "jumpy2.jumperEmojis.active": {
