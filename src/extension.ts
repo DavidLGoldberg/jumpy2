@@ -39,7 +39,7 @@ const getSettings = (): Settings => {
             <string | undefined>(
                 workspace.getConfiguration('jumpy2').get('wordPattern')
             ) || '',
-            'g'
+            'gu'
         ),
         customKeys: Array.from(
             <string>workspace.getConfiguration('jumpy2').get('customKeys')
