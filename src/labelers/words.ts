@@ -13,12 +13,28 @@ class WordLabel implements Label {
 
     destroy() {}
 
+    // CJK (Chinese, Japanese, Korean) characters are typically rendered as
+    // double-width in monospace fonts. We detect these to adjust the decoration
+    // range so labels align properly without causing visual shifting.
+    private isWideCharacter(char: string): boolean {
+        // CJK Unified Ideographs, Hiragana, Katakana, Hangul, fullwidth chars
+        return /[\u3000-\u9FFF\uAC00-\uD7AF\u3040-\u309F\u30A0-\u30FF\uFF00-\uFFEF]/.test(char);
+    }
+
     getDecoration(): any {
         const { lineNumber, column, keyLabel } = this;
 
+        // Check if the first character at this position is a wide (CJK) character
+        const doc = this.textEditor?.document;
+        const firstChar = doc?.getText(new Range(lineNumber, column, lineNumber, column + 1)) || '';
+        const isWide = this.isWideCharacter(firstChar);
+
+        // Wide chars: cover 1 char (visually ~2 columns), ASCII: cover 2 chars
+        const rangeEnd = column + (isWide ? 1 : 2);
+
         this.marker = new Range(
             new Position(lineNumber, column),
-            new Position(lineNumber, column + 2)
+            new Position(lineNumber, rangeEnd)
         );
 
         const label = { after: { contentText: keyLabel } };
