@@ -13,23 +13,26 @@ class WordLabel implements Label {
 
     destroy() {}
 
-    // CJK (Chinese, Japanese, Korean) characters are typically rendered as
-    // double-width in monospace fonts. We detect these to adjust the decoration
-    // range so labels align properly without causing visual shifting.
+    // CJK (Chinese, Japanese, Korean) and emoji characters are typically rendered as
+    // double-width in monospace fonts.
     private isWideCharacter(char: string): boolean {
-        // CJK Unified Ideographs, Hiragana, Katakana, Hangul, fullwidth chars
-        return /[\u3000-\u9FFF\uAC00-\uD7AF\u3040-\u309F\u30A0-\u30FF\uFF00-\uFFEF]/.test(char);
+        // CJK Unified Ideographs, Hiragana, Katakana, Hangul, fullwidth chars, emojis
+        return /[\u3000-\u9FFF\uAC00-\uD7AF\u3040-\u309F\u30A0-\u30FF\uFF00-\uFFEF]|\p{Extended_Pictographic}/u.test(
+            char
+        );
     }
 
     getDecoration(): any {
         const { lineNumber, column, keyLabel } = this;
 
-        // Check if the first character at this position is a wide (CJK) character
-        const doc = this.textEditor?.document;
-        const firstChar = doc?.getText(new Range(lineNumber, column, lineNumber, column + 1)) || '';
+        const firstChar =
+            this.textEditor?.document.getText(
+                new Range(lineNumber, column, lineNumber, column + 1)
+            ) || '';
         const isWide = this.isWideCharacter(firstChar);
 
-        // Wide chars: cover 1 char (visually ~2 columns), ASCII: cover 2 chars
+        // For wide chars (CJK/emoji): cover 1 char position (visually ~2 cols)
+        // For ASCII: cover 2 char positions (visually 2 cols)
         const rangeEnd = column + (isWide ? 1 : 2);
 
         this.marker = new Range(
@@ -37,7 +40,17 @@ class WordLabel implements Label {
             new Position(lineNumber, rangeEnd)
         );
 
-        const label = { after: { contentText: keyLabel } };
+        // For wide characters, we need less negative margin because
+        // 1 wide char already spans ~2 visual columns.
+        // Default margin is '-1.265em', wide chars need about half pullback.
+        const margin = isWide ? '0 0 0 -1.0em' : undefined; // undefined = use default from decoration type
+
+        const label = {
+            after: {
+                contentText: keyLabel,
+                ...(margin && { margin }),
+            },
+        };
         const decoration = {
             range: this.marker,
             renderOptions: { dark: label, light: label },
@@ -87,7 +100,10 @@ class WordLabel implements Label {
                     center: TextEditorRevealType.InCenter,
                     attop: TextEditorRevealType.AtTop,
                 }[this.settings.revealAfterJump];
-                this.textEditor.revealRange(new Range(newActive, newActive), revealType);
+                this.textEditor.revealRange(
+                    new Range(newActive, newActive),
+                    revealType
+                );
             }
         }
     }
