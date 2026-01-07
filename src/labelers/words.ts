@@ -119,10 +119,14 @@ const labeler: Labeler = function (
     if (editor && !isExtensionPanel(editor)) {
         const visibleRanges = editor.visibleRanges;
         const document = editor.document;
-        visibleRanges.forEach((visibleRange) => {
+        visibleRanges.forEach((visibleRange: Range | undefined) => {
+            if (!visibleRange) {
+                return;
+            }
+
             const text = document.getText(visibleRange);
             const lines = text.split(/\r?\n/);
-            lines.forEach((line, index) => {
+            lines.forEach((line: string, index: number) => {
                 let word: any;
                 while (
                     (word = env.settings.wordsPattern.exec(line)) !== null &&
