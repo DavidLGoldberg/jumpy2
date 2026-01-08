@@ -28,7 +28,7 @@ This file tests Jumpy2 with various Unicode characters.
 Mixed 中文 English 测试
 Hello 世界 World
 
-## Emoji Content
+## Single Emojis (each should get a label)
 
 Hello 👋 world 🌍
 Testing 🧪 jumpy navigation
@@ -36,7 +36,7 @@ before 😊 after
 word1 🚀 word2
 The quick 🦊 brown fox
 
-## Emoji Pairs (should get labels - 2+ emojis in a row)
+## Emoji Pairs (should get 2 labels)
 
 🎉🎊 celebration time
 👍👍 double thumbs up
