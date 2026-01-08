@@ -33,6 +33,7 @@ code --install-extension davidlgoldberg.jumpy2
 -   Vim modes supported:
     -   command mode
     -   insert mode
+-   🆕 Now supports _Unicode_, _CJK_, and _Emoji_! **NOTE**: You may want to restore your `jumpy2.wordPattern` to the _new_ default value!
 -   Recommended key mappings to replace 'f' in vim integration below.
 -   Recommended key mappings for back and forward below.
 
