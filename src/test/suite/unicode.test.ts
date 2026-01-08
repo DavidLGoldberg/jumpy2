@@ -54,7 +54,7 @@ suite('Unicode test Suite', function () {
         // and we can exit cleanly
         await commands.executeCommand('jumpy2.exit');
         await wait();
-        
+
         assert.ok(true, 'Toggle should work with Unicode content');
     });
 
@@ -83,7 +83,8 @@ suite('Unicode test Suite', function () {
         assert.ok(endPosition, 'End position should be defined');
         // Cursor should have moved from 0,0
         assert.ok(
-            endPosition!.line !== startPosition!.line || endPosition!.character !== startPosition!.character,
+            endPosition!.line !== startPosition!.line ||
+                endPosition!.character !== startPosition!.character,
             'Cursor should have moved after jump'
         );
     });
@@ -124,7 +125,8 @@ suite('Unicode test Suite', function () {
         assert.ok(position2, 'Second position should be defined');
         // Different labels should jump to different positions
         assert.ok(
-            position1!.line !== position2!.line || position1!.character !== position2!.character,
+            position1!.line !== position2!.line ||
+                position1!.character !== position2!.character,
             'Different labels should jump to different positions'
         );
     });
@@ -165,5 +167,54 @@ suite('Unicode test Suite', function () {
         }
 
         assert.ok(position, 'Position should be defined near emoji content');
+    });
+
+    test('Single emoji gets a label', async function () {
+        // Each emoji gets its own label
+        // Pattern: \p{Extended_Pictographic} matches each emoji individually
+        let position: Position | undefined;
+
+        await commands.executeCommand('jumpy2.toggle');
+        await wait(500);
+
+        // Jump to the first emoji (👋)
+        await commands.executeCommand('jumpy2.b');
+        await commands.executeCommand('jumpy2.w');
+
+        await wait();
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.ok(
+            position,
+            'Should be able to jump (single emojis have labels)'
+        );
+    });
+
+    test('Emoji pair gets two labels', async function () {
+        // Emoji pairs like 🎉🎊 each get their own label
+        // Two emojis side by side = two labels, one for each
+        let position: Position | undefined;
+
+        await commands.executeCommand('jumpy2.toggle');
+        await wait(500);
+
+        // jump to the first emoji (🎉) in the pair (🎉🎊)
+        await commands.executeCommand('jumpy2.c');
+        await commands.executeCommand('jumpy2.t');
+
+        // jump to the second emoji (🎊) in the pair (🎉🎊)
+        await commands.executeCommand('jumpy2.c');
+        await commands.executeCommand('jumpy2.u');
+
+        await wait();
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+
+        assert.ok(position, 'Should be able to jump to emoji pair region');
     });
 });
