@@ -42,3 +42,6 @@ The quick 🦊 brown fox
 👍👍 double thumbs up
 🚀🌟 rocket star
 text 😀😃 more text
+
+Skin tone modifiers:
+[\u{1F3FB}-\u{1F3FF}] - Matches skin tone modifiers (👋🏻 👋🏿)
