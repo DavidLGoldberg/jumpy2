@@ -46,100 +46,60 @@ suite('Unicode test Suite', function () {
         await wait();
     });
 
-    test('Toggle works in Unicode file', async function () {
-        await commands.executeCommand('jumpy2.toggle');
-        await wait(500);
-
-        // Just verify toggle doesn't crash with Unicode content
-        // and we can exit cleanly
-        await commands.executeCommand('jumpy2.exit');
-        await wait();
-
-        assert.ok(true, 'Toggle should work with Unicode content');
-    });
-
     test('Jump and cursor moves in Unicode file', async function () {
-        let startPosition: Position | undefined;
-        let endPosition: Position | undefined;
-
-        if (window.activeTextEditor) {
-            startPosition = window.activeTextEditor.selection.active;
-        }
-
-        await commands.executeCommand('jumpy2.toggle');
-        await wait(500);
-
-        // Jump using first available label (aa)
-        await commands.executeCommand('jumpy2.a');
-        await commands.executeCommand('jumpy2.a');
-
-        await wait();
-
-        if (window.activeTextEditor) {
-            endPosition = window.activeTextEditor.selection.active;
-        }
-
-        assert.ok(startPosition, 'Start position should be defined');
-        assert.ok(endPosition, 'End position should be defined');
-        // Cursor should have moved from 0,0
-        assert.ok(
-            endPosition!.line !== startPosition!.line ||
-                endPosition!.character !== startPosition!.character,
-            'Cursor should have moved after jump'
-        );
-    });
-
-    test('Jump to different labels in Unicode file', async function () {
         let position1: Position | undefined;
         let position2: Position | undefined;
 
-        // First jump
         await commands.executeCommand('jumpy2.toggle');
         await wait(500);
+
+        // Jump using first available label (aa) -> "Unicode" at line 0, char 2
         await commands.executeCommand('jumpy2.a');
-        await commands.executeCommand('jumpy2.b');
+        await commands.executeCommand('jumpy2.a');
+
         await wait();
 
         if (window.activeTextEditor) {
             position1 = window.activeTextEditor.selection.active;
         }
 
-        // Reset
-        if (window.activeTextEditor) {
-            window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
-        }
-        await wait();
+        assert.deepStrictEqual(position1, new Position(0, 2));
 
-        // Second jump to different label
+        // Next jump to 'ab' -> "Test" at line 0, char 10
         await commands.executeCommand('jumpy2.toggle');
         await wait(500);
+
         await commands.executeCommand('jumpy2.a');
-        await commands.executeCommand('jumpy2.c');
+        await commands.executeCommand('jumpy2.b');
         await wait();
 
         if (window.activeTextEditor) {
             position2 = window.activeTextEditor.selection.active;
         }
 
-        assert.ok(position1, 'First position should be defined');
-        assert.ok(position2, 'Second position should be defined');
-        // Different labels should jump to different positions
-        assert.ok(
-            position1!.line !== position2!.line ||
-                position1!.character !== position2!.character,
-            'Different labels should jump to different positions'
+        assert.deepStrictEqual(position2, new Position(0, 10));
+        const charAtCursor = window.activeTextEditor!.document.getText(
+            new Selection(
+                position2,
+                new Position(position2.line, position2.character + 1)
+            )
+        );
+        assert.strictEqual(
+            charAtCursor,
+            'T',
+            'Cursor should be on "T" of "Test"'
         );
     });
 
-    test('Jump in mixed Chinese and English content', async function () {
+    test('Jump to Chinese character 你', async function () {
         let position: Position | undefined;
 
         await commands.executeCommand('jumpy2.toggle');
         await wait(500);
 
-        // Jump to a position in the mixed content area (later in file)
+        // Jump to 'an' -> 你好 at line 6, char 0 (first Chinese word)
         await commands.executeCommand('jumpy2.a');
-        await commands.executeCommand('jumpy2.d');
+        await commands.executeCommand('jumpy2.n');
 
         await wait();
 
@@ -147,29 +107,51 @@ suite('Unicode test Suite', function () {
             position = window.activeTextEditor.selection.active;
         }
 
-        assert.ok(position, 'Position should be defined in mixed content');
+        assert.deepStrictEqual(position, new Position(6, 0));
+        const charAtCursor = window.activeTextEditor!.document.getText(
+            new Selection(
+                position,
+                new Position(position.line, position.character + 1)
+            )
+        );
+        assert.strictEqual(
+            charAtCursor,
+            '你',
+            'Cursor should be on Chinese character 你'
+        );
     });
 
-    test('Jump works with emoji content nearby', async function () {
+    test('Jump to Japanese character こ', async function () {
         let position: Position | undefined;
 
         await commands.executeCommand('jumpy2.toggle');
         await wait(500);
 
-        // Jump to a later label (in the emoji section)
+        // Jump to 'at' -> こんにちは at line 12, char 0 (Japanese greeting)
         await commands.executeCommand('jumpy2.a');
-        await commands.executeCommand('jumpy2.e');
+        await commands.executeCommand('jumpy2.t');
 
         await wait();
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
+            const doc = window.activeTextEditor.document;
+            const charAtCursor = doc.getText(
+                new Selection(
+                    position,
+                    new Position(position.line, position.character + 1)
+                )
+            );
+            assert.deepStrictEqual(position, new Position(12, 0));
+            assert.strictEqual(
+                charAtCursor,
+                'こ',
+                'Cursor should be on Japanese character こ'
+            );
         }
-
-        assert.ok(position, 'Position should be defined near emoji content');
     });
 
-    test('Single emoji gets a label', async function () {
+    test('Single emoji gets a label - jump to 👋', async function () {
         // Each emoji gets its own label
         // Pattern: \p{Extended_Pictographic} matches each emoji individually
         let position: Position | undefined;
@@ -177,7 +159,7 @@ suite('Unicode test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await wait(500);
 
-        // Jump to the first emoji (👋)
+        // Jump to 'bw' -> 👋 emoji at line 32, char 6
         await commands.executeCommand('jumpy2.b');
         await commands.executeCommand('jumpy2.w');
 
@@ -185,27 +167,62 @@ suite('Unicode test Suite', function () {
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
+            const doc = window.activeTextEditor.document;
+            // Emoji is 2 code units wide, so we read 2 characters
+            const charAtCursor = doc.getText(
+                new Selection(
+                    position,
+                    new Position(position.line, position.character + 2)
+                )
+            );
+            assert.deepStrictEqual(position, new Position(32, 6));
+            assert.strictEqual(
+                charAtCursor,
+                '👋',
+                'Cursor should be on wave emoji 👋'
+            );
         }
-
-        assert.ok(
-            position,
-            'Should be able to jump (single emojis have labels)'
-        );
     });
 
-    test('Emoji pair gets two labels', async function () {
+    test('Emoji pair - jump to first emoji 🎉', async function () {
         // Emoji pairs like 🎉🎊 each get their own label
-        // Two emojis side by side = two labels, one for each
         let position: Position | undefined;
 
         await commands.executeCommand('jumpy2.toggle');
         await wait(500);
 
-        // jump to the first emoji (🎉) in the pair (🎉🎊)
+        // Jump to 'ct' -> first emoji 🎉 at line 40, char 0
         await commands.executeCommand('jumpy2.c');
         await commands.executeCommand('jumpy2.t');
 
-        // jump to the second emoji (🎊) in the pair (🎉🎊)
+        await wait();
+
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+            const doc = window.activeTextEditor.document;
+            const charAtCursor = doc.getText(
+                new Selection(
+                    position,
+                    new Position(position.line, position.character + 2)
+                )
+            );
+            assert.deepStrictEqual(position, new Position(40, 0));
+            assert.strictEqual(
+                charAtCursor,
+                '🎉',
+                'Cursor should be on party popper emoji 🎉'
+            );
+        }
+    });
+
+    test('Emoji pair - jump to second emoji 🎊', async function () {
+        // Second emoji in the pair gets its own label
+        let position: Position | undefined;
+
+        await commands.executeCommand('jumpy2.toggle');
+        await wait(500);
+
+        // Jump to 'cu' -> second emoji 🎊 at line 40, char 2
         await commands.executeCommand('jumpy2.c');
         await commands.executeCommand('jumpy2.u');
 
@@ -213,8 +230,19 @@ suite('Unicode test Suite', function () {
 
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
+            const doc = window.activeTextEditor.document;
+            const charAtCursor = doc.getText(
+                new Selection(
+                    position,
+                    new Position(position.line, position.character + 2)
+                )
+            );
+            assert.deepStrictEqual(position, new Position(40, 2));
+            assert.strictEqual(
+                charAtCursor,
+                '🎊',
+                'Cursor should be on confetti ball emoji 🎊'
+            );
         }
-
-        assert.ok(position, 'Should be able to jump to emoji pair region');
     });
 });
