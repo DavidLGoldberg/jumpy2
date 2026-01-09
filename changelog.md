@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.9.0
+
+-   ✨ Add better support for Emoji and CJK (Chinese, Japanese, Korean) characters.
+
 ## 1.8.1
 
 -   🐛 Fix running in containers.
