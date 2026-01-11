@@ -4,7 +4,8 @@
     "description": "A VS Code extension that creates dynamic hotkeys to jump around files across visible panes. It's a new 'Jumpy' but from the original author (Atom package) for VS Code. It works with the major VSC vim extensions and I plan to maintain it.",
     "version": "0.0.1",
     "engines": {
-        "vscode": "^1.90.0"
+        "vscode": "^1.90.0",
+        "node": "20.18.1"
     },
     "publisher": "DavidLGoldberg",
     "author": {
@@ -529,7 +530,7 @@
     "devDependencies": {
         "@types/lodash.debounce": "4.0.6",
         "@types/mocha": "10.0.6",
-        "@types/node": "20.14.8",
+        "@types/node": "20.19.28",
         "@types/vscode": "1.90.0",
         "@typescript-eslint/eslint-plugin": "7.11.0",
         "@typescript-eslint/parser": "7.11.0",
