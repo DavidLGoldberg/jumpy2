@@ -113,7 +113,6 @@ const labeler: Labeler = function (
     env: LabelEnvironment,
     editor: TextEditor
 ): Array<WordLabel> {
-    const usedKeys = env.keys; // Intentionally mutate from calling env
     const labels: Array<WordLabel> = [];
 
     if (editor && !isExtensionPanel(editor)) {
@@ -130,9 +129,9 @@ const labeler: Labeler = function (
                 let word: any;
                 while (
                     (word = env.settings.wordsPattern.exec(line)) !== null &&
-                    usedKeys.length
+                    env.keyIndex < env.keys.length
                 ) {
-                    const keyLabel = usedKeys.shift();
+                    const keyLabel = env.keys[env.keyIndex++]; // No mutation, just increment index
 
                     const column = word.index;
                     const label = new WordLabel();

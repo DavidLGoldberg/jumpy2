@@ -7,7 +7,8 @@ export interface Settings {
 }
 
 export interface LabelEnvironment {
-    keys: Array<string>;
+    keys: ReadonlyArray<string>;
+    keyIndex: number; // Current index in keys array (no mutation!)
     settings: Settings;
 }
 
