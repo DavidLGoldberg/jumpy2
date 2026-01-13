@@ -110,7 +110,8 @@ function _renderLabels(enteredKey?: string) {
     }
 
     const environment: LabelEnvironment = {
-        keys: [...getKeySet(getSettings().customKeys)],
+        keys: getKeySet(getSettings().customKeys), // Readonly, no copy needed
+        keyIndex: 0, // Start at beginning, no mutation
         settings: getSettings(),
     };
 
