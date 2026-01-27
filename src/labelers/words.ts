@@ -42,13 +42,14 @@ class WordLabel implements Label {
 
         // For wide characters, we need less negative margin because
         // 1 wide char already spans ~2 visual columns.
-        // Default margin is '-1.265em', wide chars need about half pullback.
-        const margin = isWide ? '0 0 0 -1.0em' : undefined; // undefined = use default from decoration type
+        // Base margin: wide chars ~1.0em, ASCII ~1.265em
+        const baseMargin = isWide ? 1.0 : 1.265;
+        const margin = `0 0 0 -${baseMargin + Math.random() * 0.0001}em`; // ALSO, Unique fractional value prevents VS Code from deduping decorations
 
         const label = {
             after: {
                 contentText: keyLabel,
-                ...(margin && { margin }),
+                margin,
             },
         };
         const decoration = {
