@@ -1,6 +1,34 @@
 import range from 'lodash.range';
 import moize from 'moize';
 
+/**
+ * Returns all possible command keys (a-z, A-Z, 0-9) as a fixed superset.
+ * Used for command registration to ensure all keybindings have a handler,
+ * regardless of customKeys setting.
+ */
+export function getAllCommandKeys() {
+    const lowerCharacters = range(
+        'a'.charCodeAt(0),
+        'z'.charCodeAt(0) + 1
+    ).map((c) => String.fromCharCode(c));
+
+    const upperCharacters = range(
+        'A'.charCodeAt(0),
+        'Z'.charCodeAt(0) + 1
+    ).map((c) => String.fromCharCode(c));
+
+    const digitCharacters = range(
+        '0'.charCodeAt(0),
+        '9'.charCodeAt(0) + 1
+    ).map((c) => String.fromCharCode(c));
+
+    return {
+        lowerCharacters: <ReadonlyArray<string>>lowerCharacters,
+        upperCharacters: <ReadonlyArray<string>>upperCharacters,
+        digitCharacters: <ReadonlyArray<string>>digitCharacters,
+    };
+}
+
 export function getAllKeys(customKeys: ReadonlyArray<string>) {
     const isAlpha = (str: string) => /^[a-z]$/i.test(str);
 

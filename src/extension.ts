@@ -19,7 +19,7 @@ import {
     wordLabelCheckeredDecorationType,
 } from './labelers/wordDecorations';
 import { createStatusBar, setStatusBar } from './statusPrinter';
-import { getKeySet, getAllKeys } from './keys';
+import { getKeySet, getAllCommandKeys } from './keys';
 import { achievements, achievementsWebview } from './achievements';
 import { updatesWebview } from './updated';
 
@@ -256,12 +256,16 @@ export function activate(context: ExtensionContext) {
         registerCommand('jumpy2.showUpdates', showUpdates)
     );
 
-    const allKeys = getAllKeys(getSettings().customKeys);
+    // Register commands for all possible keys (a-z, A-Z, 0-9) unconditionally.
+    // This ensures keybindings in package.json always have a handler,
+    // even if customKeys doesn't include all characters.
+    // The Elm state machine will reject keys that aren't in the current customKeys.
+    const commandKeys = getAllCommandKeys();
     subscriptions.push(
         ...[
-            ...allKeys.lowerCharacters,
-            ...allKeys.upperCharacters,
-            ...allKeys.otherCharacters,
+            ...commandKeys.lowerCharacters,
+            ...commandKeys.upperCharacters,
+            ...commandKeys.digitCharacters,
         ].map((chr) => registerCommand(`jumpy2.${chr}`, () => sendKey(chr)))
     );
 
