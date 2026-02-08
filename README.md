@@ -29,29 +29,29 @@ code --install-extension davidlgoldberg.jumpy2
 
 ## Notes
 
--   Works great with or without [vim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim "vim extension's homepage") or [neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim "neo vim extension's homepage")! See vim/nvim integration below
--   Vim modes supported:
-    -   command mode
-    -   insert mode
--   🆕 Now supports _Unicode_, _CJK_, and _Emoji_! **NOTE**: If you have customized `jumpy2.wordPattern`, you may want to reset it to use the _new_ default value that includes Unicode support.
--   Recommended key mappings to replace 'f' in vim integration below.
--   Recommended key mappings for back and forward below.
+- Works great with or without [vim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim "vim extension's homepage") or [neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim "neo vim extension's homepage")! See vim/nvim integration below
+- Vim modes supported:
+    - command mode
+    - insert mode
+- 🆕 Now supports _Unicode_, _CJK_, and _Emoji_! **NOTE**: If you have customized `jumpy2.wordPattern`, you may want to reset it to use the _new_ default value that includes Unicode support.
+- Recommended key mappings to replace 'f' in vim integration below.
+- Recommended key mappings for back and forward below.
 
 ## Key Bindings
 
 ### Defaults
 
--   Enter jump mode
-    -   <kbd>shift</kbd> + <kbd>enter</kbd>
--   Enter selection mode
-    -   <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd>
--   Reset first character entered
-    -   <kbd>backspace</kbd>
--   Cancel/exit jump mode (any of the following)
-    -   <kbd>shift</kbd> + <kbd>enter</kbd>
-    -   <kbd>enter</kbd>
-    -   <kbd>esc</kbd>
-    -   <kbd>space</kbd>
+- Enter jump mode
+    - <kbd>shift</kbd> + <kbd>enter</kbd>
+- Enter selection mode
+    - <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd>
+- Reset first character entered
+    - <kbd>backspace</kbd>
+- Cancel/exit jump mode (any of the following)
+    - <kbd>shift</kbd> + <kbd>enter</kbd>
+    - <kbd>enter</kbd>
+    - <kbd>esc</kbd>
+    - <kbd>space</kbd>
 
 ## Jump back and forward
 
@@ -92,6 +92,16 @@ The default might be easier for beginners. It is also probably better for larger
     "description": "Default characters to use"
 },
 ```
+
+## Word Pattern for Experienced Users
+
+Once you've gotten comfortable with Jumpy2, I highly recommend trying a more aggressive word pattern such as `[^\s]{1,3}`:
+
+```json
+"jumpy2.wordPattern": "[^\\s]{1,3}"
+```
+
+This matches any 1-3 non-whitespace characters, giving you far more jump targets. You'll be able to land precisely on punctuation, individual characters within symbols, and tight spaces that the default pattern skips. It takes some adjustment, but it's a game-changer for navigation speed.
 
 ## Colors & Border
 
@@ -239,24 +249,23 @@ Of course you can turn these off too. If you have no soul.
 
 ## Known Issues
 
--   Can not jump to treeview or tabs.
+- Can not jump to treeview or tabs.
 
 ## Acknowledgements
 
--   Various [contributors](https://github.com/DavidLGoldberg/jumpy/graphs/contributors) from the original atom project.
--   Logo icon created by [Dr. Gregory W. Goldberg](https://scholar.google.com/citations?hl=en&user=zNw4iZkAAAAJ&view_op=list_works) (in his spare time!) and David L. Goldberg."
--   Implementation inspiration from [Wayne Maurer](https://github.com/wmaurer) (the author of the first VS Code implementation of Jumpy)
+- Various [contributors](https://github.com/DavidLGoldberg/jumpy/graphs/contributors) from the original atom project.
+- Logo icon created by [Dr. Gregory W. Goldberg](https://scholar.google.com/citations?hl=en&user=zNw4iZkAAAAJ&view_op=list_works) (in his spare time!) and David L. Goldberg."
+- Implementation inspiration from [Wayne Maurer](https://github.com/wmaurer) (the author of the first VS Code implementation of Jumpy)
 
 ## Related work
 
--   Other Jumpies:
+- Other Jumpies:
+    - Original [Jumpy](https://github.com/davidlgoldberg/jumpy) | [Jumpy (archived)](https://web.archive.org/web/20221215010328/https://atom.io/packages/jumpy) for Atom
+    - First [Jumpy](https://marketplace.visualstudio.com/items?itemName=wmaurer.vscode-jumpy) to make it to VS Code
+    - VS Code 'jumpy' search [results](https://marketplace.visualstudio.com/search?term=jumpy&target=VSCode&category=All%20categories&sortBy=Relevance)
+    - [Jumpy for Sublime](https://packagecontrol.io/packages/Jumpy)
 
-    -   Original [Jumpy](https://github.com/davidlgoldberg/jumpy) | [Jumpy (archived)](https://web.archive.org/web/20221215010328/https://atom.io/packages/jumpy) for Atom
-    -   First [Jumpy](https://marketplace.visualstudio.com/items?itemName=wmaurer.vscode-jumpy) to make it to VS Code
-    -   VS Code 'jumpy' search [results](https://marketplace.visualstudio.com/search?term=jumpy&target=VSCode&category=All%20categories&sortBy=Relevance)
-    -   [Jumpy for Sublime](https://packagecontrol.io/packages/Jumpy)
-
--   Ace Jump maintains a nice [comparison list](https://github.com/acejump/AceJump#comparison) of hotkey/jump related programs
+- Ace Jump maintains a nice [comparison list](https://github.com/acejump/AceJump#comparison) of hotkey/jump related programs
 
 (should we _collab_ more? Reach out!)
 
@@ -264,18 +273,18 @@ Of course you can turn these off too. If you have no soul.
 
 (A little SEO juice)
 
--   Shortcuts
--   Navigation
--   Productivity
--   Mouseless
--   Plugin
--   Extension
+- Shortcuts
+- Navigation
+- Productivity
+- Mouseless
+- Plugin
+- Extension
 
 ## My previous Atom packages :)
 
--   [Jumpy](https://github.com/davidlgoldberg/jumpy) | [Jumpy (archived)](https://web.archive.org/web/20221215010328/https://atom.io/packages/jumpy)
--   [Jumpy-beacon](https://github.com/davidlgoldberg/jumpy-beacon) | [Jumpy-beacon (archived)](https://web.archive.org/web/20221215010501/https://atom.io/packages/jumpy-beacon)
--   [Qolor](https://github.com/davidlgoldberg/qolor) | [Qolor (archived)](https://web.archive.org/web/20221215010858/https://atom.io/packages/qolor)
+- [Jumpy](https://github.com/davidlgoldberg/jumpy) | [Jumpy (archived)](https://web.archive.org/web/20221215010328/https://atom.io/packages/jumpy)
+- [Jumpy-beacon](https://github.com/davidlgoldberg/jumpy-beacon) | [Jumpy-beacon (archived)](https://web.archive.org/web/20221215010501/https://atom.io/packages/jumpy-beacon)
+- [Qolor](https://github.com/davidlgoldberg/qolor) | [Qolor (archived)](https://web.archive.org/web/20221215010858/https://atom.io/packages/qolor)
 
 ## Keyboard Enthusiast?
 
@@ -284,9 +293,9 @@ It offers focused and customizable drills, inspired by drumming rudiments, for d
 
 ## Support Jumpy2
 
--   👕 Buy a [Jumpy T-SHIRT](https://www.bonfire.com/store/jumpy)!
--   Sponsor me on Github [David L Goldberg](https://github.com/sponsors/DavidLGoldberg)
--   Support me on [Patreon](https://www.patreon.com/davidlgoldberg)
--   Support me via [crypto](./crypto-donations.md)
--   Subscribe to my [YouTube channel](https://www.youtube.com/channel/UCi6p1uTlAozufNiQgpgpW-Q)
--   🧑‍💻 Hire me! [LinkedIn](https://www.linkedin.com/in/david-l-goldberg-24607a314)
+- 👕 Buy a [Jumpy T-SHIRT](https://www.bonfire.com/store/jumpy)!
+- Sponsor me on Github [David L Goldberg](https://github.com/sponsors/DavidLGoldberg)
+- Support me on [Patreon](https://www.patreon.com/davidlgoldberg)
+- Support me via [crypto](./crypto-donations.md)
+- Subscribe to my [YouTube channel](https://www.youtube.com/channel/UCi6p1uTlAozufNiQgpgpW-Q)
+- 🧑‍💻 Hire me! [LinkedIn](https://www.linkedin.com/in/david-l-goldberg-24607a314)
