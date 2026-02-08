@@ -275,8 +275,9 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
         assert.ok(pos0a, 'Position for 0a should be defined');
         
         // Verify 0a appears after 1a in the file (line-first comparison)
-        const pos1aIndex = pos1a.line * 1000 + pos1a.character;
-        const pos0aIndex = pos0a.line * 1000 + pos0a.character;
+        // Use 10000 as multiplier to handle any reasonable line length
+        const pos1aIndex = pos1a.line * 10000 + pos1a.character;
+        const pos0aIndex = pos0a.line * 10000 + pos0a.character;
         assert.ok(
             pos0aIndex > pos1aIndex,
             `Label 0a (line ${pos0a.line}, col ${pos0a.character}) should appear after 1a (line ${pos1a.line}, col ${pos1a.character})`
