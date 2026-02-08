@@ -179,10 +179,19 @@ Tests are in `src/test/suite/`:
 - `basics.test.ts`: Core jump functionality
 - `unicode.test.ts`: Unicode/CJK/emoji support
 - `customKeys.test.ts`: Custom character set configuration
-- `largefile.test.ts`: Performance with large files
+- `largefile.test.ts`: Performance with large files and digit label support
+- `customWordPattern.test.ts`: Advanced word pattern configurations
 - `multipleEditors.test.ts`: Multi-pane scenarios
 - `achievements.test.ts`: Achievement tracking
 - `status.test.ts`: Status bar display
+
+### CI Requirements
+
+The `largefile.test.ts` tests require a large viewport to display all labels on screen:
+- **Minimum viewport**: 3840x2160x24 (configured in `azure-pipelines.yml`)
+- Tests use multiple zoom out commands (4-11 times) to fit labels
+- Wait times (500ms) after zoom and file load ensure UI updates complete
+- Tests validate label functionality with flexible position checks rather than exact coordinates
 
 ## Unicode and Wide Character Handling
 
