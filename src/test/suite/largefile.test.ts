@@ -115,7 +115,7 @@ suite('Long file with digits (raw) test Suite', function () {
 
         const uri = Uri.file(fixtureFileRaw);
         await commands.executeCommand('vscode.open', uri);
-        await wait();
+        await wait(500); // Extra wait for file to fully load
     });
 
     after(async () => {
@@ -201,7 +201,7 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
 
         const uri = Uri.file(fixtureFileRaw);
         await commands.executeCommand('vscode.open', uri);
-        await wait();
+        await wait(500); // Extra wait for file to fully load
     });
 
     after(async () => {
