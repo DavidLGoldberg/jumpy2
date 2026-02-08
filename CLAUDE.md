@@ -191,7 +191,7 @@ The `largefile.test.ts` tests require a large viewport to display all labels on 
 - **Minimum viewport**: 3840x2160x24 (configured in `azure-pipelines.yml`)
 - Tests use multiple zoom out commands (4-11 times) to fit labels
 - Wait times (500ms) after zoom and file load ensure UI updates complete
-- Tests validate label functionality with flexible position checks rather than exact coordinates
+- Tests validate exact label positions, which depend on consistent viewport rendering
 
 ## Unicode and Wide Character Handling
 

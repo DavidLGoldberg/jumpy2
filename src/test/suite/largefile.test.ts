@@ -253,34 +253,27 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
         // '1' is at index 26, '0' is at index 35, so '1a' labels should appear before '0a' labels in the sequence
 
         await commands.executeCommand('jumpy2.toggle');
-        await commands.executeCommand('jumpy2.1');
         await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.1');
 
         await wait();
 
-        const pos1a = window.activeTextEditor?.selection.active;
-        assert.ok(pos1a, 'Position for 1a should be defined');
-        assert.ok(
-            pos1a.line > 0 || pos1a.character > 0,
-            'Label 1a should jump to a valid position'
+        assert.deepStrictEqual(
+            window.activeTextEditor?.selection.active,
+            new Position(108, 0),
+            'Label 1a should jump to line 109, col 1 (0-indexed: 108, 0)'
         );
 
         await commands.executeCommand('jumpy2.toggle');
-        await commands.executeCommand('jumpy2.0');
         await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.0');
 
         await wait();
 
-        const pos0a = window.activeTextEditor?.selection.active;
-        assert.ok(pos0a, 'Position for 0a should be defined');
-        
-        // Verify 0a appears after 1a in the file (line-first comparison)
-        // Use 10000 as multiplier to handle any reasonable line length
-        const pos1aIndex = pos1a.line * 10000 + pos1a.character;
-        const pos0aIndex = pos0a.line * 10000 + pos0a.character;
-        assert.ok(
-            pos0aIndex > pos1aIndex,
-            `Label 0a (line ${pos0a.line}, col ${pos0a.character}) should appear after 1a (line ${pos1a.line}, col ${pos1a.character})`
+        assert.deepStrictEqual(
+            window.activeTextEditor?.selection.active,
+            new Position(108, 27),
+            'Label z5 should jump to line 109, col 28 (0-indexed: 108, 27)'
         );
     });
 });
@@ -342,38 +335,33 @@ suite('Custom keys subset 1-5 test Suite', function () {
 
     test('Jump to 1a with subset 1-5 customKeys', async function () {
         // With customKeys = "abcdefghijklmnopqrstuvwxyz12345" (31 chars)
-        // '1a' should jump somewhere far into the file (many labels before it)
+        // '1a' should jump to line 136 col 1 (1-indexed) = Position(135, 0)
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.1');
         await commands.executeCommand('jumpy2.a');
 
         await wait();
 
-        const pos1a = window.activeTextEditor?.selection.active;
-        assert.ok(pos1a, 'Position for 1a should be defined');
-        // With 31 chars, 1a appears after 31*31 = 961 labels starting with letters
-        // Should be deep into the file
-        assert.ok(
-            pos1a.line > 50,
-            `Label 1a should jump deep into file (got line ${pos1a.line})`
+        assert.deepStrictEqual(
+            window.activeTextEditor?.selection.active,
+            new Position(135, 0),
+            'Label 1a should jump to line 136, col 1 (0-indexed: 135, 0)'
         );
     });
 
     test('Jump to z5 with subset 1-5 customKeys', async function () {
         // With customKeys = "abcdefghijklmnopqrstuvwxyz12345" (31 chars)
-        // 'z5' is a letter-digit combo that should appear in the file
+        // 'z5' should jump to line 121 col 28 (1-indexed) = Position(120, 27)
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.z');
         await commands.executeCommand('jumpy2.5');
 
         await wait();
 
-        const posz5 = window.activeTextEditor?.selection.active;
-        assert.ok(posz5, 'Position for z5 should be defined');
-        // z5 should be well into the file (many labels before it)
-        assert.ok(
-            posz5.line > 20,
-            `Label z5 should jump into file (got line ${posz5.line})`
+        assert.deepStrictEqual(
+            window.activeTextEditor?.selection.active,
+            new Position(120, 27),
+            'Label z5 should jump to line 121, col 28 (0-indexed: 120, 27)'
         );
     });
 });
