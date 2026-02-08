@@ -110,7 +110,8 @@ function _renderLabels(enteredKey?: string) {
     }
 
     const environment: LabelEnvironment = {
-        keys: [...getKeySet(getSettings().customKeys)],
+        keys: getKeySet(getSettings().customKeys), // Readonly, no copy needed
+        keyIndex: 0, // Start at beginning, no mutation
         settings: getSettings(),
     };
 
@@ -257,9 +258,11 @@ export function activate(context: ExtensionContext) {
 
     const allKeys = getAllKeys(getSettings().customKeys);
     subscriptions.push(
-        ...[...allKeys.lowerCharacters, ...allKeys.upperCharacters].map((chr) =>
-            registerCommand(`jumpy2.${chr}`, () => sendKey(chr))
-        )
+        ...[
+            ...allKeys.lowerCharacters,
+            ...allKeys.upperCharacters,
+            ...allKeys.otherCharacters,
+        ].map((chr) => registerCommand(`jumpy2.${chr}`, () => sendKey(chr)))
     );
 
     /* NOTE: Effectively I want "all" events.  I don't think such an event exists,
