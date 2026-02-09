@@ -61,6 +61,9 @@ suite('Long file test Suite', function () {
     });
 
     test('Toggle and jump', async function () {
+        if (!!process.env.TF_BUILD) {
+            this.skip(); // Skip on Azure CI due to viewport size limitations
+        }
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.z');
@@ -213,6 +216,9 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
     });
 
     test('Digit-first labels work with customKeys including digits', async function () {
+        if (!!process.env.TF_BUILD) {
+            this.skip(); // Skip on Azure CI due to viewport size limitations
+        }
         // With customKeys = "abcdefghijklmnopqrstuvwxyz1234567890"
         // '1' is at index 26, so '1a' labels appear after all letter-first labels
         // Test that '1a' successfully jumps (doesn't stay at origin)
@@ -235,6 +241,9 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
     });
 
     test("Labels '1a' appears before '0a' when using 1234567890 order", async function () {
+        if (!!process.env.TF_BUILD) {
+            this.skip(); // Skip on Azure CI due to viewport size limitations
+        }
         // With customKeys = "abcdefghijklmnopqrstuvwxyz1234567890"
         // '1' is at index 26, '0' is at index 35, so '1a' labels should appear before '0a' labels in the sequence
 
