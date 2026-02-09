@@ -21,6 +21,11 @@ suite('Unicode test Suite', function () {
     before(async function () {
         window.showInformationMessage('Start Unicode tests.');
 
+        // Maximize window once at the start of all tests (this suite runs first)
+        // This ensures consistent viewport size across CI environments
+        await commands.executeCommand('workbench.action.toggleFullScreen');
+        await wait(2000); // Fullscreen transition needs time to settle
+
         await commands.executeCommand('workbench.action.zoomReset');
         await commands.executeCommand('workbench.action.zoomOut');
         await commands.executeCommand('workbench.action.zoomOut');
