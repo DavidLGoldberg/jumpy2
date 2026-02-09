@@ -29,6 +29,24 @@ steps:
     condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
 
   - bash: |
+      set -euxo pipefail
+      date -u
+      lsb_release -a || true
+
+      sudo apt-get update
+      sudo apt-get install -y ca-certificates openssl
+      sudo update-ca-certificates
+
+      echo "=== What cert do we see for package.elm-lang.org?"
+      openssl s_client -connect package.elm-lang.org:443 -servername package.elm-lang.org </dev/null 2>/dev/null \
+        | openssl x509 -noout -subject -issuer -dates
+
+      echo "=== curl sanity"
+      curl -I --max-time 20 https://package.elm-lang.org/all-packages
+    displayName: TLS sanity check (Elm registry)
+    condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
+
+  - bash: |
       sudo apt-get update && sudo apt-get install -y build-essential
       git config --global user.email $BUILD_REQUESTEDFOREMAIL
       git config --global user.name "$BUILD_REQUESTEDFOR"
