@@ -26,15 +26,19 @@ suite('Long file test Suite', function () {
     before(async function () {
         window.showInformationMessage('Start long file tests.');
 
+        // Need to show at least 53 lines for label 'Az' (index 1377) to exist
+        // With 26 words/line: label 'Az' is at line 52 (1377/26)
+        // Use aggressive zoom-out for maximum visible lines
         await commands.executeCommand('workbench.action.zoomReset');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
+        for (let i = 0; i < 10; i++) {
+            await commands.executeCommand('workbench.action.zoomOut');
+        }
+
+        await wait(500); // Wait for zoom to take effect
 
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
-        await wait();
+        await wait(1000); // Extra wait for file to fully load and labels to generate
     });
 
     after(async () => {
@@ -68,13 +72,13 @@ suite('Long file test Suite', function () {
             new Position(0, 101)
         );
 
-        await wait(500);
+        await wait(1000);
 
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.A');
         await commands.executeCommand('jumpy2.z');
 
-        await wait(2500); // this is annoying but it really needs more time...
+        await wait(3500); // Large viewport needs more time to generate labels
 
         assert.deepStrictEqual(
             window.activeTextEditor?.selection.active,
@@ -96,20 +100,17 @@ suite('Long file with digits (raw) test Suite', function () {
             .getConfiguration('jumpy2')
             .update('customKeys', 'abcdefghijklmnopqrstuvwxyz0123456789', true);
 
-        // Zoom out more for raw file - needs to fit more labels on screen
+        // Zoom out for consistent viewport across CI environments
         await commands.executeCommand('workbench.action.zoomReset');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
+        for (let i = 0; i < 10; i++) {
+            await commands.executeCommand('workbench.action.zoomOut');
+        }
+
+        await wait(500);
 
         const uri = Uri.file(fixtureFileRaw);
         await commands.executeCommand('vscode.open', uri);
-        await wait();
+        await wait(500);
     });
 
     after(async () => {
@@ -176,23 +177,17 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
             .getConfiguration('jumpy2')
             .update('customKeys', 'abcdefghijklmnopqrstuvwxyz1234567890', true);
 
-        // Zoom out more for raw file - needs to fit more labels on screen
+        // Need to show at least 109 lines - use aggressive zoom-out
         await commands.executeCommand('workbench.action.zoomReset');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
+        for (let i = 0; i < 10; i++) {
+            await commands.executeCommand('workbench.action.zoomOut');
+        }
+
+        await wait(500); // Wait for zoom to take effect
 
         const uri = Uri.file(fixtureFileRaw);
         await commands.executeCommand('vscode.open', uri);
-        await wait();
+        await wait(500);
     });
 
     after(async () => {
@@ -280,21 +275,13 @@ suite('Custom keys subset 1-5 test Suite', function () {
             .getConfiguration('jumpy2')
             .update('customKeys', 'abcdefghijklmnopqrstuvwxyz12345', true);
 
-        // Zoom out a lot for raw file - needs to fit 31^2 = 961 labels to reach '1a'
+        // Need to show at least 136 lines - use aggressive zoom-out
         await commands.executeCommand('workbench.action.zoomReset');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
-        await commands.executeCommand('workbench.action.zoomOut');
+        for (let i = 0; i < 10; i++) {
+            await commands.executeCommand('workbench.action.zoomOut');
+        }
 
-        await wait(); // Wait for zoom to take effect
+        await wait(500); // Wait for zoom to take effect
 
         const uri = Uri.file(fixtureFileRaw);
         await commands.executeCommand('vscode.open', uri);
