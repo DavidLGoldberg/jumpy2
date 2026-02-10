@@ -19,7 +19,7 @@ export const updatesWebview = () => {
     const changelogDisplay = changelogContent
         ? `<pre>${changelogContent}</pre>`
         : `<p>Check out the latest updates on GitHub:</p>
-           <p><a href="https://github.com/DavidLGoldberg/jumpy2/blob/main/changelog.md" target="_blank">View Changelog on GitHub</a></p>`;
+           <p><a href="https://github.com/DavidLGoldberg/jumpy2/blob/main/changelog.md" target="_blank" rel="noopener noreferrer">View Changelog on GitHub</a></p>`;
 
     return `
       <!DOCTYPE html>
