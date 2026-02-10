@@ -1,8 +1,12 @@
 # Change Log
 
+## 1.10.1
+
+- 📝 Updated `README.md` and `CHANGELOG.md` (see below) with an important urgent note about `customKeys` to enable digits (new feature in the recent 1.10.0 release).
+
 ## 1.10.0
 
-- ✨ Jumpy2 should handle many more labels/jump targets now via fallback numeric characters. These numeric characters are new to Jumpy2 and remain lower in priority by default since they are harder to type.
+- ✨ Jumpy2 should handle many more labels/jump targets now via fallback numeric characters. These numeric characters are new to Jumpy2 and remain lower in priority by default since they are harder to type. You should probably reset the `customKeys` setting to the new default which includes 0-9 as keys! (`jumpy2.customKeys`). The new value should read as `abcdefghijklmnopqrstuvwxyz0123456789`.
 - 🐛 Fix label rendering bug at high numbers.
 - 📝 Add note in `README.md` about more advanced/efficient `wordPattern`: `[^\s]{1,3}`. If you're reading this, you should probably try it!
 
