@@ -226,6 +226,25 @@ for back and forward functionality with neovim:
 }
 ```
 
+## Telemetry
+
+This extension collects anonymous usage data to help improve functionality and stability.
+
+Telemetry is implemented using Visual Studio Code's built-in telemetry system. The data may include:
+
+- Extension activation events
+- Feature usage
+- Error information (no personal data or file contents)
+
+No personal information or user content is collected.
+
+Telemetry respects **Visual Studio Code's telemetry settings**. You can disable it by setting:
+
+"telemetry.telemetryLevel": "off"
+
+For more information, see:
+https://code.visualstudio.com/docs/getstarted/telemetry
+
 ## Fun
 
 ### See your achievements(!)
