@@ -2,7 +2,7 @@
 
 ## 1.11.0
 
-- ✨ Jumpy2 should now work on Github & the web! Try on https://vscode.dev/ or the '.' feature on Github's repo pages!
+- ✨ Jumpy2 should now work on GitHub & the web! Try on https://vscode.dev/ or the '.' feature on GitHub's repo pages!
 
 ## 1.10.1
 
