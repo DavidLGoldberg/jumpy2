@@ -135,7 +135,7 @@ Build/publish is handled automatically by the Azure pipeline (`make test` and `n
 
 These packages were added specifically for browser support:
 
--   **`@vscode/test-web@0.0.62`** - Testing framework for VS Code web extensions (uses stable build)
+-   **`@vscode/test-web`** - Testing framework for VS Code web extensions (uses stable build)
 -   **`@types/webpack-env@1.18.5`** - TypeScript types for browser environment
 -   **`process@0.11.10`** - Browser polyfill for Node.js `process` global
 
