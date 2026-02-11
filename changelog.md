@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.11.1
+
+- 📝 Update `README.md` with telemetry note.
+
 ## 1.11.0
 
 - ✨ Jumpy2 should now work on GitHub & the web! Try on https://vscode.dev/ or the '.' feature on GitHub's repo pages!
