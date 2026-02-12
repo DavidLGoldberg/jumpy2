@@ -89,7 +89,7 @@ steps:
 
   - bash: |
       set -euxo pipefail
-      : "${OPEN_VSX_TOKEN:?OPEN_VSX_TOKEN is required}"
+      : "${OVSX_PAT:?OVSX_PAT is required}"
 
       # No version arg needed! vsce (above) already updated package.json.
       # ovsx reads the version from package.json automatically.
@@ -98,5 +98,5 @@ steps:
     displayName: Publish (Open VSX)
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Agent.OS'], 'Linux'))
     env:
-      OPEN_VSX_TOKEN: $(OPEN_VSX_TOKEN)
+      OVSX_PAT: $(OPEN_VSX_TOKEN) # ovsx CLI expects OVSX_PAT despite it being a just a secret.
       HUSKY: 0
