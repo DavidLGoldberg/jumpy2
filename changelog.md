@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.12.0
+
+- ✨ Add support for Cursor and VSCodium! Will publish to the Open VSX Registry.
+
 ## 1.11.1
 
 - 📝 Update `README.md` with telemetry note.
