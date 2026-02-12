@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.12.1
+
+- 🚀 Fix OVSX publish.
+
 ## 1.12.0
 
 - ✨ Add support for Cursor and VSCodium! Will publish to the Open VSX Registry.
