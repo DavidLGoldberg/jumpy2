@@ -5,8 +5,10 @@ import { after, afterEach, before, beforeEach } from 'mocha';
 import { commands, Selection, Position, Uri, window } from 'vscode';
 
 const ONE_MIN = 60000;
+const IS_CI = !!process.env.TF_BUILD;
+const ONLY_IN_CI = IS_CI ? 500 : 0; // CI needs time for labels to generate
 
-async function wait(timeout = 100): Promise<void> {
+async function wait(timeout = IS_CI ? 200 : 100): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -170,6 +172,7 @@ suite('Basic test Suite', function () {
 
         // then should jump afterwards
         await commands.executeCommand('jumpy2.toggle');
+        await wait(ONLY_IN_CI);
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.z');
         await wait();

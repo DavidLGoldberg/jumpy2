@@ -5,8 +5,9 @@ import { after, before, beforeEach } from 'mocha';
 import { commands, Selection, Position, Uri, window, workspace } from 'vscode';
 
 const ONE_MINUTE = 60000;
+const IS_CI = !!process.env.TF_BUILD;
 
-async function wait(timeout = 100): Promise<void> {
+async function wait(timeout = IS_CI ? 200 : 100): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -32,9 +33,11 @@ suite('Custom Word Pattern test Suite', function () {
         await workspace
             .getConfiguration('jumpy2')
             .update('wordPattern', '[^\\s]{1,3}', true);
+        await wait();
 
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
+        await wait();
     });
 
     after(async () => {
