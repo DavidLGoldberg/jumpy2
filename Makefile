@@ -30,8 +30,8 @@ typescript:
 	npx npm@$(NPM_VERSION) run compile
 	npx npm@$(NPM_VERSION) run compile-web
 
-mocha-test: default
-	npx npm@$(NPM_VERSION) test
+mocha-test:
+	./scripts/run-tests.sh $(NPM_VERSION)
 
 graph:
 	# make graph (svg) of architecture
