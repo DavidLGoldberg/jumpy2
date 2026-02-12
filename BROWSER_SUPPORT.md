@@ -127,7 +127,7 @@ npm run package-web    # Production build of web bundle
 npm run run-in-browser # Test in local browser (Chromium)
 ```
 
-Build/publish is handled automatically by the Azure pipeline (`make test` and `npm run deploy`).
+Build/publish is handled automatically by the Azure pipeline (`make test`, `npm run deploy:vsmarketplace`, and `npm run deploy:ovsx`).
 
 ## 📦 Browser Support Dependencies & Files
 
