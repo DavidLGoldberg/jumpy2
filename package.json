@@ -583,7 +583,8 @@
         "test-no-compile": "vscode-test",
         "run-in-browser": "vscode-test-web --browserType=chromium --quality=stable --extensionDevelopmentPath=. .",
         "prepare": "npx husky",
-        "deploy": "vsce publish"
+        "deploy:vsmarketplace": "vsce publish",
+        "deploy:ovsx": "ovsx publish"
     },
     "devDependencies": {
         "@types/lodash.debounce": "4.0.6",
@@ -602,6 +603,7 @@
         "eslint": "8.57.0",
         "npm-run-all2": "7.0.2",
         "nyc": "15.1.0",
+        "ovsx": "0.10.9",
         "process": "0.11.10",
         "typescript": "5.4.5",
         "uglify-js": "3.14.5"

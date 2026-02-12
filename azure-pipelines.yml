@@ -60,11 +60,43 @@ steps:
       ls -la dist/web/extension.js
     displayName: 'Verify web bundle builds'
 
+  # ============================================================================
+  # Publishing Steps (only on tagged releases, Linux only)
+  # ============================================================================
+  # These steps run sequentially. vsce runs FIRST and updates package.json
+  # with the tag version (e.g., "1.12.0"). ovsx runs SECOND and reads the
+  # already-updated package.json - no version arg needed.
+  #
+  # Note: vsce supports `vsce publish <version>` to bump package.json inline.
+  # ovsx does NOT - its positional arg is a .vsix path, not a version.
+  # ============================================================================
+
   - bash: |
-      echo ">>> Publish"
-      npm run deploy -- $(Build.SourceBranchName)
-    displayName: Publish
+      set -euxo pipefail
+      : "${VSCE_PAT:?VSCE_PAT is required}"
+
+      # vsce publish <version> does three things:
+      # 1. Updates package.json version to the tag (e.g., 1.12.0)
+      # 2. Packages the extension into a .vsix
+      # 3. Publishes to VS Code Marketplace
+      echo ">>> Publish (VS Marketplace)"
+      npm run deploy:vsmarketplace -- $(Build.SourceBranchName)
+    displayName: Publish (VS Marketplace)
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Agent.OS'], 'Linux'))
     env:
       VSCE_PAT: $(VSCE_PAT)
+      HUSKY: 0
+
+  - bash: |
+      set -euxo pipefail
+      : "${OPEN_VSX_TOKEN:?OPEN_VSX_TOKEN is required}"
+
+      # No version arg needed! vsce (above) already updated package.json.
+      # ovsx reads the version from package.json automatically.
+      echo ">>> Publish (Open VSX)"
+      npm run deploy:ovsx
+    displayName: Publish (Open VSX)
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Agent.OS'], 'Linux'))
+    env:
+      OPEN_VSX_TOKEN: $(OPEN_VSX_TOKEN)
       HUSKY: 0
