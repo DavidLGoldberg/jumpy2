@@ -5,9 +5,8 @@ import { after, before, beforeEach } from 'mocha';
 import { commands, Selection, Position, Uri, window, workspace } from 'vscode';
 
 const ONE_MINUTE = 60000;
-const QUARTER_SECOND = 250;
 
-async function wait(timeout = QUARTER_SECOND): Promise<void> {
+async function wait(timeout = 100): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -34,11 +33,8 @@ suite('Custom Word Pattern test Suite', function () {
             .getConfiguration('jumpy2')
             .update('wordPattern', '[^\\s]{1,3}', true);
 
-        await wait();
-
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
-        await wait();
     });
 
     after(async () => {
@@ -48,16 +44,12 @@ suite('Custom Word Pattern test Suite', function () {
         await workspace
             .getConfiguration('jumpy2')
             .update('wordPattern', originalWordPattern, true);
-
-        await wait();
     });
 
     beforeEach(async function () {
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
-
-        await wait();
     });
 
     test('Toggle and jump with aggressive pattern', async function () {
@@ -67,7 +59,6 @@ suite('Custom Word Pattern test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.a');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -85,7 +76,6 @@ suite('Custom Word Pattern test Suite', function () {
         let position: Position | undefined;
 
         await commands.executeCommand('jumpy2.toggle');
-
         await commands.executeCommand('jumpy2.d');
         await commands.executeCommand('jumpy2.m');
         await wait();
@@ -115,7 +105,6 @@ suite('Custom Word Pattern test Suite', function () {
         await commands.executeCommand('jumpy2.reset');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.c');
-
         await wait();
 
         if (window.activeTextEditor) {

@@ -25,7 +25,6 @@ suite('Status Bar Suite', function () {
 
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
-        await wait();
     });
 
     after(async () => {
@@ -38,8 +37,6 @@ suite('Status Bar Suite', function () {
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
-
-        await wait();
     });
 
     test('Toggle', async function () {
@@ -47,13 +44,10 @@ suite('Status Bar Suite', function () {
 
         //TODO FINISH
         await commands.executeCommand('jumpy2.toggle');
-        await wait();
         //assert
         await commands.executeCommand('jumpy2.a');
-        await wait(); // necessary?
         //assert
         await commands.executeCommand('jumpy2.z');
-        await wait(); // necessary?
         //assert
 
         // TODO: test status bar

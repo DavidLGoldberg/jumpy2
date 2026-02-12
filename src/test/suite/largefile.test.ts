@@ -5,9 +5,8 @@ import { after, before, beforeEach } from 'mocha';
 import { commands, Selection, Position, Uri, window, workspace } from 'vscode';
 
 const ONE_MINUTE = 60000;
-const QUARTER_SECOND = 250;
 
-async function wait(timeout = QUARTER_SECOND): Promise<void> {
+async function wait(timeout = 100): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -30,15 +29,14 @@ suite('Long file test Suite', function () {
         // With 26 words/line: label 'Az' is at line 52 (1377/26)
         // Use aggressive zoom-out for maximum visible lines
         await commands.executeCommand('workbench.action.zoomReset');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             await commands.executeCommand('workbench.action.zoomOut');
         }
-
-        await wait(500); // Wait for zoom to take effect
+        await wait(100);
 
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
-        await wait(1000); // Extra wait for file to fully load and labels to generate
+        await wait(200);
     });
 
     after(async () => {
@@ -47,17 +45,13 @@ suite('Long file test Suite', function () {
 
         // Reset zoom for us humans to follow along
         await commands.executeCommand('workbench.action.zoomReset');
-
-        await wait();
     });
 
     beforeEach(async function () {
-        // Reset cursor position to 0,0?
+        // Reset cursor position to 0,0
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
-
-        await wait();
     });
 
     test('Toggle and jump', async function () {
@@ -67,7 +61,6 @@ suite('Long file test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.z');
-
         await wait();
 
         assert.deepStrictEqual(
@@ -75,20 +68,16 @@ suite('Long file test Suite', function () {
             new Position(0, 101)
         );
 
-        await wait(1000);
-
         await commands.executeCommand('jumpy2.toggle');
+        await wait(500); // Large viewport needs more time to generate labels
         await commands.executeCommand('jumpy2.A');
         await commands.executeCommand('jumpy2.z');
-
-        await wait(3500); // Large viewport needs more time to generate labels
+        await wait(500);
 
         assert.deepStrictEqual(
             window.activeTextEditor?.selection.active,
             new Position(52, 101)
         );
-
-        await wait();
     });
 });
 
@@ -105,15 +94,14 @@ suite('Long file with digits (raw) test Suite', function () {
 
         // Zoom out for consistent viewport across CI environments
         await commands.executeCommand('workbench.action.zoomReset');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             await commands.executeCommand('workbench.action.zoomOut');
         }
-
-        await wait(500);
+        await wait(250);
 
         const uri = Uri.file(fixtureFileRaw);
         await commands.executeCommand('vscode.open', uri);
-        await wait(500);
+        await wait(250);
     });
 
     after(async () => {
@@ -127,22 +115,18 @@ suite('Long file with digits (raw) test Suite', function () {
 
         // Reset zoom for us humans to follow along
         await commands.executeCommand('workbench.action.zoomReset');
-
-        await wait();
     });
 
     beforeEach(async function () {
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
-        await wait();
     });
 
     test('Jump with letter-letter label (aa)', async function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.a');
-
         await wait();
 
         // 'aa' is first label, should be at line 0, col 0
@@ -156,7 +140,6 @@ suite('Long file with digits (raw) test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.0');
-
         await wait();
 
         // 'a0' comes after 'az' in the label sequence
@@ -182,15 +165,14 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
 
         // Need to show at least 109 lines - use aggressive zoom-out
         await commands.executeCommand('workbench.action.zoomReset');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             await commands.executeCommand('workbench.action.zoomOut');
         }
-
-        await wait(500); // Wait for zoom to take effect
+        await wait(250);
 
         const uri = Uri.file(fixtureFileRaw);
         await commands.executeCommand('vscode.open', uri);
-        await wait(500);
+        await wait(250);
     });
 
     after(async () => {
@@ -204,15 +186,12 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
 
         // Reset zoom for us humans to follow along
         await commands.executeCommand('workbench.action.zoomReset');
-
-        await wait();
     });
 
     beforeEach(async function () {
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
-        await wait();
     });
 
     test('Digit-first labels work with customKeys including digits', async function () {
@@ -226,7 +205,6 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.1');
         await commands.executeCommand('jumpy2.a');
-
         await wait();
 
         const pos1a = window.activeTextEditor?.selection.active;
@@ -250,7 +228,6 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.1');
-
         await wait();
 
         assert.deepStrictEqual(
@@ -262,7 +239,6 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.0');
-
         await wait();
 
         assert.deepStrictEqual(
@@ -286,15 +262,14 @@ suite('Custom keys subset 1-5 test Suite', function () {
 
         // Need to show at least 136 lines - use aggressive zoom-out
         await commands.executeCommand('workbench.action.zoomReset');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             await commands.executeCommand('workbench.action.zoomOut');
         }
-
-        await wait(500); // Wait for zoom to take effect
+        await wait(250);
 
         const uri = Uri.file(fixtureFileRaw);
         await commands.executeCommand('vscode.open', uri);
-        await wait(500); // Extra wait for file to fully load
+        await wait(250);
     });
 
     after(async () => {
@@ -308,15 +283,12 @@ suite('Custom keys subset 1-5 test Suite', function () {
 
         // Reset zoom for us humans to follow along
         await commands.executeCommand('workbench.action.zoomReset');
-
-        await wait();
     });
 
     beforeEach(async function () {
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
-        await wait();
     });
 
     test('Jump to 1a with subset 1-5 customKeys', async function () {
@@ -325,7 +297,6 @@ suite('Custom keys subset 1-5 test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.1');
         await commands.executeCommand('jumpy2.a');
-
         await wait();
 
         assert.deepStrictEqual(
@@ -341,7 +312,6 @@ suite('Custom keys subset 1-5 test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.z');
         await commands.executeCommand('jumpy2.5');
-
         await wait();
 
         assert.deepStrictEqual(

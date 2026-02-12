@@ -5,9 +5,8 @@ import { after, before, beforeEach } from 'mocha';
 import { commands, Selection, Position, Uri, window } from 'vscode';
 
 const ONE_MIN = 60000;
-const QUARTER_SECOND = 250;
 
-async function wait(timeout = QUARTER_SECOND): Promise<void> {
+async function wait(timeout = 100): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -24,7 +23,7 @@ suite('Unicode test Suite', function () {
         // Maximize window once at the start of all tests (this suite runs first)
         // This ensures consistent viewport size across CI environments
         await commands.executeCommand('workbench.action.toggleFullScreen');
-        await wait(2000); // Fullscreen transition needs time to settle
+        await wait(1000); // Fullscreen transition needs time to settle
 
         await commands.executeCommand('workbench.action.zoomReset');
         await commands.executeCommand('workbench.action.zoomOut');
@@ -33,7 +32,6 @@ suite('Unicode test Suite', function () {
 
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
-        await wait();
     });
 
     after(async () => {
@@ -41,14 +39,10 @@ suite('Unicode test Suite', function () {
     });
 
     beforeEach(async function () {
-        await wait();
-
         // Reset cursor position to 0,0
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
-
-        await wait();
     });
 
     test('Jump and cursor moves in Unicode file', async function () {
@@ -56,12 +50,9 @@ suite('Unicode test Suite', function () {
         let position2: Position | undefined;
 
         await commands.executeCommand('jumpy2.toggle');
-        await wait(500);
-
         // Jump using first available label (aa) -> "Unicode" at line 0, char 2
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.a');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -72,8 +63,6 @@ suite('Unicode test Suite', function () {
 
         // Next jump to 'ab' -> "Test" at line 0, char 10
         await commands.executeCommand('jumpy2.toggle');
-        await wait(500);
-
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.b');
         await wait();
@@ -100,12 +89,9 @@ suite('Unicode test Suite', function () {
         let position: Position | undefined;
 
         await commands.executeCommand('jumpy2.toggle');
-        await wait(500);
-
         // Jump to 'an' -> 你好 at line 6, char 0 (first Chinese word)
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.n');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -130,12 +116,9 @@ suite('Unicode test Suite', function () {
         let position: Position | undefined;
 
         await commands.executeCommand('jumpy2.toggle');
-        await wait(500);
-
         // Jump to 'at' -> こんにちは at line 12, char 0 (Japanese greeting)
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.t');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -162,12 +145,9 @@ suite('Unicode test Suite', function () {
         let position: Position | undefined;
 
         await commands.executeCommand('jumpy2.toggle');
-        await wait(500);
-
         // Jump to 'bw' -> 👋 emoji at line 32, char 6
         await commands.executeCommand('jumpy2.b');
         await commands.executeCommand('jumpy2.w');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -194,12 +174,9 @@ suite('Unicode test Suite', function () {
         let position: Position | undefined;
 
         await commands.executeCommand('jumpy2.toggle');
-        await wait(500);
-
         // Jump to 'ct' -> first emoji 🎉 at line 40, char 0
         await commands.executeCommand('jumpy2.c');
         await commands.executeCommand('jumpy2.t');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -225,12 +202,9 @@ suite('Unicode test Suite', function () {
         let position: Position | undefined;
 
         await commands.executeCommand('jumpy2.toggle');
-        await wait(500);
-
         // Jump to 'cu' -> second emoji 🎊 at line 40, char 2
         await commands.executeCommand('jumpy2.c');
         await commands.executeCommand('jumpy2.u');
-
         await wait();
 
         if (window.activeTextEditor) {
