@@ -73,8 +73,11 @@ npm run run-in-browser
 ### Publishing
 
 ```bash
-# Publish to VS Code marketplace (builds both desktop and web bundles)
-npm run deploy
+# Publish to VS Code Marketplace (builds both desktop and web bundles)
+npm run deploy:vsmarketplace
+
+# Publish to Open VSX Registry (for Cursor, VSCodium)
+npm run deploy:ovsx
 ```
 
 ## Architecture Overview
