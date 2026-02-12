@@ -5,8 +5,10 @@ import { after, before, beforeEach } from 'mocha';
 import { commands, Selection, Position, Uri, window, workspace } from 'vscode';
 
 const ONE_MINUTE = 60000;
+const IS_CI = !!process.env.TF_BUILD;
+const ONLY_IN_CI = IS_CI ? 500 : 0; // CI needs time for labels to generate
 
-async function wait(timeout = 100): Promise<void> {
+async function wait(timeout = IS_CI ? 200 : 100): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -29,7 +31,7 @@ suite('Long file test Suite', function () {
         // With 26 words/line: label 'Az' is at line 52 (1377/26)
         // Use aggressive zoom-out for maximum visible lines
         await commands.executeCommand('workbench.action.zoomReset');
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
             await commands.executeCommand('workbench.action.zoomOut');
         }
         await wait(100);
@@ -94,7 +96,7 @@ suite('Long file with digits (raw) test Suite', function () {
 
         // Zoom out for consistent viewport across CI environments
         await commands.executeCommand('workbench.action.zoomReset');
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
             await commands.executeCommand('workbench.action.zoomOut');
         }
         await wait(250);
@@ -165,7 +167,7 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
 
         // Need to show at least 109 lines - use aggressive zoom-out
         await commands.executeCommand('workbench.action.zoomReset');
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
             await commands.executeCommand('workbench.action.zoomOut');
         }
         await wait(250);
@@ -249,7 +251,7 @@ suite('Custom keys with digits - 0 at end test Suite', function () {
     });
 });
 
-suite('Custom keys subset 1-5 test Suite', function () {
+suite('Custom keys subset 1-5', function () {
     this.timeout(ONE_MINUTE);
 
     before(async function () {
@@ -262,14 +264,15 @@ suite('Custom keys subset 1-5 test Suite', function () {
 
         // Need to show at least 136 lines - use aggressive zoom-out
         await commands.executeCommand('workbench.action.zoomReset');
-        for (let i = 0; i < 5; i++) {
+        await wait(IS_CI ? 1000 : 250);
+        for (let i = 0; i < 10; i++) {
             await commands.executeCommand('workbench.action.zoomOut');
         }
-        await wait(250);
+        await wait(IS_CI ? 1000 : 500);
 
         const uri = Uri.file(fixtureFileRaw);
         await commands.executeCommand('vscode.open', uri);
-        await wait(250);
+        await wait(IS_CI ? 1000 : 500); // Extra wait for file to fully load
     });
 
     after(async () => {
@@ -289,15 +292,17 @@ suite('Custom keys subset 1-5 test Suite', function () {
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
+        await wait(IS_CI ? 500 : 200);
     });
 
     test('Jump to 1a with subset 1-5 customKeys', async function () {
         // With customKeys = "abcdefghijklmnopqrstuvwxyz12345" (31 chars)
         // '1a' should jump to line 136 col 1 (1-indexed) = Position(135, 0)
         await commands.executeCommand('jumpy2.toggle');
+        await wait(IS_CI ? 2500 : 250);
         await commands.executeCommand('jumpy2.1');
         await commands.executeCommand('jumpy2.a');
-        await wait();
+        await wait(IS_CI ? 2500 : 250);
 
         assert.deepStrictEqual(
             window.activeTextEditor?.selection.active,
@@ -310,9 +315,10 @@ suite('Custom keys subset 1-5 test Suite', function () {
         // With customKeys = "abcdefghijklmnopqrstuvwxyz12345" (31 chars)
         // 'z5' should jump to line 121 col 28 (1-indexed) = Position(120, 27)
         await commands.executeCommand('jumpy2.toggle');
+        await wait(IS_CI ? 2500 : 250);
         await commands.executeCommand('jumpy2.z');
         await commands.executeCommand('jumpy2.5');
-        await wait();
+        await wait(IS_CI ? 2500 : 250);
 
         assert.deepStrictEqual(
             window.activeTextEditor?.selection.active,

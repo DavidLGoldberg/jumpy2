@@ -5,8 +5,9 @@ import { after, afterEach, before, beforeEach } from 'mocha';
 import { commands, Selection, Position, Uri, window } from 'vscode';
 
 const ONE_MIN = 60000;
+const IS_CI = !!process.env.TF_BUILD;
 
-async function wait(timeout = 100): Promise<void> {
+async function wait(timeout = IS_CI ? 200 : 100): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -30,6 +31,7 @@ suite('Multiple editor test Suite', function () {
 
         // NOTE: ******************** split editor right for these tests!
         await commands.executeCommand('workbench.action.splitEditorRight');
+        await wait();
     });
 
     after(async () => {
