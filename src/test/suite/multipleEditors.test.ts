@@ -5,9 +5,8 @@ import { after, afterEach, before, beforeEach } from 'mocha';
 import { commands, Selection, Position, Uri, window } from 'vscode';
 
 const ONE_MIN = 60000;
-const QUARTER_SECOND = 250;
 
-async function wait(timeout = QUARTER_SECOND): Promise<void> {
+async function wait(timeout = 100): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -31,8 +30,6 @@ suite('Multiple editor test Suite', function () {
 
         // NOTE: ******************** split editor right for these tests!
         await commands.executeCommand('workbench.action.splitEditorRight');
-
-        await wait();
     });
 
     after(async () => {
@@ -46,14 +43,11 @@ suite('Multiple editor test Suite', function () {
 
     beforeEach(async function () {
         await commands.executeCommand('editor.unfoldAll');
-        await wait();
 
-        // Reset cursor position to 0,0?
+        // Reset cursor position to 0,0
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
-
-        await wait();
     });
 
     afterEach(async function () {});
@@ -64,7 +58,6 @@ suite('Multiple editor test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.z');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -76,7 +69,6 @@ suite('Multiple editor test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.f');
         await commands.executeCommand('jumpy2.n');
-
         await wait();
 
         if (window.activeTextEditor) {

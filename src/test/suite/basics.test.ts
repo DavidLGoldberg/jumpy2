@@ -3,13 +3,10 @@ import assert from 'assert';
 import { after, afterEach, before, beforeEach } from 'mocha';
 
 import { commands, Selection, Position, Uri, window } from 'vscode';
-// This maybe for unit test stuff?
-// import  Jumpy2 from '../../../src/extension';
 
 const ONE_MIN = 60000;
-const QUARTER_SECOND = 250;
 
-async function wait(timeout = QUARTER_SECOND): Promise<void> {
+async function wait(timeout = 100): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -30,7 +27,6 @@ suite('Basic test Suite', function () {
 
         const uri = Uri.file(fixtureFile);
         await commands.executeCommand('vscode.open', uri);
-        await wait();
     });
 
     after(async () => {
@@ -40,14 +36,11 @@ suite('Basic test Suite', function () {
 
     beforeEach(async function () {
         await commands.executeCommand('editor.unfoldAll');
-        await wait();
 
-        // Reset cursor position to 0,0?
+        // Reset cursor position to 0,0
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
-
-        await wait();
     });
 
     afterEach(async function () {});
@@ -58,7 +51,6 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.z');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -74,7 +66,6 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.e');
         await commands.executeCommand('jumpy2.c');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -92,7 +83,6 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy2.reset');
         await commands.executeCommand('jumpy2.b');
         await commands.executeCommand('jumpy2.z');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -111,8 +101,6 @@ suite('Basic test Suite', function () {
         // One extra to ensure it doesn't matter:
         await commands.executeCommand('jumpy2.z');
 
-        await wait();
-
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
         }
@@ -121,7 +109,6 @@ suite('Basic test Suite', function () {
 
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.z');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -137,8 +124,6 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.toggle');
 
-        await wait();
-
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
         }
@@ -148,11 +133,9 @@ suite('Basic test Suite', function () {
         // Should reopen and jump
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.toggle');
-        await wait();
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.z');
-
         await wait();
 
         if (window.activeTextEditor) {
@@ -168,8 +151,6 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.exit');
 
-        await wait();
-
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
         }
@@ -181,8 +162,6 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.exit');
 
-        await wait();
-
         if (window.activeTextEditor) {
             position = window.activeTextEditor.selection.active;
         }
@@ -193,7 +172,6 @@ suite('Basic test Suite', function () {
         await commands.executeCommand('jumpy2.toggle');
         await commands.executeCommand('jumpy2.a');
         await commands.executeCommand('jumpy2.z');
-
         await wait();
 
         if (window.activeTextEditor) {

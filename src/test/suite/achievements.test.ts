@@ -23,7 +23,6 @@ suite('Achievements Suite', function () {
 
     test('Toggle', async function () {
         await commands.executeCommand('jumpy2.showAchievements');
-        await wait();
         // close it? Don't seem to need to atm.
     });
 
