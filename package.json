@@ -164,7 +164,7 @@
                 "jumpy2.checkered.active": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable checkered mode to alternate label colors.  Helps to distinguish labels, particularly with agressive regex patterns."
+                    "description": "Enable checkered mode to alternate label colors.  Helps to distinguish labels, particularly with agressive regex patterns. Note: checkered mode can't be disabled while squint mode is active."
                 },
                 "jumpy2.revealAfterJump": {
                     "type": "string",
@@ -195,6 +195,14 @@
                 "title": "Jumpy: Toggle Selection"
             },
             {
+                "command": "jumpy2.toggleSquint",
+                "title": "Jumpy: Toggle Squint Mode"
+            },
+            {
+                "command": "jumpy2.toggleSquintSelection",
+                "title": "Jumpy: Toggle Squint Selection Mode"
+            },
+            {
                 "command": "jumpy2.reset",
                 "title": "Jumpy: Reset"
             },
@@ -209,6 +217,10 @@
             {
                 "command": "jumpy2.showUpdates",
                 "title": "Jumpy: Show Updates"
+            },
+            {
+                "command": "jumpy2.invertJumpyModes",
+                "title": "Jumpy: Invert Default Modes (Classic/Squint)"
             }
         ],
         "keybindings": [
@@ -220,6 +232,16 @@
             {
                 "command": "jumpy2.toggleSelection",
                 "key": "shift+alt+enter",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "jumpy2.toggleSquint",
+                "key": "ctrl+shift+enter",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "jumpy2.toggleSquintSelection",
+                "key": "ctrl+shift+alt+enter",
                 "when": "editorTextFocus"
             },
             {
@@ -245,6 +267,11 @@
             {
                 "command": "jumpy2.exit",
                 "key": "space",
+                "when": "jumpy2.jump-mode && editorTextFocus"
+            },
+            {
+                "command": "jumpy2.switchMode",
+                "key": "tab",
                 "when": "jumpy2.jump-mode && editorTextFocus"
             },
             {

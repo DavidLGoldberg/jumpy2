@@ -8,7 +8,7 @@ clearStatus =
 
 resetStatus : String
 resetStatus =
-    "Jump Mode!"
+    "Jump!"
 
 
 setNoMatchStatus : String

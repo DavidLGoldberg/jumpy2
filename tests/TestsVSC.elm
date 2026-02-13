@@ -85,7 +85,7 @@ suite =
                                 | labels = labels
                                 , active = True
                                 , keysEntered = ""
-                                , status = "Jump Mode!"
+                                , status = "Jump!"
                             }
             , test "reports active False after an exit" <|
                 \_ ->
