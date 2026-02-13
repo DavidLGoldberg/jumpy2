@@ -14,11 +14,16 @@ import TelemetryReporter from '@vscode/extension-telemetry';
 import elmApp from '../out/elm/StateMachineVSC';
 import { LabelEnvironment, Label, Settings } from './label-interface';
 import getWordLabels from './labelers/words';
+import getCharacterLabels from './labelers/characters';
 import {
     wordLabelBaseDecorationType,
     wordLabelCheckeredDecorationType,
 } from './labelers/wordDecorations';
-import { createStatusBar, setStatusBar } from './statusPrinter';
+import {
+    characterLabelBaseDecorationType,
+    characterLabelCheckeredDecorationType,
+} from './labelers/characterDecorations';
+import { createStatusBar, createModeStatusBar, setStatusBar, setModeStatusBar } from './statusPrinter';
 import { getKeySet, getAllCommandKeys } from './keys';
 import { achievements, achievementsWebview } from './achievements';
 import { updatesWebview } from './updated';
@@ -51,9 +56,12 @@ const getSettings = (): Settings => {
 };
 
 const statusBarItem = createStatusBar();
+const modeStatusBarItem = createModeStatusBar();
 
 let allLabels: Array<Label> = new Array<Label>();
 let isSelectionMode: boolean = false;
+let isSquintMode: boolean = false;
+let isModesInverted: boolean = false;
 
 // Subscribe:
 stateMachine.ports.validKeyEntered.subscribe((keyLabel: string) => {
@@ -117,54 +125,115 @@ function _renderLabels(enteredKey?: string) {
 
     allLabels.length = 0; // Clear the array from previous runs.
 
+    // Select decoration types based on mode
+    const baseDecorationType = isSquintMode
+        ? characterLabelBaseDecorationType
+        : wordLabelBaseDecorationType;
+    const checkeredDecorationType = isSquintMode
+        ? characterLabelCheckeredDecorationType
+        : wordLabelCheckeredDecorationType;
+
     window.visibleTextEditors.forEach((editor) => {
         // Atom architecture (copied here) allows for other label providers:
-        const editorLabels = getWordLabels(environment, editor);
+        const editorLabels = isSquintMode
+            ? getCharacterLabels(environment, editor)
+            : getWordLabels(environment, editor);
         allLabels = [...allLabels, ...editorLabels];
 
         const baseDecorations: DecorationOptions[] = [];
         const checkeredDecorations: DecorationOptions[] = [];
 
+        const checkeredActive = isSquintMode || workspace.getConfiguration('jumpy2').get<boolean>('checkered.active');
         editorLabels
             .filter((label) =>
                 enteredKey ? label.keyLabel.startsWith(enteredKey) : true
             )
             .forEach((label, index) => {
-                const decoration = label.getDecoration();
+                const isCheckered = checkeredActive && index % 2 === 1;
+                const decoration = label.getDecoration(isCheckered);
                 if (index % 2 === 0) {
                     baseDecorations.push(decoration);
                 } else {
-                    workspace.getConfiguration('jumpy2').get('checkered.active')
+                    checkeredActive
                         ? checkeredDecorations.push(decoration)
                         : baseDecorations.push(decoration);
                 }
             });
 
-        editor.setDecorations(wordLabelBaseDecorationType, baseDecorations);
-        editor.setDecorations(
-            wordLabelCheckeredDecorationType,
-            checkeredDecorations
-        );
+        editor.setDecorations(baseDecorationType, baseDecorations);
+        editor.setDecorations(checkeredDecorationType, checkeredDecorations);
     });
 }
 
 function enterJumpMode() {
     commands.executeCommand('setContext', 'jumpy2.jump-mode', true);
+    setModeStatusBar(modeStatusBarItem, true, isSquintMode, isModesInverted);
 
     _renderLabels();
     stateMachine.ports.getLabels.send(allLabels.map((label) => label.keyLabel));
 }
 
 function toggle() {
+    if (isModesInverted) {
+        reporter.sendTelemetryEvent('toggle-normal-inverted');
+        isSelectionMode = false;
+        isSquintMode = true;
+        enterJumpMode();
+        return;
+    }
     reporter.sendTelemetryEvent('toggle-normal');
     isSelectionMode = false;
+    isSquintMode = false;
     enterJumpMode();
 }
 
 function toggleSelection() {
     reporter.sendTelemetryEvent('toggle-selection');
     isSelectionMode = true;
+    isSquintMode = false;
     enterJumpMode();
+}
+
+function toggleSquint() {
+    if (isModesInverted) {
+        reporter.sendTelemetryEvent('toggle-squint-inverted');
+        isSelectionMode = false;
+        isSquintMode = false;
+        enterJumpMode();
+        return;
+    }
+    reporter.sendTelemetryEvent('toggle-squint');
+    isSelectionMode = false;
+    isSquintMode = true;
+    enterJumpMode();
+}
+
+function toggleSquintSelection() {
+    reporter.sendTelemetryEvent('toggle-squint-selection');
+    isSelectionMode = true;
+    isSquintMode = true;
+    enterJumpMode();
+}
+
+function switchMode() {
+    const fromMode = isSquintMode ? 'squint' : 'classic';
+    isSquintMode = !isSquintMode;
+    const toMode = isSquintMode ? 'squint' : 'classic';
+    reporter.sendTelemetryEvent('switch-mode', { 'jumpy.fromMode': fromMode, 'jumpy.toMode': toMode });
+    _clearLabels();
+    stateMachine.ports.exit.send(null);
+    enterJumpMode();
+}
+
+function invertJumpyModes() {
+    isModesInverted = !isModesInverted;
+    reporter.sendTelemetryEvent('invert-modes', { 'jumpy.inverted': isModesInverted.toString() });
+    setModeStatusBar(modeStatusBarItem, false, isSquintMode, isModesInverted);
+    window.showInformationMessage(
+        isModesInverted
+            ? 'Jumpy: Modes inverted for this session. Toggle now defaults to Squint Mode.'
+            : 'Jumpy: Modes restored. Toggle now defaults to Classic Mode.'
+    );
 }
 
 function sendKey(key: string) {
@@ -183,6 +252,8 @@ function _clearLabels() {
     window.visibleTextEditors.forEach((editor) => {
         editor.setDecorations(wordLabelBaseDecorationType, []);
         editor.setDecorations(wordLabelCheckeredDecorationType, []);
+        editor.setDecorations(characterLabelBaseDecorationType, []);
+        editor.setDecorations(characterLabelCheckeredDecorationType, []);
     });
 }
 
@@ -190,6 +261,7 @@ function _exit() {
     commands.executeCommand('setContext', 'jumpy2.jump-mode', false);
     _clearLabels();
     setStatusBar(statusBarItem, '');
+    setModeStatusBar(modeStatusBarItem, false, isSquintMode, isModesInverted);
 }
 const _exitDebounced = debounce(_exit, 350, { leading: true, trailing: false });
 
@@ -225,8 +297,11 @@ export function activate(context: ExtensionContext) {
     const { subscriptions } = context;
     subscriptions.push(
         statusBarItem,
+        modeStatusBarItem,
         wordLabelBaseDecorationType,
-        wordLabelCheckeredDecorationType
+        wordLabelCheckeredDecorationType,
+        characterLabelBaseDecorationType,
+        characterLabelCheckeredDecorationType
     );
     const { registerCommand } = commands;
     const currentExtensionVersion = context.extension.packageJSON.version;
@@ -238,6 +313,9 @@ export function activate(context: ExtensionContext) {
     reporter.sendTelemetryEvent('activate', {
         'jumpy.settings': JSON.stringify(workspace.getConfiguration('jumpy2')),
     });
+
+    // Initialize mode status bar to show default mode
+    setModeStatusBar(modeStatusBarItem, false, isSquintMode, isModesInverted);
 
     const previousVersion =
         context.globalState.get<string>(previousVersionKey) || '';
@@ -251,10 +329,14 @@ export function activate(context: ExtensionContext) {
     subscriptions.push(
         registerCommand('jumpy2.toggle', toggle),
         registerCommand('jumpy2.toggleSelection', toggleSelection),
+        registerCommand('jumpy2.toggleSquint', toggleSquint),
+        registerCommand('jumpy2.toggleSquintSelection', toggleSquintSelection),
         registerCommand('jumpy2.reset', reset),
         registerCommand('jumpy2.exit', exit),
         registerCommand('jumpy2.showAchievements', showAchievements),
-        registerCommand('jumpy2.showUpdates', showUpdates)
+        registerCommand('jumpy2.showUpdates', showUpdates),
+        registerCommand('jumpy2.switchMode', switchMode),
+        registerCommand('jumpy2.invertJumpyModes', invertJumpyModes)
     );
 
     // Register commands for all possible keys (a-z, A-Z, 0-9) unconditionally.

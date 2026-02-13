@@ -47,11 +47,20 @@ export function createStatusBar() {
     return statusBar;
 }
 
+export function createModeStatusBar() {
+    const statusBar = window.createStatusBarItem(StatusBarAlignment.Left, 999);
+    statusBar.command = 'jumpy2.invertJumpyModes';
+    statusBar.tooltip = 'Click to invert Jumpy default modes (Classic/Squint)';
+    return statusBar;
+}
+
 export function setStatusBar(
     statusBarItem: StatusBarItem,
     statusMarkup: string
 ) {
-    if (statusMarkup) {
+    if (statusMarkup === '') {
+        statusBarItem.hide();
+    } else {
         statusBarItem.text = statusPrinter(statusMarkup);
 
         statusBarItem.color = statusMarkup.includes('No Match')
@@ -59,7 +68,23 @@ export function setStatusBar(
             : new ThemeColor('editorInfo.foreground');
 
         statusBarItem.show();
+    }
+}
+
+export function setModeStatusBar(
+    modeStatusBarItem: StatusBarItem,
+    isActive: boolean,
+    isSquintMode: boolean,
+    isModesInverted: boolean
+) {
+    if (isActive) {
+        modeStatusBarItem.text = isSquintMode
+            ? '🧐 Squint Mode'
+            : '$(symbol-keyword) Classic Mode';
+        modeStatusBarItem.color = new ThemeColor('editorInfo.foreground');
+        modeStatusBarItem.show();
     } else {
-        statusBarItem.hide();
+        // clear the mode status bar when not active
+        modeStatusBarItem.hide();
     }
 }

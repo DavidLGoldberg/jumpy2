@@ -59,15 +59,38 @@ All features work identically to desktop VS Code. For development details, see [
     - <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd>
 - Reset first character entered
     - <kbd>backspace</kbd>
+- 🆕 Enter squint mode (labels every character, great for zoomed-in views)
+    - <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd>
+- 🆕 Enter squint selection mode (squint + extend selection)
+    - <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd>
+- 🆕 Switch between Classic/Squint while in jump mode
+    - <kbd>tab</kbd>
 - Cancel/exit jump mode (any of the following)
     - <kbd>shift</kbd> + <kbd>enter</kbd>
     - <kbd>enter</kbd>
     - <kbd>esc</kbd>
     - <kbd>space</kbd>
 
+## Squint Mode
+
+Label **every character(!)** instead of just words or patterns. This is useful when you're zoomed in, using a large font, large monitor, or whenever the characters are large enough to divide into 2 human readable jumpy characters!
+
+- **Activate:** <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd> (or `Jumpy: Toggle Squint Mode` from the command palette)
+- **Squint + Selection:** <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd> (extend selection in squint mode)
+- **Switch mid-jump:** Press <kbd>tab</kbd> while in _any_ jump mode to toggle between Classic and Squint without exiting. This works both ways.
+
+### Invert Default Modes
+
+If you prefer squint mode as your daily driver, use `Jumpy: Invert Default Modes (Classic/Squint)` from the command palette. This swaps the behavior for the current session for instance:
+
+- <kbd>shift</kbd> + <kbd>enter</kbd> will open Squint Mode
+- <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd> will open Classic Mode
+
+The current mode is also shown in the status bar — **click it** (with a mouse :-\ 🔔!) to invert it (or call / bind command mentioned above).
+
 ## Jump back and forward
 
-Did you know VS Code has built in backwards and forward navigation functionality? You should _probably_ map that to a hotkey for Jumpy!
+Did you know _VS Code_ has built in backwards and forward navigation functionality? You should _probably_ map that to a hotkey for Jumpy!
 I currently use the <kbd>backspace</kbd> key which overrides the default boring backspace functionality from vim (while in normal mode only of course).
 
 For example with [vim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) Edit this in your `keybindings.json` file:
@@ -194,6 +217,33 @@ open settings as json and add:
     }
   ],
 ```
+
+### Squint mode vim bindings
+
+To add squint mode to your vim workflow, use <kbd>ctrl</kbd>+<kbd>f</kbd> for squint (mirrors <kbd>f</kbd> for classic) and <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>f</kbd> for squint + selection (mirrors <kbd>F</kbd> for selection):
+
+```json
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["f"],
+      "commands": ["jumpy2.toggle"]
+    },
+    {
+      "before": ["F"],
+      "commands": ["jumpy2.toggleSelection"]
+    },
+    {
+      "before": ["<C-f>"],
+      "commands": ["jumpy2.toggleSquint"]
+    },
+    {
+      "before": ["<C-S-f>"],
+      "commands": ["jumpy2.toggleSquintSelection"]
+    }
+  ],
+```
+
+_If you use squint mode more often than classic, consider inverting your defaults (see above) and swapping these bindings so <kbd>f</kbd> opens squint and <kbd>ctrl</kbd>+<kbd>f</kbd> opens classic._
 
 ## Neovim Integration
 

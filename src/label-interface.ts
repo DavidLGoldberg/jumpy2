@@ -16,7 +16,7 @@ export interface Label {
     keyLabel: string;
     textEditor: TextEditor | undefined;
     settings: Settings | undefined;
-    getDecoration(): DecorationOptions;
+    getDecoration(isCheckered?: boolean): DecorationOptions;
     animateBeacon(): void;
     jump(isSelectionMode: boolean): void;
     destroy(): void;
