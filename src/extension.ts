@@ -189,6 +189,7 @@ function _clearLabels() {
 function _exit() {
     commands.executeCommand('setContext', 'jumpy2.jump-mode', false);
     _clearLabels();
+    setStatusBar(statusBarItem, '');
 }
 const _exitDebounced = debounce(_exit, 350, { leading: true, trailing: false });
 
