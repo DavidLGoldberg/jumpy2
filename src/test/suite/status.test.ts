@@ -3,13 +3,12 @@ import assert from 'assert';
 import { after, before, beforeEach } from 'mocha';
 
 import { commands, Position, Selection, Uri, window } from 'vscode';
-// This maybe for unit test stuff?
-// import  Jumpy2 from '../../../src/extension';
 
 const ONE_MIN = 60000;
-const QUARTER_SECOND = 250;
+const IS_CI = !!process.env.TF_BUILD;
+const ONLY_IN_CI = IS_CI ? 500 : 0;
 
-async function wait(timeout = QUARTER_SECOND): Promise<void> {
+async function wait(timeout = IS_CI ? 200 : 100): Promise<void> {
     await new Promise((res) => setTimeout(res, timeout));
 }
 
@@ -33,24 +32,42 @@ suite('Status Bar Suite', function () {
     });
 
     beforeEach(async function () {
-        // Reset cursor position to 0,0?
+        // Reset cursor position to 0,0
         if (window.activeTextEditor) {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
     });
 
-    test('Toggle', async function () {
-        let position: Position | undefined;
-
-        //TODO FINISH
+    test('Selection change exits jump mode cleanly', async function () {
+        // arrange:
+        await wait(400); // debounce from beforeEach to clear
         await commands.executeCommand('jumpy2.toggle');
-        //assert
-        await commands.executeCommand('jumpy2.a');
-        //assert
-        await commands.executeCommand('jumpy2.z');
-        //assert
+        await wait(ONLY_IN_CI);
 
-        // TODO: test status bar
-        assert.strictEqual(1, 1);
+        // act: simulate mouse click by changing selection
+        if (window.activeTextEditor) {
+            window.activeTextEditor.selection = new Selection(2, 5, 2, 5);
+        }
+        await wait(500); // exit debounce (350ms) plus buffer
+
+        // assert: cursor should be at the clicked position (not jumped)
+        let position: Position | undefined;
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+        assert.deepStrictEqual(position, new Position(2, 5));
+
+        // act: re-enter jump mode after click exit
+        await commands.executeCommand('jumpy2.toggle');
+        await wait(ONLY_IN_CI);
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.z');
+        await wait();
+
+        // assert: should still jump correctly
+        if (window.activeTextEditor) {
+            position = window.activeTextEditor.selection.active;
+        }
+        assert.deepStrictEqual(position, new Position(4, 15));
     });
 });
