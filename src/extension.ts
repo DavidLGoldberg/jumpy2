@@ -112,8 +112,7 @@ stateMachine.ports.statusChanged.subscribe((statusMarkup: string) => {
 });
 
 function _renderLabels(enteredKey?: string) {
-    // TODO: another refactor to handle any "labeler" would be necessary this func ^ is too word centric atm.  As opposed to the last iteration of the Atom architecture
-    if (!getSettings().wordsPattern) {
+    if (!isSquintMode && !getSettings().wordsPattern) {
         return;
     }
 
@@ -188,6 +187,13 @@ function toggle() {
 }
 
 function toggleSelection() {
+    if (isModesInverted) {
+        reporter.sendTelemetryEvent('toggle-selection-inverted');
+        isSelectionMode = true;
+        isSquintMode = true;
+        enterJumpMode();
+        return;
+    }
     reporter.sendTelemetryEvent('toggle-selection');
     isSelectionMode = true;
     isSquintMode = false;
@@ -209,6 +215,13 @@ function toggleSquint() {
 }
 
 function toggleSquintSelection() {
+    if (isModesInverted) {
+        reporter.sendTelemetryEvent('toggle-squint-selection-inverted');
+        isSelectionMode = true;
+        isSquintMode = false;
+        enterJumpMode();
+        return;
+    }
     reporter.sendTelemetryEvent('toggle-squint-selection');
     isSelectionMode = true;
     isSquintMode = true;

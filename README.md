@@ -220,7 +220,7 @@ open settings as json and add:
 
 ### Squint mode vim bindings
 
-To add squint mode to your vim workflow, use <kbd>ctrl</kbd>+<kbd>f</kbd> for squint (mirrors <kbd>f</kbd> for classic) and <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>f</kbd> for squint + selection (mirrors <kbd>F</kbd> for selection):
+To add squint mode to your vim workflow, use <kbd>g</kbd><kbd>s</kbd> for squint ("go squint") and <kbd>g</kbd><kbd>S</kbd> for squint + selection (mirrors <kbd>F</kbd> for selection):
 
 ```json
   "vim.normalModeKeyBindingsNonRecursive": [
@@ -233,17 +233,17 @@ To add squint mode to your vim workflow, use <kbd>ctrl</kbd>+<kbd>f</kbd> for sq
       "commands": ["jumpy2.toggleSelection"]
     },
     {
-      "before": ["<C-f>"],
+      "before": ["g", "s"],
       "commands": ["jumpy2.toggleSquint"]
     },
     {
-      "before": ["<C-S-f>"],
+      "before": ["g", "S"],
       "commands": ["jumpy2.toggleSquintSelection"]
     }
   ],
 ```
 
-_If you use squint mode more often than classic, consider inverting your defaults (see above) and swapping these bindings so <kbd>f</kbd> opens squint and <kbd>ctrl</kbd>+<kbd>f</kbd> opens classic._
+_If you use squint mode more often than classic, consider inverting your defaults (see above) and swapping these bindings so <kbd>f</kbd> opens squint and <kbd>g</kbd><kbd>s</kbd> opens classic._
 
 ## Neovim Integration
 
