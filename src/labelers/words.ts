@@ -1,7 +1,26 @@
-import { Selection, TextEditor, TextEditorRevealType, window } from 'vscode';
+import { Selection, TextEditor, TextEditorRevealType, window, workspace, ThemeColor } from 'vscode';
 import { LabelEnvironment, Label, Labeler, Settings } from '../label-interface';
 import { Range, Position } from 'vscode';
 import getWordBeaconDecoration from './wordBeacons';
+
+const BASE_COLORS = {
+    backgroundColor: new ThemeColor('jumpy2.labelBackgroundColor'),
+    color: new ThemeColor('jumpy2.labelFontColor'),
+    borderColor: new ThemeColor('jumpy2.labelBorderColor'),
+};
+const CHECKERED_COLORS = {
+    backgroundColor: new ThemeColor('jumpy2.checkered_labelBackgroundColor'),
+    color: new ThemeColor('jumpy2.checkered_labelFontColor'),
+    borderColor: new ThemeColor('jumpy2.checkered_labelBorderColor'),
+};
+
+const borderWidth = '0.0375em';
+const width = '1.265em';
+
+const lineHeight = workspace
+    .getConfiguration('editor')
+    .get<number>('lineHeight');
+const height = lineHeight ? `${lineHeight}px` : width;
 
 class WordLabel implements Label {
     keyLabel!: string;
@@ -22,7 +41,7 @@ class WordLabel implements Label {
         );
     }
 
-    getDecoration(): any {
+    getDecoration(isCheckered: boolean = false): any {
         const { lineNumber, column, keyLabel } = this;
 
         const firstChar =
@@ -42,14 +61,19 @@ class WordLabel implements Label {
 
         // For wide characters, we need less negative margin because
         // 1 wide char already spans ~2 visual columns.
-        // Base margin: wide chars ~1.0em, ASCII ~1.265em
         const baseMargin = isWide ? 1.0 : 1.265;
-        const margin = `0 0 0 -${baseMargin + Math.random() * 0.0001}em`; // ALSO, Unique fractional value prevents VS Code from deduping decorations
+        const colors = isCheckered ? CHECKERED_COLORS : BASE_COLORS;
 
         const label = {
             after: {
                 contentText: keyLabel,
-                margin,
+                ...colors,
+                margin: `-${borderWidth} 0 0 -${baseMargin}em`,
+                width,
+                height,
+                fontWeight: 'bold',
+                fontStyle: 'normal',
+                border: `${borderWidth} solid`,
             },
         };
         const decoration = {
