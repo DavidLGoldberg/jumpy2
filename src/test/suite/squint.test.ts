@@ -223,6 +223,56 @@ suite('Squint mode test Suite', function () {
         assert.deepStrictEqual(position, new Position(0, 3));
     });
 
+    test('invertJumpyModes makes toggleSelection open squint selection', async function () {
+        let selection: Selection | undefined;
+
+        // Invert modes so toggleSelection defaults to squint
+        await commands.executeCommand('jumpy2.invertJumpyModes');
+        // Now toggleSelection should open squint (character) selection mode
+        await commands.executeCommand('jumpy2.toggleSelection');
+        // Jump to 'ab' = second character = position (0, 1)
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.b');
+        await wait();
+
+        if (window.activeTextEditor) {
+            selection = window.activeTextEditor.selection;
+        }
+
+        // With inversion, toggleSelection opens squint selection
+        // 'ab' in squint = (0, 1), anchor stays at (0, 0)
+        assert.deepStrictEqual(selection?.anchor, new Position(0, 0));
+        assert.deepStrictEqual(selection?.active, new Position(0, 1));
+
+        // Restore modes back to normal
+        await commands.executeCommand('jumpy2.invertJumpyModes');
+    });
+
+    test('invertJumpyModes makes toggleSquintSelection open classic selection', async function () {
+        let selection: Selection | undefined;
+
+        // Invert modes so toggleSquintSelection defaults to classic
+        await commands.executeCommand('jumpy2.invertJumpyModes');
+        // Now toggleSquintSelection should open classic (word) selection mode
+        await commands.executeCommand('jumpy2.toggleSquintSelection');
+        // Jump to 'ab' = second word = position (0, 3)
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.b');
+        await wait();
+
+        if (window.activeTextEditor) {
+            selection = window.activeTextEditor.selection;
+        }
+
+        // With inversion, toggleSquintSelection opens classic selection
+        // 'ab' in classic = (0, 3), anchor stays at (0, 0)
+        assert.deepStrictEqual(selection?.anchor, new Position(0, 0));
+        assert.deepStrictEqual(selection?.active, new Position(0, 3));
+
+        // Restore modes back to normal
+        await commands.executeCommand('jumpy2.invertJumpyModes');
+    });
+
     test('Squint exit returns to normal mode', async function () {
         let position: Position | undefined;
 
