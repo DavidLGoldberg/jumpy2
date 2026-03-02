@@ -1,21 +1,16 @@
-import { TextEditor } from 'vscode';
+import { TextEditor, ThemeColor } from 'vscode';
 import { LabelEnvironment, Labeler } from '../label-interface';
 import { Range, Position } from 'vscode';
 import { BaseLabel, isExtensionPanel } from './BaseLabel';
 
-interface LabelColors {
-    backgroundColor: string;
-    fontColor: string;
-}
-
-const BASE_COLORS: LabelColors = {
-    backgroundColor: '#00d85d',
-    fontColor: '#2d3236',
+const BASE_COLORS = {
+    backgroundColor: new ThemeColor('jumpy2.labelBackgroundColor'),
+    color: new ThemeColor('jumpy2.labelFontColor'),
 };
 
-const CHECKERED_COLORS: LabelColors = {
-    backgroundColor: '#2d3236',
-    fontColor: '#00d85d',
+const CHECKERED_COLORS = {
+    backgroundColor: new ThemeColor('jumpy2.checkered_labelBackgroundColor'),
+    color: new ThemeColor('jumpy2.checkered_labelFontColor'),
 };
 
 // --- CharacterLabel ---
@@ -35,8 +30,7 @@ class CharacterLabel extends BaseLabel {
         const label = {
             after: {
                 contentText: keyLabel,
-                backgroundColor: colors.backgroundColor,
-                color: colors.fontColor,
+                ...colors,
                 fontWeight: 'normal',
                 width: '1.40em', // derived: (1.265 - 0.075) / 2 / 0.44 ≈ 1.35; compensates for font-size: 44% --> Had to change to --> // ~0.616 editor em per label; slightly over 1ch to eliminate gaps between adjacent labels
                 margin: '0 0 0 -1.40em', // MUST match width to avoid jitter and code/decoration movement (net layout impact = width - |margin| = 0)

@@ -1,7 +1,7 @@
 import { DecorationRangeBehavior, window } from 'vscode';
 
-// Character/Squint mode labels use SVG with colors embedded directly.
-// These decoration types just provide opacity and range behavior.
+// Character/Squint mode labels put styling in per-label renderOptions (see characters.ts).
+// The decoration type only provides rangeBehavior to keep decorations stable.
 const commonDecorationOptions = {
     rangeBehavior: DecorationRangeBehavior.ClosedClosed,
 };
