@@ -1,7 +1,7 @@
-import { Selection, TextEditor, TextEditorRevealType, window } from 'vscode';
-import { LabelEnvironment, Label, Labeler, Settings } from '../label-interface';
+import { TextEditor } from 'vscode';
+import { LabelEnvironment, Labeler } from '../label-interface';
 import { Range, Position } from 'vscode';
-import getWordBeaconDecoration from './wordBeacons';
+import { BaseLabel, isExtensionPanel } from './BaseLabel';
 
 interface LabelColors {
     backgroundColor: string;
@@ -20,16 +20,7 @@ const CHECKERED_COLORS: LabelColors = {
 
 // --- CharacterLabel ---
 
-class CharacterLabel implements Label {
-    keyLabel!: string;
-    textEditor: TextEditor | undefined;
-    lineNumber!: number;
-    column!: number;
-    settings: Settings | undefined;
-    marker!: Range;
-
-    destroy() {}
-
+class CharacterLabel extends BaseLabel {
     getDecoration(isCheckered: boolean = false): any {
         const { lineNumber, column, keyLabel } = this;
 
@@ -67,53 +58,6 @@ class CharacterLabel implements Label {
         };
 
         return decoration;
-    }
-
-    animateBeacon() {
-        if (!this.textEditor) {
-            return;
-        }
-
-        const { lineNumber, column } = this;
-
-        const beaconMarker = new Range(
-            lineNumber,
-            column,
-            lineNumber,
-            column + 1
-        );
-        const decoration = getWordBeaconDecoration();
-        setTimeout(() => {
-            decoration.dispose();
-        }, 400);
-        this.textEditor.setDecorations(decoration, [beaconMarker]);
-    }
-
-    async jump(isSelectionMode: boolean) {
-        if (this.textEditor) {
-            if (this.textEditor !== window.activeTextEditor) {
-                await window.showTextDocument(this.textEditor.document.uri, {
-                    preview: false,
-                    viewColumn: this.textEditor.viewColumn,
-                });
-            }
-            const newActive = new Position(this.lineNumber, this.column);
-            this.textEditor.selection = new Selection(
-                isSelectionMode ? this.textEditor.selection.anchor : newActive,
-                newActive
-            );
-            if (this.settings?.revealAfterJump) {
-                const revealType = {
-                    minscroll: TextEditorRevealType.Default,
-                    center: TextEditorRevealType.InCenter,
-                    attop: TextEditorRevealType.AtTop,
-                }[this.settings.revealAfterJump];
-                this.textEditor.revealRange(
-                    new Range(newActive, newActive),
-                    revealType
-                );
-            }
-        }
     }
 }
 
@@ -162,15 +106,5 @@ const labeler: Labeler = function (
     }
     return labels;
 };
-
-function isExtensionPanel(editor: TextEditor): boolean {
-    const scheme = editor.document.uri.scheme;
-
-    if (scheme === 'vscode-test-web' || scheme === 'vscode-vfs') {
-        return false;
-    }
-
-    return scheme === 'webview' || scheme.startsWith('vscode-');
-}
 
 export default labeler;
