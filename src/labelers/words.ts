@@ -1,7 +1,7 @@
-import { Selection, TextEditor, TextEditorRevealType, window, workspace, ThemeColor } from 'vscode';
-import { LabelEnvironment, Label, Labeler, Settings } from '../label-interface';
+import { TextEditor, workspace, ThemeColor } from 'vscode';
+import { LabelEnvironment, Labeler } from '../label-interface';
 import { Range, Position } from 'vscode';
-import getWordBeaconDecoration from './wordBeacons';
+import { BaseLabel, isExtensionPanel } from './BaseLabel';
 
 const BASE_COLORS = {
     backgroundColor: new ThemeColor('jumpy2.labelBackgroundColor'),
@@ -22,16 +22,7 @@ const lineHeight = workspace
     .get<number>('lineHeight');
 const height = lineHeight ? `${lineHeight}px` : width;
 
-class WordLabel implements Label {
-    keyLabel!: string;
-    textEditor: TextEditor | undefined;
-    lineNumber!: number;
-    column!: number;
-    settings: Settings | undefined;
-    marker!: Range;
-
-    destroy() {}
-
+class WordLabel extends BaseLabel {
     // CJK (Chinese, Japanese, Korean) and emoji characters are typically rendered as
     // double-width in monospace fonts.
     private isWideCharacter(char: string): boolean {
@@ -83,55 +74,6 @@ class WordLabel implements Label {
 
         return decoration;
     }
-
-    animateBeacon() {
-        if (!this.textEditor) {
-            return;
-        }
-
-        const { lineNumber, column } = this;
-
-        // just get a range of 1 character for the beacon
-        const beaconMarker = new Range(
-            lineNumber,
-            column,
-            lineNumber,
-            column + 1
-        );
-        const decoration = getWordBeaconDecoration();
-        setTimeout(() => {
-            decoration.dispose();
-        }, 400);
-        this.textEditor.setDecorations(decoration, [beaconMarker]);
-    }
-
-    async jump(isSelectionMode: boolean) {
-        if (this.textEditor) {
-            if (this.textEditor !== window.activeTextEditor) {
-                await window.showTextDocument(this.textEditor.document.uri, {
-                    preview: false,
-                    viewColumn: this.textEditor.viewColumn,
-                });
-            }
-            const newActive = new Position(this.lineNumber, this.column);
-            this.textEditor.selection = new Selection(
-                isSelectionMode ? this.textEditor.selection.anchor : newActive,
-                newActive
-            );
-            if (this.settings?.revealAfterJump) {
-                // Position the viewport around the jumped line.
-                const revealType = {
-                    minscroll: TextEditorRevealType.Default,
-                    center: TextEditorRevealType.InCenter,
-                    attop: TextEditorRevealType.AtTop,
-                }[this.settings.revealAfterJump];
-                this.textEditor.revealRange(
-                    new Range(newActive, newActive),
-                    revealType
-                );
-            }
-        }
-    }
 }
 
 const labeler: Labeler = function (
@@ -172,21 +114,5 @@ const labeler: Labeler = function (
     }
     return labels;
 };
-
-// Important to skip a Copilot views which contain embedded editors
-function isExtensionPanel(editor: TextEditor): boolean {
-    const scheme = editor.document.uri.scheme;
-
-    // Allow vscode-test-web (browser testing) and vscode-vfs (github.dev/vscode.dev)
-    if (scheme === 'vscode-test-web' || scheme === 'vscode-vfs') {
-        return false;
-    }
-
-    return (
-        // General extension panel/webview checks
-        scheme === 'webview' ||
-        scheme.startsWith('vscode-' /* handles co-pilot etc. */)
-    );
-}
 
 export default labeler;
