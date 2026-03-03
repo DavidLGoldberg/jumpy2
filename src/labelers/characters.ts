@@ -33,7 +33,8 @@ class CharacterLabel extends BaseLabel {
                 ...colors,
                 fontWeight: 'normal',
                 width: '1.40em', // derived: (1.265 - 0.075) / 2 / 0.44 ≈ 1.35; compensates for font-size: 44% --> Had to change to --> // ~0.616 editor em per label; slightly over 1ch to eliminate gaps between adjacent labels
-                margin: '0 0 0 -1.40em', // MUST match width to avoid jitter and code/decoration movement (net layout impact = width - |margin| = 0)
+                // NOTE: the Math.random() is to prevent a VSC bug dealing with specificity/class overrides I believe, anyway this prevents labels from getting overwritten at high counts and particularly across multiple visible editors
+                margin: `0 0 0 ${-1.4 + Math.random() * 0.0001}em`, // MUST match width to avoid jitter and code/decoration movement (net layout impact = width - |margin| = 0)
                 textDecoration: `none;
                     font-size: 44%;
                     padding: 0;

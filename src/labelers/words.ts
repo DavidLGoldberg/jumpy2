@@ -54,7 +54,8 @@ class WordLabel extends BaseLabel {
             after: {
                 contentText: keyLabel,
                 ...colors,
-                margin: `-${borderWidth} 0 0 -${baseMargin}em`,
+                // NOTE: the Math.random() is to prevent a VSC bug dealing with specificity/class overrides I believe, anyway this prevents labels from getting overwritten at high counts and particularly across multiple visible editors
+                margin: `-${borderWidth} 0 0 -${baseMargin + Math.random() * 0.0001}em`,
                 width,
                 fontWeight: 'bold',
                 fontStyle: 'normal',
