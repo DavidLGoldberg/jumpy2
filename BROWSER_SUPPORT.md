@@ -51,8 +51,8 @@ The extension should work exactly as it does in desktop VS Code!
 -   [ ] Labels appear correctly
 -   [ ] Jumping to positions works
 -   [ ] Selection mode works (Shift+Alt+Enter)
--   [ ] Squint mode works (Ctrl+Shift+Enter)
--   [ ] Squint selection mode works (Ctrl+Shift+Alt+Enter)
+-   [ ] Squint mode works (via command palette or user-bound key, suggested: Ctrl+Shift+Enter)
+-   [ ] Squint selection mode works (via command palette or user-bound key, suggested: Ctrl+Shift+Alt+Enter)
 -   [ ] Tab switches modes during jump
 -   [ ] Reset works (Backspace)
 -   [ ] Exit works (Esc, Enter, Space)

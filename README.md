@@ -60,9 +60,9 @@ All features work identically to desktop VS Code. For development details, see [
 - Reset first character entered
     - <kbd>backspace</kbd>
 - 🆕 Enter squint mode (labels every character, great for zoomed-in views)
-    - <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd>
+    - Suggested: <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd> (requires user keybinding, see [Squint Mode](#squint-mode))
 - 🆕 Enter squint selection mode (squint + extend selection)
-    - <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd>
+    - Suggested: <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd> (requires user keybinding, see [Squint Mode](#squint-mode))
 - 🆕 Switch between Classic/Squint while in jump mode
     - <kbd>tab</kbd>
 - Cancel/exit jump mode (any of the following)
@@ -75,8 +75,14 @@ All features work identically to desktop VS Code. For development details, see [
 
 Label **every character(!)** instead of just words or patterns. This is useful when you're zoomed in, using a large font, large monitor, or whenever the characters are large enough to divide into 2 human readable jumpy characters!
 
-- **Activate:** <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd> (or `Jumpy: Toggle Squint Mode` from the command palette)
-- **Squint + Selection:** <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd> (extend selection in squint mode)
+- **Activate:** `Jumpy: Toggle Squint Mode` from the command palette, or bind a key (suggested: <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd>)
+- **Squint + Selection:** `Jumpy: Toggle Squint Selection Mode` from the command palette, or bind a key (suggested: <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>enter</kbd>)
+
+> **Note:** Squint mode does not ship with a default keybinding to avoid overriding VS Code's built-in "Insert Line Above" (<kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd>). To add a keybinding, open your `keybindings.json` and add:
+> ```json
+> { "key": "ctrl+shift+enter", "command": "jumpy2.toggleSquint", "when": "editorTextFocus" },
+> { "key": "ctrl+shift+alt+enter", "command": "jumpy2.toggleSquintSelection", "when": "editorTextFocus" }
+> ```
 - **Switch mid-jump:** Press <kbd>tab</kbd> while in _any_ jump mode to toggle between Classic and Squint without exiting. This works both ways.
 
 ### Invert Default Modes
@@ -84,7 +90,7 @@ Label **every character(!)** instead of just words or patterns. This is useful w
 If you prefer squint mode as your daily driver, use `Jumpy: Invert Default Modes (Classic/Squint)` from the command palette. This swaps the behavior for the current session for instance:
 
 - <kbd>shift</kbd> + <kbd>enter</kbd> will open Squint Mode
-- <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd> will open Classic Mode
+- Your squint keybinding (if set) will open Classic Mode
 
 The current mode is also shown in the status bar — **click it** (with a mouse :-\ 🔔!) to invert it (or call / bind command mentioned above).
 
