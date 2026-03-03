@@ -1,4 +1,4 @@
-import { TextEditor, workspace, ThemeColor } from 'vscode';
+import { TextEditor, ThemeColor } from 'vscode';
 import { LabelEnvironment, Labeler } from '../label-interface';
 import { Range, Position } from 'vscode';
 import { BaseLabel, isExtensionPanel } from './BaseLabel';
@@ -16,11 +16,6 @@ const CHECKERED_COLORS = {
 
 const borderWidth = '0.0375em';
 const width = '1.265em';
-
-const lineHeight = workspace
-    .getConfiguration('editor')
-    .get<number>('lineHeight');
-const height = lineHeight ? `${lineHeight}px` : width;
 
 class WordLabel extends BaseLabel {
     // CJK (Chinese, Japanese, Korean) and emoji characters are typically rendered as
@@ -61,7 +56,6 @@ class WordLabel extends BaseLabel {
                 ...colors,
                 margin: `-${borderWidth} 0 0 -${baseMargin}em`,
                 width,
-                height,
                 fontWeight: 'bold',
                 fontStyle: 'normal',
                 border: `${borderWidth} solid`,
