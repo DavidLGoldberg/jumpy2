@@ -1,6 +1,6 @@
 import path from 'path';
 import assert from 'assert';
-import { after, afterEach, before, beforeEach } from 'mocha';
+import { after, before, beforeEach } from 'mocha';
 
 import { commands, Selection, Position, Uri, window } from 'vscode';
 
@@ -43,8 +43,6 @@ suite('Squint mode test Suite', function () {
             window.activeTextEditor.selection = new Selection(0, 0, 0, 0);
         }
     });
-
-    afterEach(async function () {});
 
     test('Squint toggle and jump', async function () {
         let position: Position | undefined;

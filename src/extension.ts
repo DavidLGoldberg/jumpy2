@@ -166,7 +166,7 @@ function _renderLabels(enteredKey?: string) {
 
 function enterJumpMode() {
     commands.executeCommand('setContext', 'jumpy2.jump-mode', true);
-    setModeStatusBar(modeStatusBarItem, true, isSquintMode, isModesInverted);
+    setModeStatusBar(modeStatusBarItem, true, isSquintMode);
 
     _renderLabels();
     stateMachine.ports.getLabels.send(allLabels.map((label) => label.keyLabel));
@@ -241,7 +241,7 @@ function switchMode() {
 function invertJumpyModes() {
     isModesInverted = !isModesInverted;
     reporter.sendTelemetryEvent('invert-modes', { 'jumpy.inverted': isModesInverted.toString() });
-    setModeStatusBar(modeStatusBarItem, false, isSquintMode, isModesInverted);
+    setModeStatusBar(modeStatusBarItem, false, isSquintMode);
     window.showInformationMessage(
         isModesInverted
             ? 'Jumpy: Modes inverted for this session. Toggle now defaults to Squint Mode.'
@@ -274,7 +274,7 @@ function _exit() {
     commands.executeCommand('setContext', 'jumpy2.jump-mode', false);
     _clearLabels();
     setStatusBar(statusBarItem, '');
-    setModeStatusBar(modeStatusBarItem, false, isSquintMode, isModesInverted);
+    setModeStatusBar(modeStatusBarItem, false, isSquintMode);
 }
 const _exitDebounced = debounce(_exit, 350, { leading: true, trailing: false });
 
@@ -328,7 +328,7 @@ export function activate(context: ExtensionContext) {
     });
 
     // Initialize mode status bar to show default mode
-    setModeStatusBar(modeStatusBarItem, false, isSquintMode, isModesInverted);
+    setModeStatusBar(modeStatusBarItem, false, isSquintMode);
 
     const previousVersion =
         context.globalState.get<string>(previousVersionKey) || '';
