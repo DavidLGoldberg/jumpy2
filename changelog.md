@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.13.2 — See [1.13.0](#1130) below for the big release!
+
+- 🐛 Fix `tab` keybinding to switch modes (squint/classic).
+
+## 1.13.1
+
+- 🐛 Attempt to fix `tab` keybinding to switch modes (squint/classic).
+
 ## 1.13.0
 
 - ✨ **Squint Mode! (My "Opus"! 😂)** — Labels every non-whitespace character instead of words. Great for zoomed-in views, large fonts, or large monitors. Activate via `Jumpy: Toggle Squint Mode` from the command palette (suggested keybinding: <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>enter</kbd>). Try it!!!
