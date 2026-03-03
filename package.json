@@ -221,6 +221,10 @@
             {
                 "command": "jumpy2.invertJumpyModes",
                 "title": "Jumpy: Invert Default Modes (Classic/Squint)"
+            },
+            {
+                "command": "jumpy2.switchMode",
+                "title": "Jumpy: Switch Mode (Classic/Squint)"
             }
         ],
         "keybindings": [
