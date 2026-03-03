@@ -155,6 +155,27 @@ suite('Squint mode test Suite', function () {
         assert.deepStrictEqual(position, new Position(0, 3));
     });
 
+    test('switchMode (tab) preserves selection mode', async function () {
+        let selection: Selection | undefined;
+
+        // Start in squint selection mode
+        await commands.executeCommand('jumpy2.toggleSquintSelection');
+        // Press tab to switch to classic — selection mode should be preserved
+        await commands.executeCommand('jumpy2.switchMode');
+        // In classic mode, 'ab' = second word = position (0, 3)
+        await commands.executeCommand('jumpy2.a');
+        await commands.executeCommand('jumpy2.b');
+        await wait();
+
+        if (window.activeTextEditor) {
+            selection = window.activeTextEditor.selection;
+        }
+
+        // Selection should extend from anchor (0, 0) to active (0, 3)
+        assert.deepStrictEqual(selection?.anchor, new Position(0, 0));
+        assert.deepStrictEqual(selection?.active, new Position(0, 3));
+    });
+
     test('invertJumpyModes makes toggle open squint mode', async function () {
         let position: Position | undefined;
 
