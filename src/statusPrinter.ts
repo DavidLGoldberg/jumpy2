@@ -75,7 +75,6 @@ export function setModeStatusBar(
     modeStatusBarItem: StatusBarItem,
     isActive: boolean,
     isSquintMode: boolean,
-    isModesInverted: boolean
 ) {
     if (isActive) {
         modeStatusBarItem.text = isSquintMode
