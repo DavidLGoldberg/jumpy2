@@ -164,7 +164,7 @@
                 "jumpy2.checkered.active": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable checkered mode to alternate label colors.  Helps to distinguish labels, particularly with agressive regex patterns. Note: checkered mode can't be disabled while squint mode is active."
+                    "description": "Enable checkered mode to alternate label colors.  Helps to distinguish labels, particularly with aggressive regex patterns. Note: checkered mode can't be disabled while squint mode is active."
                 },
                 "jumpy2.revealAfterJump": {
                     "type": "string",
