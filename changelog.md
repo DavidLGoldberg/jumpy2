@@ -2,8 +2,8 @@
 
 ## 1.13.0
 
-- ✨ **Squint Mode** — Labels every non-whitespace character instead of words. Great for zoomed-in views, large fonts, or large monitors. Activate with <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>enter</kbd> or `Jumpy: Toggle Squint Mode` from the command palette.
-- ✨ **Squint Selection Mode** — Combine squint mode with selection for precise character-level selections. <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>alt</kbd>+<kbd>enter</kbd>.
+- ✨ **Squint Mode! (My "Opus"! 😂)** — Labels every non-whitespace character instead of words. Great for zoomed-in views, large fonts, or large monitors. Activate via `Jumpy: Toggle Squint Mode` from the command palette (suggested keybinding: <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>enter</kbd>). Try it!!!
+- ✨ **Squint Selection Mode** — Combine squint mode with selection for precise character-level selections. Suggested keybinding: <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>alt</kbd>+<kbd>enter</kbd>.
 - ✨ **Tab to switch modes** — Press <kbd>tab</kbd> while in jump mode to toggle between Classic and Squint mode without exiting. Works both directions.
 - ✨ **Invert Default Modes** — New command `Jumpy: Invert Default Modes (Classic/Squint)` swaps toggle behavior for the session. Useful if you prefer squint mode as your daily driver.
 - ✨ **Mode status bar** — New status bar indicator shows "Classic" or "Squint" mode. Updates during jump mode. **Click** to invert defaults.
