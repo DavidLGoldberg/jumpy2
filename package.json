@@ -239,6 +239,16 @@
                 "when": "editorTextFocus"
             },
             {
+                "command": "jumpy2.toggleSquint",
+                "key": "",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "jumpy2.toggleSquintSelection",
+                "key": "",
+                "when": "editorTextFocus"
+            },
+            {
                 "command": "jumpy2.reset",
                 "key": "backspace",
                 "when": "jumpy2.jump-mode && editorTextFocus"
